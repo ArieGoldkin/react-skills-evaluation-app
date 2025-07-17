@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "Component Quality Monitor",
+  "description": "Monitors React components and TypeScript files to ensure they follow project standards including line limits, proper structure, and code quality guidelines",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "src/components/**/*.tsx",
+      "src/pages/**/*.tsx",
+      "src/hooks/**/*.ts",
+      "src/lib/**/*.ts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review the modified React/TypeScript files and check for:\n1. Component size - ensure components don't exceed 180 lines\n2. Function complexity - keep cyclomatic complexity under 11\n3. File size - keep files under 150-180 lines\n4. Proper TypeScript usage - no 'any' types, proper interfaces\n5. Component structure - functional components with hooks\n6. Separation of concerns - suggest breaking down large components\n7. TanStack Query usage - proper query patterns and error handling\n8. Performance considerations - memoization opportunities\n\nIf any violations are found, provide specific suggestions for refactoring including:\n- How to break down large components into smaller ones\n- Where to extract custom hooks or utility functions\n- Proper file organization recommendations\n- TypeScript improvements needed\n\nFocus on maintainability and adherence to the project's React 19 standards."
+  }
+}
