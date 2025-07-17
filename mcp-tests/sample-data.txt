@@ -1,0 +1,12 @@
+Sample Data File
+================
+
+This is a sample text file created to test the MCP push_files functionality.
+
+Features tested:
+- Multiple file creation in single commit
+- Directory structure creation
+- Different file types (markdown, json, txt)
+- Proper commit messaging
+
+Test completed successfully! ✅
