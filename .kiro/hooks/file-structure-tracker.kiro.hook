@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "name": "Monorepo Structure Tracker",
+  "description": "Monitors file creation and deletion events across the monorepo to automatically update the navigation structure documentation",
+  "version": "2",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "packages/**/*",
+      "src/**/*",
+      "*.ts",
+      "*.tsx",
+      "*.js",
+      "*.jsx",
+      "*.json",
+      "*.md",
+      "*.config.*"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A new file or directory has been created in the monorepo. Please scan the current workspace structure and update the monorepo navigation guide in `.kiro/steering/monorepo-navigation.md` to reflect the new file structure. Focus on:\n\n1. Adding any new directories to the appropriate package sections\n2. Updating file counts and structure diagrams\n3. Adding navigation patterns for new file types\n4. Maintaining the existing organizational structure and formatting\n5. Ensuring the Quick Directory Reference section is current\n\nKeep the existing content structure but update it to reflect the current state of the monorepo."
+  }
+}

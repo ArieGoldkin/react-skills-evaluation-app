@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "name": "Monorepo File Deletion Tracker",
+  "description": "Monitors file deletion events across the monorepo to automatically update the navigation structure documentation",
+  "version": "1",
+  "when": {
+    "type": "fileDeleted",
+    "patterns": [
+      "packages/**/*",
+      "src/**/*",
+      "*.ts",
+      "*.tsx",
+      "*.js",
+      "*.jsx",
+      "*.json",
+      "*.md",
+      "*.config.*"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A file or directory has been deleted from the monorepo. Please scan the current workspace structure and update the monorepo navigation guide in `.kiro/steering/monorepo-navigation.md` to reflect the updated file structure. Focus on:\n\n1. Removing references to deleted directories from package sections\n2. Updating file counts and structure diagrams\n3. Cleaning up navigation patterns for removed file types\n4. Maintaining the existing organizational structure and formatting\n5. Ensuring the Quick Directory Reference section is current\n\nKeep the existing content structure but update it to reflect the current state of the monorepo after the deletion."
+  }
+}
