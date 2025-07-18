@@ -95,6 +95,9 @@ temp/
 
 # Editor directories and files
 .vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
 !.vscode/extensions.json
 .idea
 *.suo
@@ -102,3 +105,30 @@ temp/
 *.njsproj
 *.sln
 *.sw?
+
+# Additional development files
+.env.backup
+.env.*.backup
+*.local.backup
+
+# Bundle analyzer
+.next/analyze/
+
+# Sentry
+.sentryclirc
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Testing
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# Vercel
+.vercel
+
+# Turbo
+.turbo

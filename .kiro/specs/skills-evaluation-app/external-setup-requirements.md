@@ -233,7 +233,7 @@ NODE_ENV=development
 
 Before starting implementation, verify:
 
-- [ ] Google OAuth app created and configured
+- [x] Google OAuth app created and configured
 - [ ] GitHub OAuth app created with correct scopes
 - [ ] OpenAI API key generated and billing set up
 - [ ] Database created and accessible
