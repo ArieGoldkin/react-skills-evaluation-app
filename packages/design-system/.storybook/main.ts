@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import { resolve } from "node:path";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -22,6 +23,29 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: "tag",
+  },
+  viteFinal: async config => {
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "@": resolve(__dirname, "../src"),
+        "@/components": resolve(__dirname, "../src/components"),
+        "@/lib": resolve(__dirname, "../src/lib"),
+        "@/types": resolve(__dirname, "../src/types"),
+        "@/hooks": resolve(__dirname, "../src/hooks"),
+        "@/styles": resolve(__dirname, "../src/styles"),
+      };
+    }
+
+    // Configure PostCSS for Tailwind CSS
+    if (!config.css) {
+      config.css = {};
+    }
+    config.css.postcss = {
+      plugins: [require("tailwindcss"), require("autoprefixer")],
+    };
+
+    return config;
   },
 };
 

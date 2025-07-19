@@ -10,6 +10,7 @@ build/
 dist/
 .next/
 out/
+.swc/
 
 # Environment variables
 .env
@@ -59,6 +60,7 @@ coverage/
 
 # TypeScript cache
 *.tsbuildinfo
+tsconfig.tsbuildinfo
 
 # Optional npm cache directory
 .npm
@@ -88,6 +90,16 @@ coverage/
 # Storybook build outputs
 .out
 .storybook-out
+storybook-static
+
+# Vite cache
+.vite/
+
+# Jest cache
+.jest-cache/
+
+# Rollup cache
+.rollup.cache/
 
 # Temporary folders
 tmp/
@@ -110,6 +122,42 @@ temp/
 .env.backup
 .env.*.backup
 *.local.backup
+
+# Development artifacts
+*.log.*
+*.pid
+*.seed
+*.pid.lock
+
+# Editor backup files
+*~
+*.swp
+*.swo
+.#*
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
 # Bundle analyzer
 .next/analyze/

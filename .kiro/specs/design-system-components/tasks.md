@@ -21,49 +21,68 @@
   - ✅ TypeScript interfaces with proper prop inheritance
   - _Requirements: 1.1, 6.1, 6.2, 8.1, 8.2, 8.3_
 
-- [ ] 3. Implement Input component
+- [ ] 3. Implement Input component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/ui/input/`
+  - Check if shadcn/ui has input component first, use as base if available
   - Create Input component with type variants (text, email, password, number, search, tel, url)
   - Add validation states (error, success) with proper styling and icons
   - Implement label, placeholder, helper text, and required field support
   - Add left and right icon support for enhanced visual hierarchy
   - Create controlled and uncontrolled variants with proper forwarding
   - Implement size variants (sm, default, lg) consistent with Button
+  - Create comprehensive Storybook stories showing all variants and states
   - Write comprehensive tests for all input types, states, and interactions
+  - Add component README.md with usage examples and accessibility guidelines
   - Ensure proper ARIA labeling, describedby, and screen reader support
+  - Export from category index and main package index
   - _Requirements: 1.2, 6.1, 6.3, 8.1, 8.2_
 
-- [ ] 4. Implement Text/Typography component
+- [ ] 4. Implement Text/Typography component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/ui/text/`
+  - Check shadcn/ui for typography components first, use as base if available
   - Create Text component with semantic HTML element selection (as prop)
   - Add typography variants matching design system scale (display, h1-h4, body-lg, body, body-sm, caption, overline)
   - Implement color system integration with existing design tokens
   - Add text alignment (left, center, right, justify) and weight options
   - Create truncation support (single line and multi-line with line clamp)
   - Add responsive typography variants for mobile-first design
+  - Create comprehensive Storybook stories showing all typography variants
   - Write tests for all typography variants and responsive behavior
+  - Add component README.md with typography guidelines and examples
   - Ensure proper heading hierarchy and semantic structure
+  - Export from category index and main package index
   - _Requirements: 1.3, 6.3, 7.3, 8.1, 8.2_
 
-- [ ] 5. Implement Card component
+- [ ] 5. Implement Card component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/ui/card/`
+  - Check if shadcn/ui has card component first, use as base if available
   - Create Card component with variant options (default, outlined, elevated)
   - Add padding variants (none, sm, md, lg) and responsive behavior
   - Implement clickable card functionality with proper focus states
   - Add hover and active states with smooth transitions
   - Create header, content, and footer composition patterns
   - Implement proper semantic structure with article/section elements
-  - Create Storybook stories showing different content layouts and use cases
+  - Create comprehensive Storybook stories showing different content layouts and use cases
   - Write tests for all variants, interactive states, and composition
+  - Add component README.md with composition patterns and examples
   - Ensure keyboard accessibility for clickable cards with proper focus indicators
+  - Export from category index and main package index
   - _Requirements: 1.4, 6.2, 8.1, 8.2_
 
-- [ ] 6. Implement Loading Spinner component
+- [ ] 6. Implement Loading Spinner component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/feedback/spinner/`
+  - Check if shadcn/ui has loading/spinner components first, use as base if available
   - Create Loading Spinner with size variants (xs, sm, md, lg, xl) matching design scale
   - Add color customization options using design token system
   - Implement overlay functionality for full-screen loading states
   - Add text support for loading messages with proper spacing
   - Create smooth animations with CSS transforms and reduced motion support
   - Implement different spinner styles (circular, dots, bars)
+  - Create comprehensive Storybook stories showing all variants and overlay modes
   - Write tests for all variants, animation states, and accessibility
+  - Add component README.md with loading state patterns and examples
   - Ensure proper ARIA live regions and screen reader announcements
+  - Export from feedback category index and main package index
   - _Requirements: 1.5, 6.3, 6.4, 7.5, 8.1, 8.2_
 
 ## Existing Layout Components ✅ (Already Complete)
@@ -91,62 +110,92 @@
 
 ## Phase 2: Essential UI Components (Week 2)
 
-- [ ] 7. Implement Avatar component
+- [ ] 7. Implement Avatar component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/data-display/avatar/`
+  - Check if shadcn/ui has avatar component first, use as base if available
   - Create Avatar component with image source and fallback handling
   - Add size variants (xs, sm, md, lg, xl, 2xl) with consistent scaling
   - Implement status indicators (online, offline, busy, away)
   - Add shape variants (circle, square) and border options
   - Create fallback text generation from names
+  - Create comprehensive Storybook stories showing all variants and states
   - Write tests for image loading, fallbacks, and all variants
+  - Add component README.md with avatar patterns and examples
   - Ensure proper alt text and accessibility attributes
+  - Export from data-display category index and main package index
   - _Requirements: 2.1, 6.1, 6.3, 8.1, 8.2_
 
-- [ ] 8. Implement Badge component
+- [ ] 8. Implement Badge component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/data-display/badge/`
+  - Check if shadcn/ui has badge component first, use as base if available
   - Create Badge component with status variants (default, secondary, success, warning, error)
   - Add size variants (sm, md, lg) with proper typography scaling
   - Implement dot variant for minimal status indicators
   - Add removable badges with close functionality
   - Create number badges for counts and notifications
+  - Create comprehensive Storybook stories showing all variants and interactive features
   - Write tests for all variants and interactive features
+  - Add component README.md with badge patterns and usage guidelines
   - Ensure proper color contrast and accessibility
+  - Export from data-display category index and main package index
   - _Requirements: 2.2, 6.4, 8.1, 8.2_
 
-- [ ] 9. Implement Toast/Notification system
+- [ ] 9. Implement Toast/Notification system with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/feedback/toast/`
+  - Check if shadcn/ui has toast/sonner components first, use as base if available
+  - If not available, use Radix UI Toast primitives as foundation
   - Create Toast component with type variants (success, error, warning, info)
   - Implement ToastProvider context for global toast management
   - Add auto-dismiss functionality with configurable duration
   - Create action buttons and dismiss functionality
   - Implement toast positioning and stacking system
-  - Add entrance and exit animations with Framer Motion
+  - Add entrance and exit animations with smooth transitions
+  - Create comprehensive Storybook stories showing all toast types and interactions
   - Write tests for toast lifecycle and context management
+  - Add component README.md with toast patterns and usage guidelines
   - Ensure proper ARIA live regions and screen reader announcements
+  - Export from feedback category index and main package index
   - _Requirements: 2.3, 6.3, 7.5, 8.1, 8.2_
 
-- [ ] 10. Implement Modal/Dialog component
+- [ ] 10. Implement Modal/Dialog component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/ui/dialog/`
+  - Check if shadcn/ui has dialog component first, use as base if available
+  - If not available, use Radix UI Dialog primitives as foundation
   - Create Modal component with size variants (sm, md, lg, xl, full)
   - Implement proper focus management and focus trapping
   - Add backdrop click and escape key dismissal
-  - Create header, body, and footer composition
+  - Create header, body, and footer composition patterns
   - Implement scroll handling for long content
-  - Add entrance and exit animations
+  - Add entrance and exit animations with smooth transitions
+  - Create comprehensive Storybook stories showing all sizes and composition patterns
   - Write tests for focus management and keyboard interactions
+  - Add component README.md with modal patterns and accessibility guidelines
   - Ensure proper ARIA dialog attributes and screen reader support
+  - Export from ui category index and main package index
   - _Requirements: 2.4, 6.1, 6.2, 8.1, 8.2_
 
-- [ ] 11. Implement Dropdown Menu component
+- [ ] 11. Implement Dropdown Menu component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/navigation/dropdown-menu/`
+  - Check if shadcn/ui has dropdown-menu component first, use as base if available
+  - If not available, use Radix UI DropdownMenu primitives as foundation
   - Create Dropdown Menu with trigger and content composition
   - Implement positioning system (top, bottom, left, right)
   - Add keyboard navigation (arrow keys, enter, escape)
   - Create menu items with icons, shortcuts, and separators
   - Implement nested menu support
   - Add click outside and escape key dismissal
+  - Create comprehensive Storybook stories showing all positioning and composition patterns
   - Write tests for keyboard navigation and positioning
+  - Add component README.md with dropdown patterns and accessibility guidelines
   - Ensure proper ARIA menu attributes and roles
+  - Export from navigation category index and main package index
   - _Requirements: 2.5, 6.1, 6.2, 8.1, 8.2_
 
 ## Phase 3: Data and Form Components (Week 3)
 
-- [ ] 12. Implement Table component
+- [ ] 12. Implement Table component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/data-display/table/`
+  - Check if shadcn/ui has table component first, use as base if available
   - Create Table component with column configuration system
   - Add sorting functionality with visual indicators
   - Implement pagination with page size options
@@ -154,19 +203,28 @@
   - Add row selection with checkbox functionality
   - Implement empty state handling
   - Create responsive table behavior (horizontal scroll, stacked mobile)
+  - Create comprehensive Storybook stories showing all table features and states
   - Write tests for sorting, pagination, and selection
+  - Add component README.md with table patterns and data handling examples
   - Ensure proper table semantics and screen reader support
+  - Export from data-display category index and main package index
   - _Requirements: 3.1, 6.3, 8.1, 8.2_
 
-- [ ] 13. Implement Select component
+- [ ] 13. Implement Select component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/forms/select/`
+  - Check if shadcn/ui has select component first, use as base if available
+  - If not available, use Radix UI Select primitives as foundation
   - Create Select component with single and multi-select modes
   - Add searchable functionality with filtering
   - Implement option groups and disabled options
   - Create custom option rendering support
   - Add loading states for async data
   - Implement keyboard navigation and selection
+  - Create comprehensive Storybook stories showing all selection modes and features
   - Write tests for all selection modes and interactions
+  - Add component README.md with select patterns and form integration examples
   - Ensure proper ARIA combobox attributes and screen reader support
+  - Export from forms category index and main package index
   - _Requirements: 3.2, 6.1, 6.2, 6.3, 8.1, 8.2_
 
 - [ ] 14. Implement Checkbox and Radio components
@@ -211,14 +269,20 @@
 
 ## Phase 4: Navigation Components (Week 4)
 
-- [ ] 18. Implement Tabs component
+- [ ] 18. Implement Tabs component with organized folder structure
+  - Create dedicated folder: `packages/design-system/src/components/navigation/tabs/`
+  - Check if shadcn/ui has tabs component first, use as base if available
+  - If not available, use Radix UI Tabs primitives as foundation
   - Create Tabs component with variant styles (default, pills, underline)
   - Implement keyboard navigation (arrow keys, home, end)
   - Add controlled and uncontrolled modes
   - Create tab panel content management
   - Add disabled tabs and overflow handling
+  - Create comprehensive Storybook stories showing all variants and navigation patterns
   - Write tests for keyboard navigation and state management
+  - Add component README.md with tabs patterns and content organization examples
   - Ensure proper ARIA tablist attributes and roles
+  - Export from navigation category index and main package index
   - _Requirements: 4.1, 6.1, 6.2, 8.1, 8.2_
 
 - [ ] 19. Implement Breadcrumb component
@@ -352,13 +416,15 @@
   - Create theme migration utilities and guides
   - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5_
 
-- [ ] 32. Finalize documentation and examples
-  - Complete Storybook documentation for all components
-  - Create comprehensive usage examples and patterns
-  - Add migration guides from existing components
-  - Create design system guidelines and best practices
-  - Add contribution guidelines and component creation templates
-  - Publish design system documentation site
+- [ ] 32. Finalize documentation and examples with organized structure
+  - Complete Storybook documentation for all components with consistent story patterns
+  - Verify all component README.md files have comprehensive usage examples
+  - Create design system overview documentation with component organization guide
+  - Add migration guides from existing components to new organized structure
+  - Create design system guidelines and best practices documentation
+  - Add contribution guidelines and component creation templates following new folder structure
+  - Update main package exports to include all new organized components
+  - Publish design system documentation site with component browser
   - _Requirements: 8.1, 8.3, 8.4_
 
 - [ ] 33. Set up continuous integration and deployment
