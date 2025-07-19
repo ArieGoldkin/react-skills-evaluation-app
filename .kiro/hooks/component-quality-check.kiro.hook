@@ -9,7 +9,8 @@
       "src/components/**/*.tsx",
       "src/pages/**/*.tsx",
       "src/hooks/**/*.ts",
-      "src/lib/**/*.ts"
+      "src/lib/**/*.ts",
+      "packages/**/*"
     ]
   },
   "then": {
