@@ -45,6 +45,8 @@ jobs:
         run: npm run quality:no-lint
 
       - name: Build application
+        env:
+          NEXTAUTH_SECRET: dummy-secret-for-build
         run: |
           cd packages/app
           NODE_ENV=production npm run build
