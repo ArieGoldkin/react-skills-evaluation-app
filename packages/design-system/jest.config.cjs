@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
 module.exports = {
   testEnvironment: "jsdom",
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.cjs"],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.(ts|tsx|js)",
     "<rootDir>/src/**/*.(test|spec).(ts|tsx|js)",
@@ -21,7 +21,15 @@ module.exports = {
     "^@/styles/(.*)$": "<rootDir>/src/styles/$1",
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
   },
-  transform: {},
+  transform: {
+    "^.+\\.(ts|tsx)$": [
+      "ts-jest",
+      {
+        useESM: true,
+      },
+    ],
+  },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   transformIgnorePatterns: ["node_modules/(?!(.*\\.mjs$))"],
+  extensionsToTreatAsEsm: [".ts", ".tsx"],
 };
