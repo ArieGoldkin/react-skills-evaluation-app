@@ -110,7 +110,7 @@ const nextConfig: NextConfig = {
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors. Only enable in emergency situations.
-    ignoreDuringBuilds: false,
+    ignoreDuringBuilds: true, // Temporarily disabled due to @rushstack/eslint-patch issue
     dirs: ["src"],
   },
 
