@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/react";
+import React from "react";
 import "../src/styles/globals.css";
 
 const preview: Preview = {
@@ -13,8 +14,29 @@ const preview: Preview = {
     docs: {
       toc: true,
     },
+    backgrounds: {
+      default: "light",
+      values: [
+        {
+          name: "light",
+          value: "#f8fafc",
+        },
+        {
+          name: "dark",
+          value: "#0f172a",
+        },
+      ],
+    },
   },
   tags: ["autodocs"],
+  decorators: [
+    Story =>
+      React.createElement(
+        "div",
+        { style: { fontFamily: "system-ui, sans-serif" } },
+        React.createElement(Story)
+      ),
+  ],
 };
 
 export default preview;

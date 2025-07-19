@@ -1,7 +1,3 @@
----
-inclusion: always
----
-
 # Monorepo Navigation Guide
 
 This guide helps you quickly navigate and work with the Skills Evaluation monorepo structure.
@@ -293,5 +289,21 @@ import * as React from "react";
 - **Design System**: `packages/design-system/README.md`
 - **Components**: Storybook documentation
 - **API**: JSDoc comments in code
+
+## 🏗️ Build Order & Dependencies
+
+- **Design System** must be built before the **App**
+- Use `npm run design-system:build` before `npm run app:build`
+- The app depends on the design system package
+- Always run `npm run build:all` to ensure proper build order
+
+## 🔧 Workspace Scripts
+
+- `npm run app:dev` - Start app development server
+- `npm run design-system:storybook` - Start Storybook for design system
+- `npm run build:all` - Build all packages in correct order
+- `npm run test:ci` - Run tests in all workspaces
+- `npm run type-check` - Type check all workspaces
+- `npm run lint` - Lint all workspaces
 
 This navigation guide should be your go-to reference for working efficiently within the monorepo structure.
