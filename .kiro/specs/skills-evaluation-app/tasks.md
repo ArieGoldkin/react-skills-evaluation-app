@@ -24,7 +24,8 @@
 
 ## Authentication System
 
-- [ ] 4. Implement Google OAuth authentication
+- [x] 4. Implement Google OAuth authentication
+  - before starting I want to add to ts config some references symlink for the components hooks and lib and look ath the app where we can use it as for example "@/components/nameOfComponent
   - Set up Google OAuth configuration and environment variables
   - Create GoogleLogin component with OAuth flow initiation
   - Implement AuthCallback component for OAuth response handling
