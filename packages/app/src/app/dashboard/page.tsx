@@ -1,9 +1,9 @@
 "use client";
 
 import { useAuth } from "@/components/auth";
+import { SignOutButton } from "@/components/auth/signout-button";
 import { Button } from "@/components/ui/button";
 import { Container } from "@skills-eval/design-system";
-import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -32,10 +32,6 @@ export default function DashboardPage() {
     return null; // Will redirect to sign in
   }
 
-  const handleSignOut = async () => {
-    await signOut({ callbackUrl: "/" });
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Container>
@@ -45,9 +41,10 @@ export default function DashboardPage() {
               <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
               <p className="text-gray-600">Welcome back, {user?.name}!</p>
             </div>
-            <Button onClick={handleSignOut} variant="outline">
-              Sign Out
-            </Button>
+            <SignOutButton
+              className="bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400"
+              callbackUrl="/"
+            />
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

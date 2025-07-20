@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import { Button } from "./button";
 
 describe("Button", () => {
@@ -80,7 +81,7 @@ describe("Button", () => {
 
   describe("Interactions", () => {
     it("calls onClick when clicked", async () => {
-      const handleClick = jest.fn();
+      const handleClick = vi.fn();
       render(<Button onClick={handleClick}>Clickable</Button>);
 
       await userEvent.click(screen.getByText("Clickable"));
@@ -88,7 +89,7 @@ describe("Button", () => {
     });
 
     it("does not call onClick when disabled", async () => {
-      const handleClick = jest.fn();
+      const handleClick = vi.fn();
       render(
         <Button onClick={handleClick} disabled>
           Disabled

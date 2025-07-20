@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:ui.shadcn.com)",
+      "Bash(mkdir:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run test:*)",
+      "Bash(npm run lint)",
+      "Bash(npx prettier:*)",
+      "Bash(mv:*)",
+      "Bash(npx shadcn-ui:*)",
+      "Bash(npx shadcn:*)",
+      "Bash(npm run quality:*)",
+      "Bash(npm install:*)",
+      "Bash(ls:*)",
+      "Bash(npx vitest:*)",
+      "Bash(find:*)",
+      "Bash(rm:*)",
+      "mcp__MCP_DOCKER__list_workflows",
+      "mcp__MCP_DOCKER__list_workflow_runs",
+      "mcp__MCP_DOCKER__get_workflow_run",
+      "mcp__MCP_DOCKER__get_job_logs",
+      "Bash(npm run format:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": []
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": ["MCP_DOCKER"]
+}
