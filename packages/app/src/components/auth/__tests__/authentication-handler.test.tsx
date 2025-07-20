@@ -9,7 +9,6 @@ import { createAuthError } from "@/types/auth";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/navigation";
-import { vi } from "vitest";
 import { AuthenticationHandler } from "../authentication-handler";
 
 // Mock dependencies
@@ -22,7 +21,9 @@ vi.mock("@/hooks/use-auth-state", () => ({
 import { useAuthState } from "@/hooks/use-auth-state";
 const mockPush = vi.fn();
 const mockUseAuthState = vi.mocked(useAuthState);
-const mockUseRouter = useRouter as vi.MockedFunction<typeof useRouter>;
+const mockUseRouter = useRouter as ReturnType<
+  typeof vi.mocked<typeof useRouter>
+>;
 
 // Mock router
 mockUseRouter.mockReturnValue({

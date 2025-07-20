@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom'
-import { vi } from 'vitest'
 
 // Mock Next.js router
 vi.mock('next/navigation', () => ({
@@ -16,7 +15,12 @@ vi.mock('next/navigation', () => ({
 }))
 
 // Mock environment variables
-process.env.NODE_ENV = 'test'
+Object.defineProperty(process.env, 'NODE_ENV', {
+  value: 'test',
+  writable: true,
+  enumerable: true,
+  configurable: true
+})
 
 // Global test utilities
 global.ResizeObserver = vi.fn().mockImplementation(() => ({
@@ -33,7 +37,7 @@ global.IntersectionObserver = vi.fn().mockImplementation(() => ({
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query: string) => ({
     matches: false,
     media: query,
     onchange: null,

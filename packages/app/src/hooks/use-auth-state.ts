@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/components/auth/auth-provider";
-import { SignInOptions, isRetryableError } from "@/types/auth";
+import { AuthError, SignInOptions, isRetryableError } from "@/types/auth";
 import { DEFAULT_RETRY_CONFIG, type RetryConfig } from "@/types/auth-constants";
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { handleAuthError } from "./auth/auth-error-handler";
@@ -40,10 +40,7 @@ export function useAuthState(retryConfig: RetryConfig = DEFAULT_RETRY_CONFIG) {
    * Handle authentication errors and dispatch to state
    */
   const handleAuthErrorWithDispatch = useCallback(
-    (
-      error: unknown,
-      type: Parameters<typeof handleAuthError>[1] = "unknown"
-    ): void => {
+    (error: unknown, type: AuthError["type"] = "unknown"): void => {
       const authError = handleAuthError(error, type);
       dispatch({ type: "SET_ERROR", payload: { error: authError } });
     },

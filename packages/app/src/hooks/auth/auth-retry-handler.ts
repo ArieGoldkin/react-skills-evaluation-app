@@ -2,16 +2,22 @@
  * Authentication retry handler - extracted from useAuthState for better separation of concerns
  */
 
-import { SignInOptions, createAuthError, isRetryableError } from "@/types/auth";
+import {
+  SignInOptions,
+  createAuthError,
+  isRetryableError,
+  AuthError,
+  AuthAction,
+} from "@/types/auth";
 import { AUTH_ERROR_MESSAGES, type RetryConfig } from "@/types/auth-constants";
 
 export interface RetryHandlerState {
-  error: any;
+  error: AuthError | null;
   retryCount: number;
 }
 
 export interface RetryHandlerActions {
-  dispatch: (action: any) => void;
+  dispatch: (action: AuthAction) => void;
 }
 
 /**
@@ -46,7 +52,7 @@ export class AuthRetryHandler {
    */
   canRetry(): boolean {
     return (
-      this.state.error &&
+      !!this.state.error &&
       isRetryableError(this.state.error) &&
       this.state.retryCount < this.config.maxAttempts
     );
@@ -94,7 +100,7 @@ export class AuthRetryHandler {
     try {
       await new Promise(resolve => setTimeout(resolve, delay));
 
-      if (this.state.error.type === "session") {
+      if (this.state.error?.type === "session") {
         window.location.reload();
       } else {
         await attemptSignIn({

@@ -7,7 +7,7 @@ vi.mock("next-auth/react", () => ({
   signIn: vi.fn(),
 }));
 
-const mockSignIn = signIn as vi.MockedFunction<typeof signIn>;
+const mockSignIn = signIn as ReturnType<typeof vi.mocked<typeof signIn>>;
 
 // Test helper to create a pending promise for sign-in
 const createPendingSignInPromise = () => {

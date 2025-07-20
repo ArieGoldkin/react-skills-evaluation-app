@@ -59,7 +59,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         (event.key === "Enter" || event.key === " ")
       ) {
         event.preventDefault();
-        onClick(event as any);
+        onClick(event as unknown as React.MouseEvent<HTMLDivElement>);
       }
     };
 

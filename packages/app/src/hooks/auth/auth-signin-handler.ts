@@ -2,12 +2,15 @@
  * Authentication sign-in handler - extracted from useAuthState for better separation of concerns
  */
 
-import { SignInOptions } from "@/types/auth";
+import { SignInOptions, AuthError, AuthAction } from "@/types/auth";
 import { signIn } from "next-auth/react";
 
 export interface SignInHandlerActions {
-  dispatch: (action: any) => void;
-  handleAuthErrorWithDispatch: (error: unknown, type?: string) => void;
+  dispatch: (action: AuthAction) => void;
+  handleAuthErrorWithDispatch: (
+    error: unknown,
+    type?: AuthError["type"]
+  ) => void;
 }
 
 /**

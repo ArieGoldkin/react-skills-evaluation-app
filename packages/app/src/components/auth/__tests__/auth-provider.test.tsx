@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-import { vi } from "vitest";
 import { AuthProvider } from "../auth-provider";
 
 // Mock next-auth/react

@@ -11,7 +11,6 @@ import {
   DEFAULT_RETRY_CONFIG,
 } from "@/types/auth-constants";
 import { act, renderHook } from "@testing-library/react";
-import { vi } from "vitest";
 import { useAuthState } from "../use-auth-state";
 
 // Mock the auth provider hook
