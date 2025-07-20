@@ -1,8 +1,8 @@
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
 
-const textVariants = cva("", {
+const typographyVariants = cva("", {
   variants: {
     variant: {
       // Display and headings (without font-weight, handled by weight prop)
@@ -75,15 +75,15 @@ const textVariants = cva("", {
   ],
 });
 
-interface TextProps
+interface TypographyProps
   extends Omit<React.HTMLAttributes<HTMLElement>, "color">,
-    VariantProps<typeof textVariants> {
+    VariantProps<typeof typographyVariants> {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div" | "label";
   truncate?: boolean | number; // true for single line, number for multi-line
   children: React.ReactNode;
 }
 
-const Text = React.forwardRef<HTMLElement, TextProps>(
+const Typography = React.forwardRef<HTMLElement, TypographyProps>(
   (
     {
       className,
@@ -146,7 +146,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
       Element,
       {
         className: cn(
-          textVariants({ variant, color, align, weight }),
+          typographyVariants({ variant, color, align, weight }),
           truncationClasses,
           className
         ),
@@ -158,7 +158,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(
   }
 );
 
-Text.displayName = "Text";
+Typography.displayName = "Typography";
 
-export { Text, textVariants };
-export type { TextProps };
+export { Typography, typographyVariants };
+export type { TypographyProps };
