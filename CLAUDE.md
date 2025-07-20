@@ -153,7 +153,7 @@ test(utils): add unit tests for date helpers
 - Minimum 80% test coverage for business logic
 - Test all component variants and props
 - Include interaction testing with user-event
-- Implement accessibility testing with jest-axe
+- Implement accessibility testing with @axe-core/react
 
 ### Testing Structure
 

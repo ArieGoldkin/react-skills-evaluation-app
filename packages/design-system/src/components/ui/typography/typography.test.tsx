@@ -1,22 +1,22 @@
 import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
-import { Text } from "./text";
+import { Typography } from "./typography";
 
-describe("Text", () => {
+describe("Typography", () => {
   describe("Basic Rendering", () => {
     it("renders correctly with children", () => {
-      render(<Text>Hello World</Text>);
+      render(<Typography>Hello World</Typography>);
       expect(screen.getByText("Hello World")).toBeInTheDocument();
     });
 
     it("forwards ref correctly", () => {
       const ref = vi.fn();
-      render(<Text ref={ref}>Test</Text>);
+      render(<Typography ref={ref}>Test</Typography>);
       expect(ref).toHaveBeenCalled();
     });
 
     it("renders as paragraph by default", () => {
-      render(<Text data-testid="text">Test</Text>);
+      render(<Typography data-testid="text">Test</Typography>);
       const element = screen.getByTestId("text");
       expect(element.tagName).toBe("P");
     });
@@ -25,9 +25,9 @@ describe("Text", () => {
   describe("Typography Variants", () => {
     it("renders display variant with correct classes", () => {
       render(
-        <Text variant="display" data-testid="text">
+        <Typography variant="display" data-testid="text">
           Display
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).toHaveClass(
@@ -40,9 +40,9 @@ describe("Text", () => {
 
     it("renders h1 variant with correct classes", () => {
       render(
-        <Text variant="h1" data-testid="text">
+        <Typography variant="h1" data-testid="text">
           Heading 1
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).toHaveClass(
@@ -55,9 +55,9 @@ describe("Text", () => {
 
     it("renders h2 variant with correct classes", () => {
       render(
-        <Text variant="h2" data-testid="text">
+        <Typography variant="h2" data-testid="text">
           Heading 2
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).toHaveClass(
@@ -72,9 +72,9 @@ describe("Text", () => {
 
     it("renders h3 variant with correct classes", () => {
       render(
-        <Text variant="h3" data-testid="text">
+        <Typography variant="h3" data-testid="text">
           Heading 3
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).toHaveClass(
@@ -87,9 +87,9 @@ describe("Text", () => {
 
     it("renders h4 variant with correct classes", () => {
       render(
-        <Text variant="h4" data-testid="text">
+        <Typography variant="h4" data-testid="text">
           Heading 4
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).toHaveClass("text-xl", "font-semibold", "tracking-tight");
@@ -98,27 +98,27 @@ describe("Text", () => {
 
     it("renders body variants with correct classes", () => {
       const { rerender } = render(
-        <Text variant="body-lg" data-testid="text">
+        <Typography variant="body-lg" data-testid="text">
           Large body
-        </Text>
+        </Typography>
       );
       let element = screen.getByTestId("text");
       expect(element).toHaveClass("text-lg", "leading-7");
       expect(element.tagName).toBe("P");
 
       rerender(
-        <Text variant="body" data-testid="text">
+        <Typography variant="body" data-testid="text">
           Body
-        </Text>
+        </Typography>
       );
       element = screen.getByTestId("text");
       expect(element).toHaveClass("leading-7");
       expect(element.tagName).toBe("P");
 
       rerender(
-        <Text variant="body-sm" data-testid="text">
+        <Typography variant="body-sm" data-testid="text">
           Small body
-        </Text>
+        </Typography>
       );
       element = screen.getByTestId("text");
       expect(element).toHaveClass("text-sm", "leading-6");
@@ -127,36 +127,36 @@ describe("Text", () => {
 
     it("renders specialized variants with correct classes", () => {
       const { rerender } = render(
-        <Text variant="lead" data-testid="text">
+        <Typography variant="lead" data-testid="text">
           Lead
-        </Text>
+        </Typography>
       );
       let element = screen.getByTestId("text");
       expect(element).toHaveClass("text-xl");
       expect(element.tagName).toBe("P");
 
       rerender(
-        <Text variant="large" data-testid="text">
+        <Typography variant="large" data-testid="text">
           Large
-        </Text>
+        </Typography>
       );
       element = screen.getByTestId("text");
       expect(element).toHaveClass("text-lg", "font-semibold");
       expect(element.tagName).toBe("SPAN");
 
       rerender(
-        <Text variant="caption" data-testid="text">
+        <Typography variant="caption" data-testid="text">
           Caption
-        </Text>
+        </Typography>
       );
       element = screen.getByTestId("text");
       expect(element).toHaveClass("text-sm");
       expect(element.tagName).toBe("SPAN");
 
       rerender(
-        <Text variant="overline" data-testid="text">
+        <Typography variant="overline" data-testid="text">
           Overline
-        </Text>
+        </Typography>
       );
       element = screen.getByTestId("text");
       expect(element).toHaveClass(
@@ -168,9 +168,9 @@ describe("Text", () => {
       expect(element.tagName).toBe("SPAN");
 
       rerender(
-        <Text variant="muted" data-testid="text">
+        <Typography variant="muted" data-testid="text">
           Muted
-        </Text>
+        </Typography>
       );
       element = screen.getByTestId("text");
       expect(element).toHaveClass("text-sm");
@@ -181,9 +181,9 @@ describe("Text", () => {
   describe("Semantic Elements", () => {
     it("renders with custom element when as prop is provided", () => {
       render(
-        <Text as="h1" variant="body" data-testid="text">
+        <Typography as="h1" variant="body" data-testid="text">
           Custom H1
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element.tagName).toBe("H1");
@@ -206,9 +206,9 @@ describe("Text", () => {
 
       elements.forEach((elementType, index) => {
         const { unmount } = render(
-          <Text as={elementType} data-testid={`text-${index}`}>
+          <Typography as={elementType} data-testid={`text-${index}`}>
             Test {elementType}
-          </Text>
+          </Typography>
         );
 
         const element = screen.getByTestId(`text-${index}`);
@@ -232,9 +232,9 @@ describe("Text", () => {
 
       colors.forEach(({ color, class: expectedClass }, index) => {
         const { unmount } = render(
-          <Text color={color} data-testid={`text-${index}`}>
+          <Typography color={color} data-testid={`text-${index}`}>
             {color} text
-          </Text>
+          </Typography>
         );
 
         const element = screen.getByTestId(`text-${index}`);
@@ -255,9 +255,9 @@ describe("Text", () => {
 
       alignments.forEach(({ align, class: expectedClass }, index) => {
         const { unmount } = render(
-          <Text align={align} data-testid={`text-${index}`}>
+          <Typography align={align} data-testid={`text-${index}`}>
             {align} aligned text
-          </Text>
+          </Typography>
         );
 
         const element = screen.getByTestId(`text-${index}`);
@@ -278,9 +278,9 @@ describe("Text", () => {
 
       weights.forEach(({ weight, class: expectedClass }, index) => {
         const { unmount } = render(
-          <Text weight={weight} data-testid={`text-${index}`}>
+          <Typography weight={weight} data-testid={`text-${index}`}>
             {weight} weight text
-          </Text>
+          </Typography>
         );
 
         const element = screen.getByTestId(`text-${index}`);
@@ -293,9 +293,9 @@ describe("Text", () => {
   describe("Text Truncation", () => {
     it("applies single line truncation when truncate is true", () => {
       render(
-        <Text truncate={true} data-testid="text">
+        <Typography truncate={true} data-testid="text">
           Long text
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).toHaveClass("truncate");
@@ -303,9 +303,9 @@ describe("Text", () => {
 
     it("applies multi-line truncation with line-clamp", () => {
       render(
-        <Text truncate={2} data-testid="text">
+        <Typography truncate={2} data-testid="text">
           Long text
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).toHaveClass("line-clamp-2");
@@ -316,9 +316,9 @@ describe("Text", () => {
 
       lines.forEach((lineCount, index) => {
         const { unmount } = render(
-          <Text truncate={lineCount} data-testid={`text-${index}`}>
+          <Typography truncate={lineCount} data-testid={`text-${index}`}>
             Long text content
-          </Text>
+          </Typography>
         );
 
         const element = screen.getByTestId(`text-${index}`);
@@ -329,9 +329,9 @@ describe("Text", () => {
 
     it("does not apply truncation when truncate is false", () => {
       render(
-        <Text truncate={false} data-testid="text">
+        <Typography truncate={false} data-testid="text">
           Text
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).not.toHaveClass("truncate");
@@ -339,7 +339,7 @@ describe("Text", () => {
     });
 
     it("does not apply truncation when truncate is undefined", () => {
-      render(<Text data-testid="text">Text</Text>);
+      render(<Typography data-testid="text">Text</Typography>);
       const element = screen.getByTestId("text");
       expect(element).not.toHaveClass("truncate");
       expect(element.className).not.toMatch(/line-clamp-/);
@@ -349,7 +349,7 @@ describe("Text", () => {
   describe("Combined Props", () => {
     it("applies multiple variant classes correctly", () => {
       render(
-        <Text
+        <Typography
           variant="h2"
           color="success"
           align="center"
@@ -358,7 +358,7 @@ describe("Text", () => {
           data-testid="text"
         >
           Combined styling
-        </Text>
+        </Typography>
       );
 
       const element = screen.getByTestId("text");
@@ -377,9 +377,9 @@ describe("Text", () => {
   describe("Custom Classes", () => {
     it("accepts custom className", () => {
       render(
-        <Text className="custom-class" data-testid="text">
+        <Typography className="custom-class" data-testid="text">
           Text
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).toHaveClass("custom-class");
@@ -387,9 +387,9 @@ describe("Text", () => {
 
     it("merges custom className with variant classes", () => {
       render(
-        <Text variant="h1" className="custom-class" data-testid="text">
+        <Typography variant="h1" className="custom-class" data-testid="text">
           Heading
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element).toHaveClass("custom-class", "text-4xl", "font-extrabold");
@@ -399,15 +399,15 @@ describe("Text", () => {
   describe("HTML Attributes", () => {
     it("passes through HTML attributes", () => {
       render(
-        <Text
+        <Typography
           data-testid="text"
           id="test-id"
           role="heading"
-          aria-level="2"
+          aria-level={2}
           title="Test title"
         >
           Text with attributes
-        </Text>
+        </Typography>
       );
 
       const element = screen.getByTestId("text");
@@ -420,7 +420,7 @@ describe("Text", () => {
 
   describe("Default Variants", () => {
     it("uses default variants when none are specified", () => {
-      render(<Text data-testid="text">Default text</Text>);
+      render(<Typography data-testid="text">Default text</Typography>);
       const element = screen.getByTestId("text");
 
       // Should have default variant classes
@@ -435,15 +435,15 @@ describe("Text", () => {
     it("maintains semantic structure with proper heading levels", () => {
       render(
         <div>
-          <Text variant="h1" data-testid="h1">
+          <Typography variant="h1" data-testid="h1">
             Main Heading
-          </Text>
-          <Text variant="h2" data-testid="h2">
+          </Typography>
+          <Typography variant="h2" data-testid="h2">
             Sub Heading
-          </Text>
-          <Text variant="h3" data-testid="h3">
+          </Typography>
+          <Typography variant="h3" data-testid="h3">
             Section Heading
-          </Text>
+          </Typography>
         </div>
       );
 
@@ -454,9 +454,9 @@ describe("Text", () => {
 
     it("allows semantic override while maintaining visual styling", () => {
       render(
-        <Text variant="h1" as="p" data-testid="text">
+        <Typography variant="h1" as="p" data-testid="text">
           Visual H1 as P
-        </Text>
+        </Typography>
       );
       const element = screen.getByTestId("text");
       expect(element.tagName).toBe("P");
@@ -466,15 +466,15 @@ describe("Text", () => {
 
   describe("Content Rendering", () => {
     it("renders string content", () => {
-      render(<Text>String content</Text>);
+      render(<Typography>String content</Typography>);
       expect(screen.getByText("String content")).toBeInTheDocument();
     });
 
     it("renders React node content", () => {
       render(
-        <Text>
+        <Typography>
           Content with <strong>bold text</strong> and <em>italic text</em>
-        </Text>
+        </Typography>
       );
       expect(screen.getByText(/Content with/)).toBeInTheDocument();
       expect(screen.getByText("bold text")).toBeInTheDocument();
@@ -483,9 +483,9 @@ describe("Text", () => {
 
     it("renders complex nested content", () => {
       render(
-        <Text as="div">
+        <Typography as="div">
           <span>Nested</span> <div>Complex</div> Content
-        </Text>
+        </Typography>
       );
       expect(screen.getByText("Nested")).toBeInTheDocument();
       expect(screen.getByText("Complex")).toBeInTheDocument();
