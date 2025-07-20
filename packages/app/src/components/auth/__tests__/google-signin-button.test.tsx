@@ -1,6 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { signIn } from "next-auth/react";
-import { vi } from "vitest";
 import { GoogleSignInButton } from "../google-signin-button";
 
 // Mock next-auth/react

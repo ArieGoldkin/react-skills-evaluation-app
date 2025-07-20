@@ -51,6 +51,8 @@ export default [
       typescript({
         tsconfig: "./tsconfig.json",
         exclude: ["**/*.stories.tsx", "**/*.test.tsx"],
+        declaration: true,
+        declarationDir: "./dist",
       }),
     ],
     external: [
@@ -64,9 +66,23 @@ export default [
     ],
   },
   {
-    input: "dist/index.d.ts",
+    input: "src/index.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
-    plugins: [dts()],
-    external: [/\.css$/],
+    plugins: [
+      dts({
+        compilerOptions: {
+          baseUrl: ".",
+          paths: {
+            "@/*": ["src/*"],
+            "@/components/*": ["src/components/*"],
+            "@/lib/*": ["src/lib/*"],
+            "@/types/*": ["src/types/*"],
+            "@/hooks/*": ["src/hooks/*"],
+            "@/styles/*": ["src/styles/*"],
+          },
+        },
+      }),
+    ],
+    external: [/\.css$/, /\.scss$/, /\.sass$/, /\.less$/],
   },
 ];

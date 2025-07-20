@@ -3,6 +3,7 @@
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
 
     // Strict TypeScript settings
     "noImplicitAny": true,
@@ -32,11 +33,12 @@
   },
   "include": [
     "next-env.d.ts",
+    "vitest.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "jest.config.js",
-    "jest.setup.js"
+    "vitest.config.ts",
+    "vitest.setup.ts"
   ],
   "exclude": ["node_modules", ".next", "out", "coverage"]
 }

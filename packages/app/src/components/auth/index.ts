@@ -1,3 +1,3 @@
-export { AuthCallback } from "./auth-callback";
 export { AuthProvider, useAuth } from "./auth-provider";
-export { GoogleLogin } from "./google-login";
+export { GoogleSignInButton } from "./google-signin-button";
+export { SignOutButton } from "./signout-button";
