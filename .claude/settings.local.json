@@ -32,7 +32,5 @@
     "deny": []
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "MCP_DOCKER"
-  ]
+  "enabledMcpjsonServers": ["MCP_DOCKER"]
 }

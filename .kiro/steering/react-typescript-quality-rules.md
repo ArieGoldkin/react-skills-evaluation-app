@@ -11,16 +11,19 @@ This document defines mandatory quality rules for React/TypeScript development i
 ## 🚨 Component Size & Complexity Rules
 
 ### 1. Component Size Limit
+
 - **Maximum Lines**: 180 lines per component file
 - **Enforcement**: MANDATORY - No exceptions
 - **Action Required**: If exceeded, component MUST be broken down
 
 ### 2. Function Complexity Limit
+
 - **Maximum Cyclomatic Complexity**: 11 per function
 - **Measurement**: Count decision points (if, switch, loops, ternary operators)
 - **Action Required**: Extract functions or use early returns to reduce complexity
 
 ### 3. File Size Limit
+
 - **Maximum Lines**: 150-180 lines per file
 - **Includes**: All code, imports, exports, but excludes comments
 - **Action Required**: Split into multiple files if exceeded
@@ -30,32 +33,35 @@ This document defines mandatory quality rules for React/TypeScript development i
 ## 🔧 TypeScript Quality Rules
 
 ### 4. Strict Type Usage
+
 ```typescript
 // ❌ NEVER - No 'any' types
-const handleClick = (event: any) => { };
+const handleClick = (event: any) => {};
 
 // ✅ ALWAYS - Proper typing
-const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => { };
+const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {};
 ```
 
 ### 5. Interface Definitions
+
 ```typescript
 // ✅ ALWAYS - Define interfaces for all props
 interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'destructive';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "destructive";
+  size?: "sm" | "md" | "lg";
   disabled?: boolean;
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 // ✅ ALWAYS - Use interfaces for component props
-const Button: React.FC<ButtonProps> = ({ variant = 'primary', ...props }) => {
+const Button: React.FC<ButtonProps> = ({ variant = "primary", ...props }) => {
   // implementation
 };
 ```
 
 ### 6. Generic Types Usage
+
 ```typescript
 // ✅ ALWAYS - Use generics for reusable components
 interface SelectProps<T> {
@@ -71,25 +77,27 @@ interface SelectProps<T> {
 ## ⚛️ React Component Structure Rules
 
 ### 7. Functional Components Only
+
 ```typescript
 // ✅ ALWAYS - Use functional components with hooks
 const MyComponent: React.FC<MyComponentProps> = ({ prop1, prop2 }) => {
   const [state, setState] = useState<StateType>(initialState);
-  
+
   return <div>{/* JSX */}</div>;
 };
 ```
 
 ### 8. Hook Usage Patterns
+
 ```typescript
 // ✅ ALWAYS - Destructure props
-const Button: React.FC<ButtonProps> = ({ 
-  variant, 
-  size, 
-  disabled, 
-  children, 
+const Button: React.FC<ButtonProps> = ({
+  variant,
+  size,
+  disabled,
+  children,
   onClick,
-  ...rest 
+  ...rest
 }) => {
   // ✅ ALWAYS - Use proper hook dependencies
   const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
@@ -125,6 +133,7 @@ const Button: React.FC<ButtonProps> = ({
 When a component exceeds 180 lines, break it down using these patterns:
 
 #### A. Extract Sub-Components
+
 ```typescript
 // ✅ Break down into smaller components
 const ButtonIcon: React.FC<{ icon: React.ReactNode }> = ({ icon }) => (
@@ -144,6 +153,7 @@ const Button: React.FC<ButtonProps> = ({ icon, children, ...props }) => (
 ```
 
 #### B. Extract Custom Hooks
+
 ```typescript
 // ✅ Extract state logic into custom hooks
 const useButtonState = (disabled?: boolean) => {
@@ -169,6 +179,7 @@ const useButtonState = (disabled?: boolean) => {
 ```
 
 #### C. Extract Utility Functions
+
 ```typescript
 // ✅ Move complex logic to utility functions
 const getButtonClasses = (
@@ -190,6 +201,7 @@ const getButtonClasses = (
 ## 🎯 Performance Rules
 
 ### 10. Memoization Requirements
+
 ```typescript
 // ✅ ALWAYS - Memoize expensive components
 const ExpensiveComponent = React.memo<ExpensiveComponentProps>(({ data, config }) => {
@@ -214,6 +226,7 @@ const ExpensiveComponent = React.memo<ExpensiveComponentProps>(({ data, config }
 ```
 
 ### 11. Ref Forwarding
+
 ```typescript
 // ✅ ALWAYS - Forward refs for reusable components
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -236,6 +249,7 @@ Button.displayName = "Button";
 ## 📊 TanStack Query Rules
 
 ### 12. Query Patterns
+
 ```typescript
 // ✅ ALWAYS - Use proper query patterns
 const useUserQuery = (userId: string) => {
@@ -264,6 +278,7 @@ const UserProfile: React.FC<{ userId: string }> = ({ userId }) => {
 ```
 
 ### 13. Mutation Patterns
+
 ```typescript
 // ✅ ALWAYS - Use proper mutation patterns with error handling
 const useUpdateUserMutation = () => {
@@ -273,16 +288,15 @@ const useUpdateUserMutation = () => {
     mutationFn: updateUser,
     onSuccess: (data, variables) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['users', variables.id] });
-      
+      queryClient.invalidateQueries({ queryKey: ["users", variables.id] });
+
       // Show success toast
-      toast.success('User updated successfully');
+      toast.success("User updated successfully");
     },
     onError: (error: ApiError) => {
       // Show error toast with retry option
-      toastUtils.errorWithRetry(
-        'Failed to update user',
-        () => mutate(variables)
+      toastUtils.errorWithRetry("Failed to update user", () =>
+        mutate(variables)
       );
     },
   });
@@ -294,6 +308,7 @@ const useUpdateUserMutation = () => {
 ## 🚀 Component Refactoring Guidelines
 
 ### When to Refactor
+
 Refactor immediately when ANY of these conditions are met:
 
 1. **Component exceeds 180 lines**
@@ -305,6 +320,7 @@ Refactor immediately when ANY of these conditions are met:
 ### Refactoring Patterns
 
 #### Large Component Breakdown
+
 ```typescript
 // ❌ BEFORE - 300+ line component
 const LargeForm: React.FC = () => {
@@ -333,6 +349,7 @@ const Form: React.FC<FormProps> = (props) => {
 ```
 
 #### Complex Logic Extraction
+
 ```typescript
 // ✅ Extract complex logic into custom hooks
 const useComplexCalculation = (input: ComplexInput) => {
@@ -344,13 +361,19 @@ const useComplexCalculation = (input: ComplexInput) => {
 
 // ✅ Extract event handlers
 const useEventHandlers = (props: ComponentProps) => {
-  const handleClick = useCallback((event: React.MouseEvent) => {
-    // Complex click handling logic
-  }, [props.onClick]);
+  const handleClick = useCallback(
+    (event: React.MouseEvent) => {
+      // Complex click handling logic
+    },
+    [props.onClick]
+  );
 
-  const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
-    // Complex keyboard handling logic
-  }, [props.onKeyDown]);
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      // Complex keyboard handling logic
+    },
+    [props.onKeyDown]
+  );
 
   return { handleClick, handleKeyDown };
 };
@@ -363,36 +386,42 @@ const useEventHandlers = (props: ComponentProps) => {
 Before completing ANY component development task, verify:
 
 ### TypeScript Quality
+
 - [ ] No `any` types used
 - [ ] All props have proper interfaces
 - [ ] Generic types used where appropriate
 - [ ] Strict mode compliance
 
 ### Component Structure
+
 - [ ] Functional component with hooks
 - [ ] Props destructured
 - [ ] Ref forwarded if needed
 - [ ] Display name set
 
 ### Performance
+
 - [ ] Expensive components memoized
 - [ ] Callbacks memoized with useCallback
 - [ ] Expensive calculations memoized with useMemo
 - [ ] Proper dependency arrays
 
 ### Size & Complexity
+
 - [ ] Component under 180 lines
 - [ ] Functions under complexity 11
 - [ ] File under 180 lines
 - [ ] Logic properly separated
 
 ### Testing
+
 - [ ] Unit tests cover all variants
 - [ ] Accessibility tests included
 - [ ] Edge cases tested
 - [ ] Performance tests if needed
 
 ### TanStack Query (if applicable)
+
 - [ ] Proper query key structure
 - [ ] Error handling implemented
 - [ ] Loading states handled

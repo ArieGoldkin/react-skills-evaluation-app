@@ -44,9 +44,7 @@ function BasicModal() {
       <ModalContent>
         <ModalHeader>
           <ModalTitle>Modal Title</ModalTitle>
-          <ModalDescription>
-            This is a basic modal example.
-          </ModalDescription>
+          <ModalDescription>This is a basic modal example.</ModalDescription>
         </ModalHeader>
         <div className="py-4">
           <p>Modal content goes here.</p>
@@ -79,9 +77,7 @@ function ControlledModal() {
       <ModalContent>
         <ModalHeader>
           <ModalTitle>Controlled Modal</ModalTitle>
-          <ModalDescription>
-            This modal's state is controlled.
-          </ModalDescription>
+          <ModalDescription>This modal's state is controlled.</ModalDescription>
         </ModalHeader>
         <ModalFooter>
           <Button onClick={() => setOpen(false)}>Close</Button>
@@ -126,9 +122,7 @@ function FormModal() {
       <ModalContent size="lg">
         <ModalHeader>
           <ModalTitle>Create Account</ModalTitle>
-          <ModalDescription>
-            Fill out the form below.
-          </ModalDescription>
+          <ModalDescription>Fill out the form below.</ModalDescription>
         </ModalHeader>
         <form>
           <div className="grid gap-4 py-4">
@@ -155,86 +149,86 @@ function FormModal() {
 
 Root component that provides context for the modal.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `boolean` | - | Controlled open state |
-| `onOpenChange` | `(open: boolean) => void` | - | Called when open state changes |
-| `children` | `ReactNode` | - | Modal trigger and content |
+| Prop           | Type                      | Default | Description                    |
+| -------------- | ------------------------- | ------- | ------------------------------ |
+| `open`         | `boolean`                 | -       | Controlled open state          |
+| `onOpenChange` | `(open: boolean) => void` | -       | Called when open state changes |
+| `children`     | `ReactNode`               | -       | Modal trigger and content      |
 
 ### ModalTrigger
 
 Button that opens the modal.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `asChild` | `boolean` | `false` | Render as child element |
-| `children` | `ReactNode` | - | Trigger content |
+| Prop       | Type        | Default | Description             |
+| ---------- | ----------- | ------- | ----------------------- |
+| `asChild`  | `boolean`   | `false` | Render as child element |
+| `children` | `ReactNode` | -       | Trigger content         |
 
 ### ModalContent
 
 Main modal content container.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `"sm" \| "md" \| "lg" \| "xl" \| "2xl" \| "full"` | `"md"` | Modal size |
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Modal content |
+| Prop        | Type                                              | Default | Description            |
+| ----------- | ------------------------------------------------- | ------- | ---------------------- |
+| `size`      | `"sm" \| "md" \| "lg" \| "xl" \| "2xl" \| "full"` | `"md"`  | Modal size             |
+| `className` | `string`                                          | -       | Additional CSS classes |
+| `children`  | `ReactNode`                                       | -       | Modal content          |
 
 ### ModalHeader
 
 Container for modal title and description.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Header content |
+| Prop        | Type        | Default | Description            |
+| ----------- | ----------- | ------- | ---------------------- |
+| `className` | `string`    | -       | Additional CSS classes |
+| `children`  | `ReactNode` | -       | Header content         |
 
 ### ModalTitle
 
 Modal title with proper heading semantics.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Title text |
+| Prop        | Type        | Default | Description            |
+| ----------- | ----------- | ------- | ---------------------- |
+| `className` | `string`    | -       | Additional CSS classes |
+| `children`  | `ReactNode` | -       | Title text             |
 
 ### ModalDescription
 
 Modal description for accessibility.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Description text |
+| Prop        | Type        | Default | Description            |
+| ----------- | ----------- | ------- | ---------------------- |
+| `className` | `string`    | -       | Additional CSS classes |
+| `children`  | `ReactNode` | -       | Description text       |
 
 ### ModalFooter
 
 Container for modal action buttons.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `className` | `string` | - | Additional CSS classes |
-| `children` | `ReactNode` | - | Footer content |
+| Prop        | Type        | Default | Description            |
+| ----------- | ----------- | ------- | ---------------------- |
+| `className` | `string`    | -       | Additional CSS classes |
+| `children`  | `ReactNode` | -       | Footer content         |
 
 ### ModalClose
 
 Button that closes the modal.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `asChild` | `boolean` | `false` | Render as child element |
-| `children` | `ReactNode` | - | Close button content |
+| Prop       | Type        | Default | Description             |
+| ---------- | ----------- | ------- | ----------------------- |
+| `asChild`  | `boolean`   | `false` | Render as child element |
+| `children` | `ReactNode` | -       | Close button content    |
 
 ## Size Options
 
-| Size | Max Width | Use Case |
-|------|-----------|----------|
-| `sm` | `max-w-sm` (384px) | Simple confirmations |
-| `md` | `max-w-lg` (512px) | Default size for most modals |
-| `lg` | `max-w-2xl` (672px) | Forms and detailed content |
-| `xl` | `max-w-4xl` (896px) | Complex forms and data |
-| `2xl` | `max-w-6xl` (1152px) | Large data tables |
-| `full` | `95vw x 95vh` | Maximum screen usage |
+| Size   | Max Width            | Use Case                     |
+| ------ | -------------------- | ---------------------------- |
+| `sm`   | `max-w-sm` (384px)   | Simple confirmations         |
+| `md`   | `max-w-lg` (512px)   | Default size for most modals |
+| `lg`   | `max-w-2xl` (672px)  | Forms and detailed content   |
+| `xl`   | `max-w-4xl` (896px)  | Complex forms and data       |
+| `2xl`  | `max-w-6xl` (1152px) | Large data tables            |
+| `full` | `95vw x 95vh`        | Maximum screen usage         |
 
 ## Accessibility
 

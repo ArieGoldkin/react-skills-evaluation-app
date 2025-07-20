@@ -6,7 +6,7 @@ An image element with a fallback for representing users. Built on shadcn/ui prin
 
 - **6 Size Variants**: xs (24px), sm (32px), md (40px), lg (48px), xl (64px), 2xl (80px)
 - **2 Shape Variants**: circle (default), square
-- **4 Status Indicators**: online, offline, busy, away  
+- **4 Status Indicators**: online, offline, busy, away
 - **Automatic Initials**: Generates initials from name prop
 - **Image Fallback**: Graceful fallback when image fails to load
 - **Full Accessibility**: WCAG AA compliant with proper ARIA labels
@@ -58,45 +58,45 @@ import {
 
 Main container component that handles size, shape, and status indicator positioning.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `"xs" \| "sm" \| "md" \| "lg" \| "xl" \| "2xl"` | `"md"` | Size of the avatar |
-| `shape` | `"circle" \| "square"` | `"circle"` | Shape of the avatar |
-| `status` | `"online" \| "offline" \| "busy" \| "away"` | `undefined` | Status indicator |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop        | Type                                            | Default     | Description            |
+| ----------- | ----------------------------------------------- | ----------- | ---------------------- |
+| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "xl" \| "2xl"` | `"md"`      | Size of the avatar     |
+| `shape`     | `"circle" \| "square"`                          | `"circle"`  | Shape of the avatar    |
+| `status`    | `"online" \| "offline" \| "busy" \| "away"`     | `undefined` | Status indicator       |
+| `className` | `string`                                        | `undefined` | Additional CSS classes |
 
 ### AvatarImage
 
 Image component for displaying user photos.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `src` | `string` | `undefined` | Image source URL |
-| `alt` | `string` | `"Avatar"` | Alternative text for the image |
-| `shape` | `"circle" \| "square"` | `"circle"` | Shape of the image |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop        | Type                   | Default     | Description                    |
+| ----------- | ---------------------- | ----------- | ------------------------------ |
+| `src`       | `string`               | `undefined` | Image source URL               |
+| `alt`       | `string`               | `"Avatar"`  | Alternative text for the image |
+| `shape`     | `"circle" \| "square"` | `"circle"`  | Shape of the image             |
+| `className` | `string`               | `undefined` | Additional CSS classes         |
 
 ### AvatarFallback
 
 Fallback component displayed when image fails to load or isn't provided.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `name` | `string` | `undefined` | Name to generate initials from |
-| `size` | `"xs" \| "sm" \| "md" \| "lg" \| "xl" \| "2xl"` | `"md"` | Size for text scaling |
-| `shape` | `"circle" \| "square"` | `"circle"` | Shape of the fallback |
-| `children` | `React.ReactNode` | `undefined` | Custom fallback content |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop        | Type                                            | Default     | Description                    |
+| ----------- | ----------------------------------------------- | ----------- | ------------------------------ |
+| `name`      | `string`                                        | `undefined` | Name to generate initials from |
+| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "xl" \| "2xl"` | `"md"`      | Size for text scaling          |
+| `shape`     | `"circle" \| "square"`                          | `"circle"`  | Shape of the fallback          |
+| `children`  | `React.ReactNode`                               | `undefined` | Custom fallback content        |
+| `className` | `string`                                        | `undefined` | Additional CSS classes         |
 
 ### AvatarStatus
 
 Status indicator component (rendered automatically when status prop is provided).
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `status` | `"online" \| "offline" \| "busy" \| "away"` | `undefined` | Status type |
-| `size` | `"xs" \| "sm" \| "md" \| "lg" \| "xl" \| "2xl"` | `"md"` | Size of the status indicator |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop        | Type                                            | Default     | Description                  |
+| ----------- | ----------------------------------------------- | ----------- | ---------------------------- |
+| `status`    | `"online" \| "offline" \| "busy" \| "away"`     | `undefined` | Status type                  |
+| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "xl" \| "2xl"` | `"md"`      | Size of the status indicator |
+| `className` | `string`                                        | `undefined` | Additional CSS classes       |
 
 ## Examples
 
@@ -104,12 +104,24 @@ Status indicator component (rendered automatically when status prop is provided)
 
 ```tsx
 <div className="flex items-center gap-4">
-  <Avatar size="xs"><AvatarFallback name="John Doe" /></Avatar>
-  <Avatar size="sm"><AvatarFallback name="John Doe" /></Avatar>
-  <Avatar size="md"><AvatarFallback name="John Doe" /></Avatar>
-  <Avatar size="lg"><AvatarFallback name="John Doe" /></Avatar>
-  <Avatar size="xl"><AvatarFallback name="John Doe" /></Avatar>
-  <Avatar size="2xl"><AvatarFallback name="John Doe" /></Avatar>
+  <Avatar size="xs">
+    <AvatarFallback name="John Doe" />
+  </Avatar>
+  <Avatar size="sm">
+    <AvatarFallback name="John Doe" />
+  </Avatar>
+  <Avatar size="md">
+    <AvatarFallback name="John Doe" />
+  </Avatar>
+  <Avatar size="lg">
+    <AvatarFallback name="John Doe" />
+  </Avatar>
+  <Avatar size="xl">
+    <AvatarFallback name="John Doe" />
+  </Avatar>
+  <Avatar size="2xl">
+    <AvatarFallback name="John Doe" />
+  </Avatar>
 </div>
 ```
 
@@ -130,10 +142,18 @@ Status indicator component (rendered automatically when status prop is provided)
 
 ```tsx
 <div className="flex items-center gap-4">
-  <Avatar status="online"><AvatarFallback name="John Doe" /></Avatar>
-  <Avatar status="offline"><AvatarFallback name="Jane Smith" /></Avatar>
-  <Avatar status="busy"><AvatarFallback name="Bob Wilson" /></Avatar>
-  <Avatar status="away"><AvatarFallback name="Alice Johnson" /></Avatar>
+  <Avatar status="online">
+    <AvatarFallback name="John Doe" />
+  </Avatar>
+  <Avatar status="offline">
+    <AvatarFallback name="Jane Smith" />
+  </Avatar>
+  <Avatar status="busy">
+    <AvatarFallback name="Bob Wilson" />
+  </Avatar>
+  <Avatar status="away">
+    <AvatarFallback name="Alice Johnson" />
+  </Avatar>
 </div>
 ```
 
@@ -142,17 +162,33 @@ Status indicator component (rendered automatically when status prop is provided)
 The component automatically generates initials from the `name` prop:
 
 ```tsx
-{/* Single name -> "J" */}
-<Avatar><AvatarFallback name="John" /></Avatar>
+{
+  /* Single name -> "J" */
+}
+<Avatar>
+  <AvatarFallback name="John" />
+</Avatar>;
 
-{/* Two names -> "JD" */}
-<Avatar><AvatarFallback name="John Doe" /></Avatar>
+{
+  /* Two names -> "JD" */
+}
+<Avatar>
+  <AvatarFallback name="John Doe" />
+</Avatar>;
 
-{/* Multiple names -> First + Last -> "JS" */}
-<Avatar><AvatarFallback name="John Michael Doe Smith" /></Avatar>
+{
+  /* Multiple names -> First + Last -> "JS" */
+}
+<Avatar>
+  <AvatarFallback name="John Michael Doe Smith" />
+</Avatar>;
 
-{/* Custom fallback (overrides name) */}
-<Avatar><AvatarFallback name="John Doe">Custom</AvatarFallback></Avatar>
+{
+  /* Custom fallback (overrides name) */
+}
+<Avatar>
+  <AvatarFallback name="John Doe">Custom</AvatarFallback>
+</Avatar>;
 ```
 
 ### User Profile Card
@@ -193,8 +229,11 @@ The component automatically generates initials from the `name` prop:
 
 ```tsx
 <div className="space-y-2">
-  {teamMembers.map((member) => (
-    <div key={member.id} className="flex items-center gap-3 p-2 hover:bg-muted rounded-md">
+  {teamMembers.map(member => (
+    <div
+      key={member.id}
+      className="flex items-center gap-3 p-2 hover:bg-muted rounded-md"
+    >
       <Avatar size="md" status={member.status}>
         <AvatarImage src={member.avatar} alt={member.name} />
         <AvatarFallback name={member.name} />
@@ -221,18 +260,26 @@ The Avatar component is built with accessibility in mind:
 ### Accessibility Features
 
 ```tsx
-{/* Automatic ARIA labels */}
+{
+  /* Automatic ARIA labels */
+}
 <Avatar status="online">
   <AvatarFallback name="John Doe" />
-</Avatar>
-{/* Results in aria-label="Status: online" for status indicator */}
-{/* Results in aria-label="John Doe's avatar" for fallback */}
+</Avatar>;
+{
+  /* Results in aria-label="Status: online" for status indicator */
+}
+{
+  /* Results in aria-label="John Doe's avatar" for fallback */
+}
 
-{/* Custom alt text for images */}
+{
+  /* Custom alt text for images */
+}
 <Avatar>
   <AvatarImage src="/user.jpg" alt="Profile picture of John Doe" />
   <AvatarFallback name="John Doe" />
-</Avatar>
+</Avatar>;
 ```
 
 ## Styling and Customization
@@ -335,6 +382,7 @@ npm test avatar.test.tsx
 ## Changelog
 
 ### v1.0.0
+
 - ✅ Initial implementation with shadcn/ui compatibility
 - ✅ Size variants (xs, sm, md, lg, xl, 2xl)
 - ✅ Shape variants (circle, square)
