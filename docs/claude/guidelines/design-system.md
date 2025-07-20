@@ -1,12 +1,15 @@
 # Design System Development Guidelines
 
 ## Overview
+
 This guide provides comprehensive instructions for Claude AI when working on the Skills Evaluation design system. It covers component development, testing, documentation, and quality standards to ensure consistency and maintainability.
 
 ## Quick Reference
+
 **Primary Goal**: Build a robust, accessible, and performant design system using modern React patterns with TypeScript.
 
 ### Essential Commands
+
 ```bash
 # Start Storybook for development
 npm run design-system:storybook
@@ -24,6 +27,7 @@ cd packages/design-system && npm run type-check
 ## Component Development Priority System
 
 ### 🥇 First Choice: shadcn/ui Components
+
 **Always start here** - Check if shadcn/ui has the component:
 
 ```bash
@@ -35,6 +39,7 @@ npx shadcn-ui@latest add button
 ```
 
 **Why shadcn/ui First:**
+
 - Battle-tested implementations with community validation
 - Consistent API patterns across components
 - Built-in accessibility and keyboard navigation
@@ -42,6 +47,7 @@ npx shadcn-ui@latest add button
 - Well-maintained with regular updates
 
 ### 🥈 Second Choice: Radix UI Primitives
+
 If shadcn/ui doesn't provide the component, build on Radix primitives:
 
 ```tsx
@@ -52,9 +58,7 @@ export const Modal = ({ children, ...props }) => {
     <Dialog.Root {...props}>
       <Dialog.Portal>
         <Dialog.Overlay className="modal-overlay" />
-        <Dialog.Content className="modal-content">
-          {children}
-        </Dialog.Content>
+        <Dialog.Content className="modal-content">{children}</Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
   );
@@ -62,15 +66,18 @@ export const Modal = ({ children, ...props }) => {
 ```
 
 **Radix UI Benefits:**
+
 - Unstyled, accessible primitives
 - Comprehensive keyboard navigation built-in
 - ARIA attributes handled automatically
 - Flexible composition patterns
 
 ### 🥉 Last Resort: Custom Implementation
+
 Only when neither shadcn/ui nor Radix UI provides the functionality:
 
 **Requirements for Custom Components:**
+
 - ✅ Full WCAG AA accessibility compliance
 - ✅ Comprehensive keyboard navigation
 - ✅ Proper ARIA attributes and roles
@@ -81,10 +88,11 @@ Only when neither shadcn/ui nor Radix UI provides the functionality:
 ## Component Structure & Organization
 
 ### Mandatory Folder Structure
+
 ```
 packages/design-system/src/components/[category]/[component-name]/
 ├── index.ts                    # Main export
-├── [component-name].tsx        # Component implementation  
+├── [component-name].tsx        # Component implementation
 ├── [component-name].stories.tsx # Storybook stories
 ├── [component-name].test.tsx   # Unit tests
 ├── [component-name].types.ts   # TypeScript interfaces (if complex)
@@ -92,8 +100,9 @@ packages/design-system/src/components/[category]/[component-name]/
 ```
 
 ### Component Categories
+
 - `ui/` - Base UI components (Button, Input, Text, Card)
-- `layout/` - Layout and structure (Container, Grid, AppLayout)  
+- `layout/` - Layout and structure (Container, Grid, AppLayout)
 - `forms/` - Form-specific (FormField, Select, Checkbox)
 - `data-display/` - Data visualization (Table, Badge, Avatar)
 - `feedback/` - User feedback (Toast, Alert, Loading, Progress)
@@ -102,6 +111,7 @@ packages/design-system/src/components/[category]/[component-name]/
 ## Development Workflow
 
 ### 1. Pre-Development Research
+
 ```bash
 # Check shadcn/ui availability
 npx shadcn-ui@latest add [component-name]
@@ -113,6 +123,7 @@ npx shadcn-ui@latest add [component-name]
 ```
 
 ### 2. Component Creation Process
+
 ```bash
 # Create component folder structure
 mkdir -p packages/design-system/src/components/[category]/[component-name]
@@ -126,6 +137,7 @@ touch packages/design-system/src/components/[category]/[component-name]/README.m
 ```
 
 ### 3. Development Order (Critical)
+
 1. **Component Implementation** - Core functionality with TypeScript
 2. **Storybook Stories** - All variants and interactive states
 3. **Unit Tests** - Comprehensive coverage (90% minimum)
@@ -135,6 +147,7 @@ touch packages/design-system/src/components/[category]/[component-name]/README.m
 ## Required Implementation Patterns
 
 ### Component Implementation Template
+
 ```tsx
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -149,7 +162,7 @@ const componentVariants = cva("base-classes", {
     },
     size: {
       sm: "small-styles",
-      md: "medium-styles", 
+      md: "medium-styles",
       lg: "large-styles",
     },
   },
@@ -181,6 +194,7 @@ Component.displayName = "Component";
 ```
 
 ### Storybook Stories Template
+
 ```tsx
 import type { Meta, StoryObj } from "@storybook/react";
 import { Component } from "./component";
@@ -219,7 +233,8 @@ export const AllVariants: Story = {
 };
 ```
 
-### Testing Template  
+### Testing Template
+
 ```tsx
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -263,6 +278,7 @@ describe("Component", () => {
 ## Path Aliases & Import Patterns
 
 ### Available Aliases
+
 - `@/*` → `src/*`
 - `@/components/*` → `src/components/*`
 - `@/lib/*` → `src/lib/*`
@@ -271,6 +287,7 @@ describe("Component", () => {
 - `@/styles/*` → `src/styles/*`
 
 ### Preferred Import Style
+
 ```tsx
 // ✅ Correct - Use path aliases
 import { cn } from "@/lib/utils";
@@ -284,15 +301,17 @@ import { Button } from "../../ui/button";
 ## Export Management System
 
 ### Category Index Files
+
 ```tsx
 // packages/design-system/src/components/ui/index.ts
-export * from './button';
-export * from './input'; 
-export * from './text';
-export * from './card';
+export * from "./button";
+export * from "./input";
+export * from "./text";
+export * from "./card";
 ```
 
 ### Main Package Export
+
 ```tsx
 // packages/design-system/src/index.ts
 export * from "./components/ui";
@@ -309,6 +328,7 @@ export * from "./lib/cn";
 ## Quality Standards & Requirements
 
 ### Code Quality Checklist
+
 - [ ] TypeScript strict mode compliance
 - [ ] ESLint and Prettier formatting passes
 - [ ] Comprehensive prop interfaces defined
@@ -317,6 +337,7 @@ export * from "./lib/cn";
 - [ ] displayName set for debugging
 
 ### Testing Requirements
+
 - [ ] **Minimum 90% test coverage**
 - [ ] All variants and props tested
 - [ ] Interaction testing with user-event
@@ -325,13 +346,15 @@ export * from "./lib/cn";
 - [ ] Error states and edge cases covered
 
 ### Documentation Standards
+
 - [ ] Complete Storybook stories with all variants
 - [ ] Interactive examples for complex components
 - [ ] README with usage examples
 - [ ] TypeScript interface documentation
 - [ ] Accessibility guidelines documented
 
-### Performance Requirements  
+### Performance Requirements
+
 - [ ] React.memo for pure components
 - [ ] Proper dependency arrays in hooks
 - [ ] Optimized re-render patterns
@@ -340,17 +363,20 @@ export * from "./lib/cn";
 ## Design System Specific Patterns
 
 ### Component Size Limits
+
 - **Maximum 180 lines per component file**
 - **Break down complex components** into smaller, focused pieces
 - **Extract hooks** for complex logic (> 50 lines)
 
 ### Styling Approach
+
 - **Use Tailwind CSS** for styling
 - **CVA (Class Variance Authority)** for variant management
 - **CSS Modules** only when Tailwind insufficient
 - **Consistent spacing scale** (4px base unit)
 
 ### Accessibility Requirements
+
 - **WCAG AA compliance** mandatory
 - **Keyboard navigation** for all interactive elements
 - **ARIA labels and roles** properly implemented
@@ -360,12 +386,14 @@ export * from "./lib/cn";
 ## Working with Existing Components
 
 ### Before Modifying Existing Components
+
 1. **Read component README** to understand purpose
 2. **Check Storybook stories** to see all variants
 3. **Run existing tests** to ensure they pass
 4. **Review usage** in the app package
 
 ### Modification Process
+
 1. **Update component implementation**
 2. **Add/update Storybook stories** for new variants
 3. **Add/update tests** for new functionality
@@ -375,6 +403,7 @@ export * from "./lib/cn";
 ## Troubleshooting Common Issues
 
 ### Build Issues
+
 ```bash
 # Check TypeScript errors
 cd packages/design-system && npm run type-check
@@ -384,6 +413,7 @@ npm run build 2>&1 | grep -i circular
 ```
 
 ### Test Issues
+
 ```bash
 # Run tests with verbose output
 npm run test -- --verbose
@@ -393,6 +423,7 @@ npm run test button.test.tsx
 ```
 
 ### Storybook Issues
+
 ```bash
 # Clear Storybook cache
 rm -rf .storybook-cache
@@ -404,6 +435,7 @@ npm run design-system:storybook
 ## Integration with App Package
 
 ### Using Design System Components
+
 ```tsx
 // In app package
 import { Button, Input, Card } from "@skills-eval/design-system";
@@ -419,6 +451,7 @@ export function LoginForm() {
 ```
 
 ### Development Workflow
+
 1. **Develop components** in design system package
 2. **Test in Storybook** for isolation
 3. **Import and use** in app package
@@ -427,6 +460,7 @@ export function LoginForm() {
 ## Success Metrics
 
 ### Component Quality Indicators
+
 - ✅ All tests passing with 90%+ coverage
 - ✅ Storybook stories comprehensive and interactive
 - ✅ Documentation complete with examples
@@ -435,6 +469,7 @@ export function LoginForm() {
 - ✅ Used successfully in app package
 
 ### Process Efficiency
+
 - ✅ shadcn/ui checked first for existing solutions
 - ✅ Radix UI used for accessible primitives
 - ✅ Custom implementation only when necessary

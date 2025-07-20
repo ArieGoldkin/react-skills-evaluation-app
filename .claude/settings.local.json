@@ -16,7 +16,13 @@
       "Bash(ls:*)",
       "Bash(npx vitest:*)",
       "Bash(find:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "mcp__MCP_DOCKER__list_workflows",
+      "mcp__MCP_DOCKER__list_workflow_runs",
+      "mcp__MCP_DOCKER__get_workflow_run",
+      "mcp__MCP_DOCKER__get_job_logs",
+      "Bash(npm run format:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   },

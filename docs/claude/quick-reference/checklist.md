@@ -1,11 +1,13 @@
 # Component Creation Checklist
 
 ## Pre-Development
+
 - [ ] Check for existing shadcn/ui component
 - [ ] Check for Radix UI primitive if shadcn/ui unavailable
 - [ ] Research existing patterns in codebase
 
 ## Component Development
+
 - [ ] Create proper directory structure
 - [ ] Implement with TypeScript interfaces
 - [ ] Keep under 180 lines
@@ -14,6 +16,7 @@
 - [ ] Set displayName for debugging
 
 ## Testing & Documentation
+
 - [ ] Add comprehensive Storybook stories
 - [ ] Write unit tests (90% coverage minimum)
 - [ ] Include accessibility tests
@@ -22,6 +25,7 @@
 - [ ] Update main package exports
 
 ## Quality Assurance
+
 - [ ] Ensure WCAG AA accessibility compliance
 - [ ] Test keyboard navigation
 - [ ] Verify proper ARIA attributes
@@ -31,6 +35,7 @@
 - [ ] Verify integration with app package
 
 ## Security & Performance
+
 - [ ] No hardcoded secrets or API keys
 - [ ] Sanitize user inputs if applicable
 - [ ] Implement proper error handling

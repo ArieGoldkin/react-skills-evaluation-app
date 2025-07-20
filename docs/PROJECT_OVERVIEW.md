@@ -16,29 +16,34 @@ This isn't just another portfolio tracker. We're building an intelligent system 
 ## Key Features We're Implementing
 
 ### 🔐 Seamless Authentication
+
 - **Google OAuth integration** for frictionless login
 - **GitHub OAuth integration** for repository access
 - Secure session management with automatic token refresh
 
 ### 📊 Intelligent Repository Analysis
+
 - **Automated code analysis** that understands programming languages, frameworks, and tools
 - **Commit pattern analysis** to gauge consistency and collaboration skills
 - **Code quality metrics** that inform skill assessments
 - **Evidence-based skill detection** rather than self-reported abilities
 
 ### 🎯 Skills Dashboard
+
 - **Visual skills matrix** with 1-10 proficiency scales
 - **Categorized skill display** (programming languages, frameworks, tools, soft skills)
 - **Supporting evidence** from actual repository activity
 - **Progress tracking** with historical data and trends
 
 ### 🤖 AI-Powered Guidance
+
 - **Conversational AI interface** that understands your specific skill profile
 - **Personalized recommendations** based on your current skills and career goals
 - **Learning path generation** with structured roadmaps for improvement
 - **Market-aware suggestions** that consider industry demands
 
 ### 📈 Progress Tracking
+
 - **Historical skill progression** with visual charts and analytics
 - **Achievement highlighting** when significant improvements occur
 - **Baseline establishment** for future growth measurement
@@ -47,6 +52,7 @@ This isn't just another portfolio tracker. We're building an intelligent system 
 ## Technical Architecture
 
 ### Monorepo Structure
+
 ```
 aiSkillimprove/
 ├── packages/
@@ -57,6 +63,7 @@ aiSkillimprove/
 ```
 
 ### Technology Stack
+
 - **Frontend**: React 19 with Next.js 15 App Router
 - **State Management**: TanStack Query for server state, Context API for app state
 - **UI Framework**: Custom design system built on shadcn/ui and Radix UI
@@ -66,6 +73,7 @@ aiSkillimprove/
 - **AI Integration**: OpenAI API for recommendations and chat functionality
 
 ### External Service Integrations
+
 - **Google OAuth**: User authentication and profile data
 - **GitHub API**: Repository access, commit analysis, code metrics
 - **OpenAI API**: AI chat interface and personalized recommendations
@@ -75,6 +83,7 @@ aiSkillimprove/
 ## User Journey
 
 ### 1. Onboarding Flow
+
 1. User visits the application
 2. Authenticates via Google OAuth
 3. Connects GitHub repositories (optional but recommended)
@@ -82,6 +91,7 @@ aiSkillimprove/
 5. Initial skill profile is generated and displayed
 
 ### 2. Skill Discovery
+
 1. System analyzes connected repositories for:
    - Programming languages used and frequency
    - Frameworks and libraries identified
@@ -91,18 +101,21 @@ aiSkillimprove/
 3. Evidence from repository activity supports each skill rating
 
 ### 3. Dashboard Experience
+
 1. Visual skills matrix shows current proficiency levels
 2. Activity feed displays recent coding activity
 3. Progress charts show skill development over time
 4. Metric cards highlight key performance indicators
 
 ### 4. AI Interaction
+
 1. Chat interface provides personalized guidance
 2. AI understands user's specific skill profile and history
 3. Recommendations consider current skills and career goals
 4. Learning paths are generated with actionable next steps
 
 ### 5. Continuous Improvement
+
 1. Regular repository syncing updates skill assessments
 2. Progress tracking shows improvement over time
 3. New recommendations adapt to skill changes
@@ -111,6 +124,7 @@ aiSkillimprove/
 ## Development Approach
 
 ### Quality Standards
+
 - **Component size limit**: 180 lines maximum
 - **TypeScript throughout**: No 'any' types, proper interfaces
 - **Test coverage**: Minimum 80% for business logic
@@ -118,12 +132,14 @@ aiSkillimprove/
 - **Performance**: Code splitting, memoization, optimized loading
 
 ### Development Workflow
+
 1. **Component-driven development** with Storybook documentation
 2. **Test-driven development** for core business logic
 3. **Quality gates** with automated lint, type-check, and test validation
 4. **Monorepo benefits** with shared design system and utilities
 
 ### Security & Privacy
+
 - **OAuth-only authentication** - no password storage
 - **Repository privacy respect** - private repo data stays private
 - **Encrypted data storage** for sensitive information
@@ -132,12 +148,14 @@ aiSkillimprove/
 ## Current Implementation Status
 
 Based on the task tracking, we have completed:
+
 - ✅ Next.js 15 project initialization with React 19
 - ✅ Development environment and tooling configuration
 - ✅ Monorepo structure with design system package
 - ✅ Google OAuth authentication implementation
 
 Currently working on:
+
 - 🔄 JWT token management and session handling
 - 🔄 User management system and profile data
 - 📋 Database schema design and implementation
@@ -145,12 +163,14 @@ Currently working on:
 ## Project Goals
 
 ### Primary Objectives
+
 1. **Accurate skill assessment** through automated repository analysis
 2. **Actionable insights** that help developers improve strategically
 3. **Engaging user experience** with intuitive design and AI guidance
 4. **Evidence-based recommendations** grounded in actual coding activity
 
 ### Success Metrics
+
 - **User engagement**: Regular return visits and feature usage
 - **Skill improvement tracking**: Measurable progress over time
 - **Recommendation effectiveness**: User adoption of suggested learning paths
@@ -159,6 +179,7 @@ Currently working on:
 ## Why This Matters
 
 In today's rapidly evolving tech landscape, developers need:
+
 - **Objective skill assessment** beyond self-reporting
 - **Data-driven career guidance** based on actual abilities
 - **Market-aware recommendations** that align with industry demands
@@ -169,6 +190,7 @@ This application bridges the gap between where developers are and where they wan
 ## Next Steps
 
 The immediate focus is on completing the core infrastructure:
+
 1. **Database and data layer** implementation
 2. **GitHub integration** for repository analysis
 3. **TanStack Query setup** for efficient data management

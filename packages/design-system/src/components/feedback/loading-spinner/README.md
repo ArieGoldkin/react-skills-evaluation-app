@@ -14,16 +14,16 @@ export function Example() {
 
 ## Props
 
-| Prop         | Type                                         | Default      | Description                                          |
-| ------------ | -------------------------------------------- | ------------ | ---------------------------------------------------- |
-| size         | 'sm' \| 'default' \| 'lg'                    | 'default'    | Size of the spinner                                  |
-| speed        | 'slow' \| 'default' \| 'fast'                | 'default'    | Animation speed (2s \| 1s \| 0.5s)                  |
-| direction    | 'horizontal' \| 'vertical'                   | 'horizontal' | Layout direction when text is present                |
-| show         | boolean                                      | true         | Controls visibility of the spinner                   |
-| text         | string                                       | undefined    | Optional loading text to display                     |
-| children     | React.ReactNode                              | undefined    | Alternative to text prop                             |
-| aria-label   | string                                       | 'Loading'    | Accessible label for screen readers                  |
-| className    | string                                       | undefined    | Additional CSS classes                               |
+| Prop       | Type                          | Default      | Description                           |
+| ---------- | ----------------------------- | ------------ | ------------------------------------- |
+| size       | 'sm' \| 'default' \| 'lg'     | 'default'    | Size of the spinner                   |
+| speed      | 'slow' \| 'default' \| 'fast' | 'default'    | Animation speed (2s \| 1s \| 0.5s)    |
+| direction  | 'horizontal' \| 'vertical'    | 'horizontal' | Layout direction when text is present |
+| show       | boolean                       | true         | Controls visibility of the spinner    |
+| text       | string                        | undefined    | Optional loading text to display      |
+| children   | React.ReactNode               | undefined    | Alternative to text prop              |
+| aria-label | string                        | 'Loading'    | Accessible label for screen readers   |
+| className  | string                        | undefined    | Additional CSS classes                |
 
 ## Examples
 
@@ -143,9 +143,9 @@ function DashboardCard() {
       </CardHeader>
       <CardContent className="min-h-32 flex items-center justify-center">
         {isLoading ? (
-          <LoadingSpinner 
-            text="Loading analytics data..." 
-            direction="vertical" 
+          <LoadingSpinner
+            text="Loading analytics data..."
+            direction="vertical"
           />
         ) : (
           <div>Chart data here</div>
@@ -213,7 +213,7 @@ function FileUploadStatus() {
 </div>
 
 // Branded experience
-<LoadingSpinner 
+<LoadingSpinner
   size="lg"
   className="text-brand-primary"
   text="Loading your personalized experience"
@@ -236,13 +236,13 @@ The LoadingSpinner component is built with accessibility in mind:
 <LoadingSpinner aria-label="Loading user profile" />
 
 // Context-specific labels
-<LoadingSpinner 
+<LoadingSpinner
   aria-label="Processing payment, this may take a moment"
   text="Processing payment..."
 />
 
 // Long operations
-<LoadingSpinner 
+<LoadingSpinner
   aria-label="Uploading large file, this may take several minutes"
   text="Uploading..."
   speed="slow"
@@ -391,10 +391,10 @@ import { Loader2 } from "lucide-react";
 
 ```tsx
 // Access to variant functions for custom implementations
-import { 
+import {
   LoadingSpinner,
   loadingSpinnerVariants,
-  loadingContainerVariants 
+  loadingContainerVariants,
 } from "@skills-eval/design-system";
 
 // Use variants directly

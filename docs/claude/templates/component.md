@@ -16,7 +16,7 @@ const componentVariants = cva("base-classes", {
     },
     size: {
       sm: "small-styles",
-      md: "medium-styles", 
+      md: "medium-styles",
       lg: "large-styles",
     },
   },
@@ -51,11 +51,12 @@ Component.displayName = "Component";
 
 ```tsx
 // index.ts
-export * from './component';
-export type { ComponentProps } from './component';
+export * from "./component";
+export type { ComponentProps } from "./component";
 ```
 
 ## Folder Structure
+
 ```
 [component-name]/
 ├── index.ts

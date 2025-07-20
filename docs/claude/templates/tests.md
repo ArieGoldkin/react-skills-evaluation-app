@@ -55,7 +55,7 @@ describe("Component", () => {
     it("handles click events", async () => {
       const handleClick = jest.fn();
       render(<Component onClick={handleClick}>Clickable</Component>);
-      
+
       await userEvent.click(screen.getByText("Clickable"));
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
@@ -64,6 +64,7 @@ describe("Component", () => {
 ```
 
 ## Testing Requirements
+
 - Minimum 90% test coverage
 - Test all variants and props
 - Include accessibility testing

@@ -1,6 +1,7 @@
 # Design System Folder Structure Guidelines
 
 ## Overview
+
 This document defines the standardized folder structure for the Skills Evaluation App Design System, ensuring consistency, maintainability, and scalability.
 
 ## Main Package Structure
@@ -19,7 +20,7 @@ packages/design-system/
 │   │   ├── ui/                   # Base UI components (shadcn/ui based)
 │   │   ├── layout/               # Layout and structure components
 │   │   ├── forms/                # Form and input components
-│   │   ├── data-display/         # Data visualization components  
+│   │   ├── data-display/         # Data visualization components
 │   │   ├── feedback/             # Loading, error, success states
 │   │   └── navigation/           # Navigation components
 │   ├── lib/                      # Utilities and helpers
@@ -34,6 +35,7 @@ packages/design-system/
 ## Component Folder Structure
 
 ### Standard Component Structure
+
 ```
 src/components/{category}/{component-name}/
 ├── {component-name}.tsx            # Main component implementation
@@ -44,6 +46,7 @@ src/components/{category}/{component-name}/
 ```
 
 ### Complex Component Structure (with sub-components)
+
 ```
 src/components/{category}/{component-name}/
 ├── {component-name}.tsx            # Main component
@@ -63,6 +66,7 @@ src/components/{category}/{component-name}/
 ## Category Definitions
 
 ### 1. UI Components (`src/components/ui/`)
+
 **Purpose**: Base UI components, primarily based on shadcn/ui
 **Examples**: Button, Input, Text, Card, Badge
 
@@ -70,7 +74,7 @@ src/components/{category}/{component-name}/
 src/components/ui/
 ├── button/
 │   ├── button.tsx               ✅ COMPLETED
-│   ├── button.stories.tsx       ✅ COMPLETED  
+│   ├── button.stories.tsx       ✅ COMPLETED
 │   ├── button.test.tsx          ✅ COMPLETED
 │   ├── index.ts                 ✅ COMPLETED
 │   └── README.md                ✅ COMPLETED
@@ -91,6 +95,7 @@ src/components/ui/
 ```
 
 ### 2. Layout Components (`src/components/layout/`)
+
 **Purpose**: Layout and structural components
 **Examples**: Container, Grid, AppLayout, Sidebar
 
@@ -103,6 +108,7 @@ src/components/layout/
 ```
 
 ### 3. Form Components (`src/components/forms/`)
+
 **Purpose**: Form-specific components and wrappers
 **Examples**: FormField, Select, Checkbox, Radio
 
@@ -116,6 +122,7 @@ src/components/forms/
 ```
 
 ### 4. Data Display Components (`src/components/data-display/`)
+
 **Purpose**: Components for displaying data and information
 **Examples**: Table, Avatar, Badge, List
 
@@ -128,6 +135,7 @@ src/components/data-display/
 ```
 
 ### 5. Feedback Components (`src/components/feedback/`)
+
 **Purpose**: Loading states, alerts, notifications
 **Examples**: Spinner, Toast, Alert, Progress
 
@@ -141,6 +149,7 @@ src/components/feedback/
 ```
 
 ### 6. Navigation Components (`src/components/navigation/`)
+
 **Purpose**: Navigation and routing components
 **Examples**: Tabs, Breadcrumb, Menu, Pagination
 
@@ -156,6 +165,7 @@ src/components/navigation/
 ## File Naming Conventions
 
 ### Component Files
+
 - **Main Component**: `{component-name}.tsx` (kebab-case)
 - **Stories**: `{component-name}.stories.tsx`
 - **Tests**: `{component-name}.test.tsx`
@@ -163,6 +173,7 @@ src/components/navigation/
 - **Documentation**: `README.md`
 
 ### Examples
+
 ```
 ✅ Good:
 - input.tsx
@@ -179,6 +190,7 @@ src/components/navigation/
 ```
 
 ### Component Names (in code)
+
 - **Export Name**: PascalCase (`Input`, `DropdownMenu`, `FormField`)
 - **Display Name**: PascalCase (`Input`, `DropdownMenu`, `FormField`)
 - **File Name**: kebab-case (`input.tsx`, `dropdown-menu.tsx`)
@@ -186,14 +198,16 @@ src/components/navigation/
 ## Index File Structure
 
 ### Component Index (`src/components/{category}/index.ts`)
+
 ```typescript
 // Export all components in this category
-export * from './component-one';
-export * from './component-two';
-export * from './component-three';
+export * from "./component-one";
+export * from "./component-two";
+export * from "./component-three";
 ```
 
 ### Main Package Index (`src/index.ts`)
+
 ```typescript
 // Core UI Components
 export * from "./components/ui";
@@ -227,16 +241,19 @@ export * from "./hooks";
 ## Documentation Structure
 
 ### Component README Template
-```markdown
+
+````markdown
 # {Component Name}
 
 Brief description of the component.
 
 ## Features
+
 - Feature 1
 - Feature 2
 
 ## Basic Usage
+
 \```tsx
 import { ComponentName } from "@skills-eval/design-system";
 
@@ -244,20 +261,25 @@ import { ComponentName } from "@skills-eval/design-system";
 \```
 
 ## Props
+
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ---- | ---- | ------- | ----------- |
 
 ## Examples
+
 [Various usage examples]
 
 ## Accessibility
+
 [Accessibility guidelines]
 
 ## Best Practices
+
 [Usage recommendations]
-```
+````
 
 ### Main Documentation Structure
+
 ```
 docs/
 ├── tasks/                      # Implementation tracking
@@ -278,6 +300,7 @@ docs/
 ## Storybook Organization
 
 ### Story File Structure
+
 ```typescript
 import type { Meta, StoryObj } from "@storybook/react";
 import { ComponentName } from "./component-name";
@@ -292,13 +315,22 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Stories
-export const Default: Story = { /* ... */ };
-export const Variants: Story = { /* ... */ };
-export const States: Story = { /* ... */ };
-export const Interactive: Story = { /* ... */ };
+export const Default: Story = {
+  /* ... */
+};
+export const Variants: Story = {
+  /* ... */
+};
+export const States: Story = {
+  /* ... */
+};
+export const Interactive: Story = {
+  /* ... */
+};
 ```
 
 ### Story Naming Convention
+
 - **Default**: Basic usage example
 - **Variants**: Showcase different variants
 - **Sizes**: Different size options
@@ -310,6 +342,7 @@ export const Interactive: Story = { /* ... */ };
 ## Testing Structure
 
 ### Test File Organization
+
 ```typescript
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -341,6 +374,7 @@ describe("ComponentName", () => {
 ## Best Practices
 
 ### ✅ Do
+
 - Use kebab-case for file names
 - Use PascalCase for component names
 - Keep components in organized category folders
@@ -350,6 +384,7 @@ describe("ComponentName", () => {
 - Use descriptive story names
 
 ### ❌ Don't
+
 - Mix naming conventions
 - Create deep folder nesting unnecessarily
 - Skip documentation files
@@ -360,6 +395,7 @@ describe("ComponentName", () => {
 ## Migration Guidelines
 
 ### Adding New Components
+
 1. **Choose Category**: Determine appropriate category folder
 2. **Create Folder**: Follow standard folder structure
 3. **Implement Component**: Follow component patterns
@@ -370,6 +406,7 @@ describe("ComponentName", () => {
 8. **Update Docs**: Update progress tracking
 
 ### Refactoring Existing Components
+
 1. **Plan Structure**: Design new folder structure
 2. **Create Migration Plan**: Document breaking changes
 3. **Implement Gradually**: Phase the migration
@@ -380,6 +417,7 @@ describe("ComponentName", () => {
 ## Conclusion
 
 This folder structure provides:
+
 - **Organization**: Clear categorization of components
 - **Scalability**: Easy to add new components and categories
 - **Maintainability**: Consistent patterns and documentation

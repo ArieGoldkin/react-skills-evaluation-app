@@ -1,7 +1,7 @@
-import '@testing-library/jest-dom'
+import "@testing-library/jest-dom";
 
 // Mock Next.js router
-vi.mock('next/navigation', () => ({
+vi.mock("next/navigation", () => ({
   useRouter: () => ({
     push: vi.fn(),
     replace: vi.fn(),
@@ -11,31 +11,31 @@ vi.mock('next/navigation', () => ({
     refresh: vi.fn(),
   }),
   useSearchParams: () => new URLSearchParams(),
-  usePathname: () => '',
-}))
+  usePathname: () => "",
+}));
 
 // Mock environment variables
-Object.defineProperty(process.env, 'NODE_ENV', {
-  value: 'test',
+Object.defineProperty(process.env, "NODE_ENV", {
+  value: "test",
   writable: true,
   enumerable: true,
-  configurable: true
-})
+  configurable: true,
+});
 
 // Global test utilities
 global.ResizeObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
   disconnect: vi.fn(),
-}))
+}));
 
 global.IntersectionObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
   disconnect: vi.fn(),
-}))
+}));
 
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query: string) => ({
     matches: false,
@@ -47,4 +47,4 @@ Object.defineProperty(window, 'matchMedia', {
     removeEventListener: vi.fn(),
     dispatchEvent: vi.fn(),
   })),
-})
+});

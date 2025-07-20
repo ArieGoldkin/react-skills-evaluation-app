@@ -50,6 +50,7 @@ export const Interactive: Story = {
 ```
 
 ## Story Categories
+
 - `Components/UI/` - Base UI components
 - `Components/Layout/` - Layout components
 - `Components/Forms/` - Form components
