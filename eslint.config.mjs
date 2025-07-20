@@ -174,6 +174,7 @@ export default [
         HTMLSpanElement: "readonly",
         HTMLParagraphElement: "readonly",
         HTMLHeadingElement: "readonly",
+        HTMLImageElement: "readonly",
         HTMLElement: "readonly",
         Element: "readonly",
         Node: "readonly",
@@ -185,6 +186,8 @@ export default [
         ChangeEvent: "readonly",
         React: "readonly",
         JSX: "readonly",
+        fetch: "readonly",
+        global: "readonly",
       },
     },
     rules: {

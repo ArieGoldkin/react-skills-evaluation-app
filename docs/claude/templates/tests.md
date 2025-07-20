@@ -5,6 +5,7 @@
 ```tsx
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import { Component } from "./component";
 
 describe("Component", () => {
@@ -53,7 +54,7 @@ describe("Component", () => {
 
   describe("Interactions", () => {
     it("handles click events", async () => {
-      const handleClick = jest.fn();
+      const handleClick = vi.fn();
       render(<Component onClick={handleClick}>Clickable</Component>);
 
       await userEvent.click(screen.getByText("Clickable"));
@@ -65,8 +66,9 @@ describe("Component", () => {
 
 ## Testing Requirements
 
-- Minimum 90% test coverage
+- Minimum 80% test coverage (Vitest with V8 coverage)
 - Test all variants and props
-- Include accessibility testing
-- Test user interactions
+- Include accessibility testing with @axe-core/react
+- Test user interactions with @testing-library/user-event
 - Cover error states and edge cases
+- Use Vitest's vi.fn() for mocking instead of jest.fn()

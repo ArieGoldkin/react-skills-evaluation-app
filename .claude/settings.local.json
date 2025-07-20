@@ -22,10 +22,17 @@
       "mcp__MCP_DOCKER__get_workflow_run",
       "mcp__MCP_DOCKER__get_job_logs",
       "Bash(npm run format:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "mcp__MCP_DOCKER__resolve-library-id",
+      "mcp__MCP_DOCKER__get-library-docs",
+      "Bash(npx eslint:*)",
+      "Bash(git checkout:*)",
+      "Bash(git rm:*)"
     ],
     "deny": []
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["MCP_DOCKER"]
+  "enabledMcpjsonServers": [
+    "MCP_DOCKER"
+  ]
 }
