@@ -90,20 +90,12 @@ export async function PUT(
     }
 
     // Update skill
-    const updateData: Partial<{
-      name: string;
-      categoryId: string;
-      proficiency: number;
-      description: string | null;
-      tags: string[];
-      verified: boolean;
-      lastAssessed: Date;
-    }> = {};
+    const updateData: any = {};
     if (name !== undefined) updateData.name = name;
     if (categoryId !== undefined) updateData.categoryId = categoryId;
     if (proficiency !== undefined) updateData.proficiency = proficiency;
     if (description !== undefined) updateData.description = description;
-    if (tags !== undefined) updateData.tags = tags;
+    if (tags !== undefined) updateData.tags = JSON.stringify(tags);
     if (verified !== undefined) updateData.verified = verified;
     if (
       proficiency !== undefined &&

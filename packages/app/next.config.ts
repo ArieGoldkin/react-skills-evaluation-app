@@ -8,15 +8,6 @@ const nextConfig: NextConfig = {
   experimental: {
     // Enable React 19 features
     reactCompiler: false, // Will be enabled when stable
-
-    // Performance optimizations
-    optimizePackageImports: [
-      "@radix-ui/react-slot",
-      "lucide-react",
-      "class-variance-authority",
-      "clsx",
-      "tailwind-merge",
-    ],
   },
 
   // Image optimization configuration

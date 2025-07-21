@@ -34,10 +34,13 @@
       "Bash(npm run:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "mcp__MCP_DOCKER__get_pull_request_status"
+      "mcp__MCP_DOCKER__get_pull_request_status",
+      "Bash(npm ls:*)"
     ],
     "deny": []
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["MCP_DOCKER"]
+  "enabledMcpjsonServers": [
+    "MCP_DOCKER"
+  ]
 }
