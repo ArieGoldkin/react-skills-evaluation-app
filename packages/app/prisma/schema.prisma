@@ -9,9 +9,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
-  relationMode = "prisma"
 }
 
 // NextAuth models for authentication
@@ -21,12 +20,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.LongText
-  access_token      String? @db.LongText
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.LongText
+  id_token          String? @db.Text
   session_state     String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
