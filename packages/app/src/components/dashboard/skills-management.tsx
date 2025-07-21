@@ -29,9 +29,7 @@ export interface SkillsManagementProps {
     lastAssessed?: Date;
   }>;
   selectedCategories: string[];
-  searchQuery: string;
   onCategoriesChange: (categories: string[]) => void;
-  onSearchChange: (query: string) => void;
   onAddSkill: () => void;
   onEditSkill: (id: string) => void;
   onDeleteSkill: (id: string) => void;
@@ -45,9 +43,7 @@ export const SkillsManagement: React.FC<SkillsManagementProps> = ({
   categories,
   skills,
   selectedCategories,
-  searchQuery,
   onCategoriesChange,
-  onSearchChange,
   onAddSkill,
   onEditSkill,
   onDeleteSkill,
@@ -82,9 +78,7 @@ export const SkillsManagement: React.FC<SkillsManagementProps> = ({
           }))}
           selectedCategories={selectedCategories}
           onSelectionChange={onCategoriesChange}
-          searchValue={searchQuery}
-          onSearchChange={onSearchChange}
-          isLoading={isLoadingCategories}
+          loading={isLoadingCategories}
           variant="default"
         />
       </div>

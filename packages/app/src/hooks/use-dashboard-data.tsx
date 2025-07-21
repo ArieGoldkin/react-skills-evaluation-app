@@ -5,16 +5,13 @@ import { useMemo } from "react";
 
 export interface UseDashboardDataProps {
   selectedCategories: string[];
-  searchQuery: string;
 }
 
 export const useDashboardData = ({
   selectedCategories,
-  searchQuery,
 }: UseDashboardDataProps) => {
   // Data hooks
   const skillsFilters = {
-    search: searchQuery,
     sortBy: "updatedAt" as const,
     order: "desc" as const,
     ...(selectedCategories.length > 0 && { categoryId: selectedCategories[0] }),
