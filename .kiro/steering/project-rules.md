@@ -8,6 +8,91 @@ inclusion: always
 
 A React 19-based application that evaluates user skills through multiple data sources including personal information, Git repository analysis, and Google account integration. The app provides personalized skill assessments and AI-powered recommendations using a custom design system built on shadcn/ui.
 
+**Current Implementation Status:**
+
+- ✅ Next.js 15 project with React 19 initialized
+- ✅ Comprehensive design system (13/25+ components, 52% complete)
+- ✅ 418 tests passing across all components (Vitest framework)
+- ✅ Google OAuth authentication implemented
+- ✅ JWT token management and session handling
+- 🔄 Database schema design and GitHub integration in progress
+- 📋 Next priority: Dropdown Menu Component implementation
+
+**Related Documentation:**
+
+- [docs/PROJECT_OVERVIEW.md](../../docs/PROJECT_OVERVIEW.md) - Comprehensive project overview
+- [docs/tasks/current-progress.md](../../docs/tasks/current-progress.md) - Real-time implementation status
+- [docs/tasks/implementation-plan.md](../../docs/tasks/implementation-plan.md) - Master roadmap
+- [docs/claude/guidelines/design-system.md](../../docs/claude/guidelines/design-system.md) - Component development guide
+
+### 📊 Design System Status
+
+- **Total Tests**: 418 tests passing across all components
+- **Testing Framework**: Vitest (fully migrated from Jest)
+- **TypeScript Compliance**: 100% - Zero compilation errors
+- **Accessibility**: WCAG AA compliance on all components
+- **Documentation**: Complete READMEs and Storybook stories
+
+### Current Implementation Status
+
+**Design System Progress**: 13/25+ components completed (52% complete)
+
+- **Total Tests**: 418 tests passing across all components ✅
+- **Testing Framework**: Vitest (fully migrated from Jest) ✅
+- **TypeScript Compliance**: 100% - Zero compilation errors
+- **Accessibility**: WCAG AA compliance on all components
+- **Documentation**: Complete READMEs and Storybook stories for all
+
+**Completed Infrastructure**:
+
+- ✅ Next.js 15 project with React 19
+- ✅ Monorepo structure with design system package
+- ✅ Comprehensive design system (89% compliance score)
+- ✅ Google OAuth authentication implementation
+- ✅ JWT token management (NextAuth.js v5)
+- ✅ User management system
+
+**Documentation Structure**:
+
+- `docs/PROJECT_OVERVIEW.md` - Comprehensive project overview
+- `docs/tasks/` - Implementation planning and progress tracking
+  - `docs/tasks/implementation-plan.md` - Master roadmap with phases
+  - `docs/tasks/current-progress.md` - Real-time status tracking (13/25+ components)
+  - `docs/tasks/component-checklist.md` - Quality gates and requirements
+  - `docs/tasks/component-task-template.md` - Standardized workflow
+- `docs/claude/` - Claude AI specific guidelines
+  - `docs/claude/guidelines/design-system.md` - Component development guide
+- `docs/guidelines/` - Development standards and patterns
+
+## Current Development Workflow
+
+### Component Development Process
+
+Follow the established workflow documented in `docs/tasks/component-task-template.md`:
+
+1. **Research Phase** - Check shadcn/ui availability first, then Radix UI primitives
+2. **Implementation** - Core functionality with TypeScript (max 180 lines)
+3. **Testing** - Comprehensive test suite (90%+ coverage, 30+ tests typical)
+4. **Documentation** - Storybook stories (12+ variations) and README
+5. **Quality Gates** - Use `docs/tasks/component-checklist.md` for validation
+6. **Progress Tracking** - Update `docs/tasks/current-progress.md` with completion metrics
+
+### Current Quality Standards (Established Pattern)
+
+- **418 tests passing** across 13 completed components
+- **100% TypeScript compliance** (zero compilation errors)
+- **WCAG AA accessibility** on all components
+- **Complete documentation** (Storybook + README for each component)
+- **Vitest testing framework** (fully migrated from Jest)
+- **Component size limit** (max 180 lines per component file)
+- **Function complexity limit** (max cyclomatic complexity of 11)
+
+### Next Priority: Dropdown Menu Component
+
+**Location**: `packages/design-system/src/components/navigation/dropdown-menu/`
+**Dependencies**: shadcn/ui DropdownMenu integration, Radix UI primitives
+**Estimated Effort**: 2-3 hours following established patterns
+
 ## Development Standards
 
 ### Code Quality
@@ -118,20 +203,58 @@ API Layer (lib/api/) → TanStack Query → React Components
 - Implement proper loading states
 - Use proper key props for lists
 
-## File Structure Guidelines
+## Monorepo Architecture
+
+### Current Structure
 
 ```
-src/
-├── components/          # Reusable UI components
-├── pages/              # Page components
-├── hooks/              # Custom hooks
-│   └── queries/        # TanStack Query hooks
-├── lib/                # Utilities and configurations
-│   └── api/           # API layer
-├── types/              # TypeScript type definitions
-├── constants/          # Application constants
-└── utils/              # Utility functions
+aiSkillimprove/
+├── packages/
+│   ├── app/                 # Next.js 15 main application
+│   │   ├── src/
+│   │   │   ├── app/         # Next.js App Router pages
+│   │   │   ├── components/  # App-specific components
+│   │   │   ├── hooks/       # Custom React hooks
+│   │   │   │   └── queries/ # TanStack Query hooks
+│   │   │   ├── lib/         # Utilities and configurations
+│   │   │   │   └── api/     # API layer
+│   │   │   ├── types/       # TypeScript definitions
+│   │   │   ├── constants/   # App constants
+│   │   │   └── utils/       # Utility functions
+│   │   └── public/          # Static assets
+│   └── design-system/       # Shared UI component library (13/25+ components)
+│       ├── src/components/
+│       │   ├── ui/          # Core UI components (Button, Input, Text, Card, Badge)
+│       │   ├── layout/      # Layout components (Container, Grid, AppLayout)
+│       │   ├── data-display/ # Data components (Avatar)
+│       │   ├── feedback/    # Feedback components (LoadingSpinner, Toast, Modal)
+│       │   ├── forms/       # Form-specific components
+│       │   └── navigation/  # Navigation components (next: Dropdown Menu)
+│       └── .storybook/      # Component documentation and showcase
+├── .kiro/specs/            # Project specifications and requirements
+└── docs/                   # Comprehensive project documentation
+    ├── tasks/              # Task management and progress tracking
+    ├── claude/             # Claude AI specific guidelines
+    └── guidelines/         # Development standards and patterns
 ```
+
+### Design System Status (Current: 52% Complete)
+
+**Completed Components (13):**
+
+- UI: Button, Card, Input, Text, Badge, ColorShowcase
+- Layout: Container, Grid, AppLayout
+- Data Display: Avatar
+- Feedback: LoadingSpinner, Toast, Modal
+
+**Next Priority**: Dropdown Menu Component (navigation category)
+
+**Quality Metrics:**
+
+- 418 tests passing (100% coverage on completed components)
+- Zero TypeScript compilation errors
+- WCAG AA accessibility compliance
+- Complete Storybook documentation
 
 ## TypeScript Standards
 

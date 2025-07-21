@@ -4,7 +4,14 @@ inclusion: always
 
 # GitHub MCP Tools Guidelines
 
-This document provides guidelines and best practices for using GitHub MCP (Model Context Protocol) tools in development workflows.
+This document provides guidelines and best practices for using GitHub MCP (Model Context Protocol) tools in development workflows for the Skills Evaluation App project.
+
+**Project Context:**
+
+- **Repository**: react-skills-evaluation-app (ArieGoldkin/react-skills-evaluation-app)
+- **Current Status**: 13/25+ design system components completed (52% complete)
+- **Architecture**: Monorepo with app and design-system packages
+- **Documentation**: Comprehensive docs/ folder with task management and guidelines
 
 ## Overview
 
@@ -164,44 +171,62 @@ test(utils): Add unit tests for date formatting functions
 ```javascript
 push_files({
   owner: "ArieGoldkin",
-  repo: "my-project",
-  branch: "docs/update-readme",
+  repo: "react-skills-evaluation-app",
+  branch: "docs/update-progress",
   files: [
     {
-      path: "README.md",
-      content: "# Updated Project Documentation...",
+      path: "docs/tasks/current-progress.md",
+      content: "# Updated component completion status...",
     },
     {
-      path: "docs/installation.md",
-      content: "## Installation Guide...",
+      path: "docs/tasks/implementation-plan.md",
+      content: "# Updated roadmap with new milestones...",
     },
   ],
-  message: "docs: Update README and installation guide",
+  message: "docs: Update design system progress and implementation plan",
 });
 ```
 
-### 2. Feature Development
+### 2. Design System Component Development
 
 ```javascript
 // Create feature branch first
 create_branch({
   owner: "ArieGoldkin",
-  repo: "my-project",
-  branch: "feature/user-profile",
+  repo: "react-skills-evaluation-app",
+  branch: "feature/dropdown-menu-component",
   from_branch: "main",
 });
 
-// Then push feature files
+// Then push component files following established structure
 push_files({
   owner: "ArieGoldkin",
-  repo: "my-project",
-  branch: "feature/user-profile",
+  repo: "react-skills-evaluation-app",
+  branch: "feature/dropdown-menu-component",
   files: [
-    { path: "src/components/UserProfile.tsx", content: "..." },
-    { path: "src/components/UserProfile.test.tsx", content: "..." },
-    { path: "src/types/user.ts", content: "..." },
+    {
+      path: "packages/design-system/src/components/navigation/dropdown-menu/dropdown-menu.tsx",
+      content: "...",
+    },
+    {
+      path: "packages/design-system/src/components/navigation/dropdown-menu/dropdown-menu.stories.tsx",
+      content: "...",
+    },
+    {
+      path: "packages/design-system/src/components/navigation/dropdown-menu/dropdown-menu.test.tsx",
+      content: "...",
+    },
+    {
+      path: "packages/design-system/src/components/navigation/dropdown-menu/index.ts",
+      content: "...",
+    },
+    {
+      path: "packages/design-system/src/components/navigation/dropdown-menu/README.md",
+      content: "...",
+    },
   ],
-  message: "feat: Add user profile component with TypeScript types",
+  message:
+    "feat(design-system): Add Dropdown Menu component with comprehensive tests and stories",
 });
 ```
 
