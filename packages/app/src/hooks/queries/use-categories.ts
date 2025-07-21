@@ -1,20 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { CategoriesService } from "@/services";
 
-// Types based on our Prisma schema
-export interface SkillCategory {
-  id: string;
-  name: string;
-  slug: string;
-  description?: string;
-  icon?: string;
-  color?: string;
-  order: number;
-  createdAt: string;
-  updatedAt: string;
-  _count: {
-    skills: number;
-  };
-}
+// Re-export types from services
+export type { SkillCategory } from "@/services";
 
 // Query keys for consistent caching
 export const categoriesKeys = {
@@ -23,22 +11,11 @@ export const categoriesKeys = {
   list: () => [...categoriesKeys.lists()] as const,
 };
 
-// API functions
-const fetchCategories = async (): Promise<{ categories: SkillCategory[] }> => {
-  const response = await fetch("/api/categories");
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch categories: ${response.statusText}`);
-  }
-
-  return response.json();
-};
-
 // Hooks
 export const useCategories = () => {
   return useQuery({
     queryKey: categoriesKeys.list(),
-    queryFn: fetchCategories,
+    queryFn: CategoriesService.getCategories,
     staleTime: 15 * 60 * 1000, // 15 minutes - categories change less frequently
     gcTime: 30 * 60 * 1000, // 30 minutes
   });

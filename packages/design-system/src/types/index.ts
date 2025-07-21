@@ -20,4 +20,4 @@ export type Breakpoint = "sm" | "md" | "lg" | "xl" | "2xl";
 export type { ComponentProps, ReactElement, ReactNode } from "react";
 
 // Export theme types
-export * from './theme';
+export * from "./theme";

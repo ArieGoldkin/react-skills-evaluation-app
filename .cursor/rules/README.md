@@ -9,6 +9,7 @@ This directory contains comprehensive rules and guidelines for the Skills Evalua
 - **`project-standards.md`** - Main project standards and coding guidelines
 - **`monorepo-navigation.md`** - Monorepo structure and navigation patterns
 - **`design-system-development.md`** - Design system component development guidelines
+- **`github-mcp-integration.md`** - GitHub MCP integration guidelines and safety rules
 - **`quick-reference.md`** - Quick reference for common patterns and commands
 
 ### Additional Rules (To be added as needed)
@@ -32,6 +33,7 @@ These rules help Cursor understand:
 - State management patterns
 - Testing requirements
 - Security standards
+- GitHub MCP integration and safety protocols
 
 ### For Developers
 
@@ -39,6 +41,7 @@ These rules help Cursor understand:
 - Follow the established patterns and conventions
 - Use the navigation guide for efficient development
 - Maintain consistency across the codebase
+- Follow GitHub MCP safety guidelines when using MCP tools
 
 ## 🏗️ Project Overview
 

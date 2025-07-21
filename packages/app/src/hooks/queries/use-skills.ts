@@ -1,47 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import {
+  SkillsService,
+  type Skill,
+  type CreateSkillData,
+  type UpdateSkillData,
+  type SkillsFilters,
+} from "@/services";
 
-// Types based on our Prisma schema
-export interface Skill {
-  id: string;
-  name: string;
-  proficiency: number;
-  description?: string;
-  tags: string[];
-  verified: boolean;
-  lastAssessed?: string;
-  source: "MANUAL" | "ASSESSMENT" | "GITHUB" | "AI_SUGGESTED" | "IMPORTED";
-  createdAt: string;
-  updatedAt: string;
-  category: {
-    id: string;
-    name: string;
-    color?: string;
-  };
-  _count: {
-    assessments: number;
-    history: number;
-  };
-}
-
-export interface CreateSkillData {
-  name: string;
-  categoryId: string;
-  proficiency?: number;
-  description?: string;
-  tags?: string[];
-}
-
-export interface UpdateSkillData extends Partial<CreateSkillData> {
-  verified?: boolean;
-}
-
-export interface SkillsFilters {
-  categoryId?: string;
-  search?: string;
-  sortBy?: string;
-  order?: "asc" | "desc";
-}
+// Re-export types for convenience
+export type { Skill, CreateSkillData, UpdateSkillData, SkillsFilters };
 
 // Query keys for consistent caching
 export const skillsKeys = {
@@ -52,95 +20,13 @@ export const skillsKeys = {
   detail: (id: string) => [...skillsKeys.details(), id] as const,
 };
 
-// API functions
-const fetchSkills = async (
-  filters: SkillsFilters = {}
-): Promise<{ skills: Skill[] }> => {
-  const params = new URLSearchParams();
-
-  if (filters.categoryId) params.set("categoryId", filters.categoryId);
-  if (filters.search) params.set("search", filters.search);
-  if (filters.sortBy) params.set("sortBy", filters.sortBy);
-  if (filters.order) params.set("order", filters.order);
-
-  const response = await fetch(`/api/skills?${params.toString()}`);
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch skills: ${response.statusText}`);
-  }
-
-  return response.json();
-};
-
-const fetchSkill = async (id: string): Promise<{ skill: Skill }> => {
-  const response = await fetch(`/api/skills/${id}`);
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch skill: ${response.statusText}`);
-  }
-
-  return response.json();
-};
-
-const createSkill = async (
-  data: CreateSkillData
-): Promise<{ skill: Skill }> => {
-  const response = await fetch("/api/skills", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || "Failed to create skill");
-  }
-
-  return response.json();
-};
-
-const updateSkill = async ({
-  id,
-  ...data
-}: UpdateSkillData & { id: string }): Promise<{ skill: Skill }> => {
-  const response = await fetch(`/api/skills/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || "Failed to update skill");
-  }
-
-  return response.json();
-};
-
-const deleteSkill = async (id: string): Promise<{ message: string }> => {
-  const response = await fetch(`/api/skills/${id}`, {
-    method: "DELETE",
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || "Failed to delete skill");
-  }
-
-  return response.json();
-};
-
 // Hooks
 export const useSkills = (filters: SkillsFilters = {}) => {
   const { data: session } = useSession();
 
   return useQuery({
     queryKey: skillsKeys.list(filters),
-    queryFn: () => fetchSkills(filters),
+    queryFn: () => SkillsService.getSkills(filters),
     enabled: !!session?.user,
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
@@ -152,7 +38,7 @@ export const useSkill = (id: string) => {
 
   return useQuery({
     queryKey: skillsKeys.detail(id),
-    queryFn: () => fetchSkill(id),
+    queryFn: () => SkillsService.getSkill(id),
     enabled: !!session?.user && !!id,
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
@@ -163,7 +49,7 @@ export const useCreateSkill = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createSkill,
+    mutationFn: SkillsService.createSkill,
     onSuccess: () => {
       // Invalidate and refetch skills list
       queryClient.invalidateQueries({ queryKey: skillsKeys.lists() });
@@ -178,7 +64,8 @@ export const useUpdateSkill = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: updateSkill,
+    mutationFn: ({ id, ...data }: UpdateSkillData & { id: string }) =>
+      SkillsService.updateSkill(id, data),
     onSuccess: (data, variables) => {
       // Update the specific skill in cache
       queryClient.setQueryData(skillsKeys.detail(variables.id), data);
@@ -196,7 +83,7 @@ export const useDeleteSkill = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteSkill,
+    mutationFn: SkillsService.deleteSkill,
     onSuccess: (_, deletedId) => {
       // Remove the skill from cache
       queryClient.removeQueries({ queryKey: skillsKeys.detail(deletedId) });
@@ -247,7 +134,7 @@ export const usePrefetchSkill = () => {
 
     queryClient.prefetchQuery({
       queryKey: skillsKeys.detail(id),
-      queryFn: () => fetchSkill(id),
+      queryFn: () => SkillsService.getSkill(id),
       staleTime: 5 * 60 * 1000,
     });
   };

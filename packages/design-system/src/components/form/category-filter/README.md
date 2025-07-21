@@ -30,7 +30,7 @@ const categories = [
     skillCount: 8,
   },
   {
-    id: "2", 
+    id: "2",
     name: "Frontend Development",
     slug: "frontend-development",
     icon: "🎨",
@@ -45,7 +45,7 @@ const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   categories={categories}
   selectedCategories={selectedCategories}
   onSelectionChange={setSelectedCategories}
-/>
+/>;
 ```
 
 ### With Pre-selected Categories
@@ -100,73 +100,82 @@ const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `categories` | `Category[]` | Required | Array of category objects |
-| `selectedCategories` | `string[]` | Required | Array of selected category IDs |
-| `onSelectionChange` | `(ids: string[]) => void` | Required | Called when selection changes |
-| `variant` | `"default" \| "compact" \| "outline"` | `"default"` | Visual style variant |
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Component size |
-| `searchPlaceholder` | `string` | `"Search categories..."` | Search input placeholder |
-| `showSearch` | `boolean` | `true` | Show search input |
-| `showCounts` | `boolean` | `true` | Show skill counts |
-| `showBulkActions` | `boolean` | `true` | Show select/clear all buttons |
-| `showIcons` | `boolean` | `true` | Show category icons |
-| `maxHeight` | `number` | `300` | Maximum height in pixels |
-| `emptyMessage` | `string` | `"No categories found"` | Empty state message |
-| `loading` | `boolean` | `false` | Loading state |
-| `disabled` | `boolean` | `false` | Disabled state |
-| `className` | `string` | - | Additional CSS classes |
+| Prop                 | Type                                  | Default                  | Description                    |
+| -------------------- | ------------------------------------- | ------------------------ | ------------------------------ |
+| `categories`         | `Category[]`                          | Required                 | Array of category objects      |
+| `selectedCategories` | `string[]`                            | Required                 | Array of selected category IDs |
+| `onSelectionChange`  | `(ids: string[]) => void`             | Required                 | Called when selection changes  |
+| `variant`            | `"default" \| "compact" \| "outline"` | `"default"`              | Visual style variant           |
+| `size`               | `"sm" \| "md" \| "lg"`                | `"md"`                   | Component size                 |
+| `searchPlaceholder`  | `string`                              | `"Search categories..."` | Search input placeholder       |
+| `showSearch`         | `boolean`                             | `true`                   | Show search input              |
+| `showCounts`         | `boolean`                             | `true`                   | Show skill counts              |
+| `showBulkActions`    | `boolean`                             | `true`                   | Show select/clear all buttons  |
+| `showIcons`          | `boolean`                             | `true`                   | Show category icons            |
+| `maxHeight`          | `number`                              | `300`                    | Maximum height in pixels       |
+| `emptyMessage`       | `string`                              | `"No categories found"`  | Empty state message            |
+| `loading`            | `boolean`                             | `false`                  | Loading state                  |
+| `disabled`           | `boolean`                             | `false`                  | Disabled state                 |
+| `className`          | `string`                              | -                        | Additional CSS classes         |
 
 ### Category Object
 
 ```tsx
 interface Category {
-  id: string;           // Unique identifier
-  name: string;         // Display name
-  slug: string;         // URL-friendly identifier
-  icon?: string;        // Emoji or icon character
-  color?: string;       // Hex color code
-  skillCount?: number;  // Number of skills in category
+  id: string; // Unique identifier
+  name: string; // Display name
+  slug: string; // URL-friendly identifier
+  icon?: string; // Emoji or icon character
+  color?: string; // Hex color code
+  skillCount?: number; // Number of skills in category
 }
 ```
 
 ## Variants
 
 ### Default
+
 Standard appearance with clean borders and neutral styling.
 
 ### Compact
+
 Minimal styling with subtle shadows, perfect for sidebars.
 
 ### Outline
+
 Dashed border style that emphasizes the filtering nature.
 
 ## Sizes
 
 ### Small (sm)
+
 Compact padding suitable for tight layouts.
 
 ### Medium (md)
+
 Balanced spacing for most use cases.
 
 ### Large (lg)
+
 Generous padding for prominent placement.
 
 ## Functionality
 
 ### Search
+
 - Real-time filtering as you type
 - Searches both category names and slugs
 - Case-insensitive matching
 - Clear search option when no results
 
 ### Bulk Actions
+
 - **Select All**: Selects all visible (filtered) categories
 - **Deselect All**: Deselects all visible categories
 - **Clear All**: Clears all selections regardless of filters
 
 ### Selection Behavior
+
 - Click any category to toggle selection
 - Visual indicators show selected state
 - Selection count badge shows total selected
@@ -175,17 +184,20 @@ Generous padding for prominent placement.
 ## Accessibility
 
 ### Keyboard Navigation
+
 - Tab through all interactive elements
 - Enter/Space to toggle category selection
 - Arrow keys within category list
 
 ### Screen Reader Support
+
 - Proper ARIA labels and roles
 - Selection state announcements
 - Progress indicators for loading states
 - Descriptive button labels
 
 ### Visual Accessibility
+
 - High contrast selection indicators
 - Color-blind friendly selection states
 - Focus indicators on all interactive elements
@@ -206,10 +218,7 @@ Generous padding for prominent placement.
     />
   </div>
   <div className="flex-1">
-    <SkillsList 
-      categories={selectedCategories}
-      skills={filteredSkills} 
-    />
+    <SkillsList categories={selectedCategories} skills={filteredSkills} />
   </div>
 </div>
 ```
@@ -231,7 +240,9 @@ Generous padding for prominent placement.
   </Modal.Body>
   <Modal.Footer>
     <Button onClick={applyFilters}>Apply Filters</Button>
-    <Button variant="outline" onClick={onClose}>Cancel</Button>
+    <Button variant="outline" onClick={onClose}>
+      Cancel
+    </Button>
   </Modal.Footer>
 </Modal>
 ```
@@ -257,18 +268,18 @@ Generous padding for prominent placement.
 ```tsx
 const handleSelectionChange = (selectedIds: string[]) => {
   setSelectedCategories(selectedIds);
-  
+
   // Track analytics
-  analytics.track('Categories Filtered', {
+  analytics.track("Categories Filtered", {
     selectedCount: selectedIds.length,
     categories: selectedIds,
-    source: 'skills_page'
+    source: "skills_page",
   });
-  
+
   // Update URL params
   const params = new URLSearchParams();
   if (selectedIds.length > 0) {
-    params.set('categories', selectedIds.join(','));
+    params.set("categories", selectedIds.join(","));
   }
   router.push(`/skills?${params.toString()}`);
 };
@@ -277,7 +288,7 @@ const handleSelectionChange = (selectedIds: string[]) => {
   categories={categories}
   selectedCategories={selectedCategories}
   onSelectionChange={handleSelectionChange}
-/>
+/>;
 ```
 
 ## State Management
@@ -293,9 +304,7 @@ useEffect(() => {
     setFilteredSkills(skills);
   } else {
     setFilteredSkills(
-      skills.filter(skill => 
-        selectedCategories.includes(skill.categoryId)
-      )
+      skills.filter(skill => selectedCategories.includes(skill.categoryId))
     );
   }
 }, [selectedCategories, skills]);
@@ -305,7 +314,7 @@ useEffect(() => {
 
 ```tsx
 const { data: categories, isLoading } = useQuery({
-  queryKey: ['categories'],
+  queryKey: ["categories"],
   queryFn: fetchCategories,
 });
 
@@ -314,7 +323,7 @@ const { data: categories, isLoading } = useQuery({
   selectedCategories={selectedCategories}
   onSelectionChange={setSelectedCategories}
   loading={isLoading}
-/>
+/>;
 ```
 
 ### URL Synchronization
@@ -324,21 +333,21 @@ const router = useRouter();
 const { categories: urlCategories } = router.query;
 
 const selectedCategories = useMemo(() => {
-  return typeof urlCategories === 'string' 
-    ? urlCategories.split(',')
-    : [];
+  return typeof urlCategories === "string" ? urlCategories.split(",") : [];
 }, [urlCategories]);
 
 const handleSelectionChange = (ids: string[]) => {
   const query = { ...router.query };
-  
+
   if (ids.length > 0) {
-    query.categories = ids.join(',');
+    query.categories = ids.join(",");
   } else {
     delete query.categories;
   }
-  
-  router.push({ pathname: router.pathname, query }, undefined, { shallow: true });
+
+  router.push({ pathname: router.pathname, query }, undefined, {
+    shallow: true,
+  });
 };
 ```
 
@@ -360,7 +369,7 @@ const category = {
   id: "1",
   name: "Frontend",
   color: "#3B82F6", // Applied to count badge background
-  skillCount: 12
+  skillCount: 12,
 };
 ```
 
@@ -383,6 +392,7 @@ All variants automatically adapt to dark mode with proper contrast ratios.
 ## Testing
 
 The component includes comprehensive tests covering:
+
 - Category rendering and selection
 - Search functionality
 - Bulk actions
@@ -391,6 +401,7 @@ The component includes comprehensive tests covering:
 - Edge cases and error handling
 
 Run tests with:
+
 ```bash
 npm test category-filter
 ```
@@ -400,22 +411,23 @@ npm test category-filter
 ### With SkillCard
 
 ```tsx
-const filteredSkills = skills.filter(skill => 
-  selectedCategories.length === 0 || 
-  selectedCategories.includes(skill.categoryId)
+const filteredSkills = skills.filter(
+  skill =>
+    selectedCategories.length === 0 ||
+    selectedCategories.includes(skill.categoryId)
 );
 
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   {filteredSkills.map(skill => (
     <SkillCard key={skill.id} skill={skill} />
   ))}
-</div>
+</div>;
 ```
 
 ### With SkillMatrix
 
 ```tsx
-<SkillMatrix 
+<SkillMatrix
   skills={skills}
   selectedCategories={selectedCategories}
   onCategoryChange={setSelectedCategories}

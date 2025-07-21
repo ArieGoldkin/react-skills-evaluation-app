@@ -20,7 +20,8 @@ export * from "./components/navigation";
 export * from "./context";
 
 // Theme Components (excluding ThemeProvider to avoid conflict)
-export { ThemeToggle } from "./components/theme";
+export { ThemeToggle, PositionedThemeToggle } from "./components/theme";
+export type { PositionedThemeToggleProps } from "./components/theme";
 
 // Utilities
 export * from "./lib/cn";

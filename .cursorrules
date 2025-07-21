@@ -7,7 +7,112 @@ This project uses a comprehensive rules system located in `.cursor/rules/`:
 - **`.cursor/rules/project-standards.md`** - Main project standards and coding guidelines
 - **`.cursor/rules/monorepo-navigation.md`** - Monorepo structure and navigation patterns
 - **`.cursor/rules/design-system-development.md`** - Design system component development guidelines
+- **`.cursor/rules/github-mcp-integration.md`** - GitHub MCP integration guidelines and safety rules
 - **`.cursor/rules/README.md`** - Rules overview and quick reference
+
+## GitHub MCP Integration
+
+### 🚨 Critical Safety Rules
+
+When using GitHub MCP tools, ALWAYS follow these safety guidelines:
+
+1. **Never Push to Main/Master Without Review**
+   - Always use feature branches for changes
+   - Use descriptive commit messages with conventional format
+   - Verify repository and branch before operations
+
+2. **Repository Access Control**
+   - **Safe Repos**: `aiSkillimprove`, `skill-gap-analyzer`, `students-list`
+   - **Protected Repos**: `storelux`, `storeluxBackend` (require extra caution)
+   - Always create feature branches for protected repositories
+
+3. **Branch Naming Conventions**
+   - `feature/` - New features
+   - `fix/` - Bug fixes
+   - `docs/` - Documentation
+   - `test/` - Testing
+   - `chore/` - Maintenance
+   - `config/` - Configuration changes
+   - `refactor/` - Code refactoring
+
+### 📝 Commit Message Format
+
+Use conventional commit messages:
+
+```
+<type>(<scope>): <description>
+
+Types: feat, fix, docs, style, refactor, test, chore
+```
+
+**Examples:**
+
+- `feat(auth): Add OAuth2 integration`
+- `fix(ui): Resolve mobile button alignment`
+- `docs(api): Update authentication guide`
+- `test(utils): Add date formatting tests`
+
+### ⚡ Quick Workflows
+
+**Feature Development:**
+
+1. Create feature branch: `feature/component-name`
+2. Push files with descriptive commit message
+3. Create PR for review (optional)
+
+**Documentation Updates:**
+
+- Use `docs/` branch prefix
+- Update README, guides, and documentation
+- Include clear descriptions of changes
+
+**Configuration Changes:**
+
+- Use `config/` branch prefix
+- Update ESLint, Prettier, TypeScript configs
+- Test changes before pushing
+
+### 🔒 File Operation Guidelines
+
+**Safe Operations (Low Risk):**
+
+- Documentation files (`*.md`, `docs/**/*`)
+- Configuration files (`.eslintrc.*`, `tsconfig.json`, `package.json`)
+- Test files (`**/*.test.*`, `**/*.spec.*`)
+
+**High-Risk Operations (Require Confirmation):**
+
+- Source code changes (`src/**/*.ts`, `src/**/*.tsx`)
+- Build and deployment files (`Dockerfile`, `.github/workflows/**/*`)
+- Critical configuration (`next.config.*`, `vercel.json`)
+
+### 🚫 What NOT to Do
+
+- ❌ Push directly to `main`/`master` branches
+- ❌ Use vague commit messages like "update" or "fix"
+- ❌ Hardcode tokens or sensitive data in code
+- ❌ Skip error handling in MCP operations
+- ❌ Push without verifying target repository
+
+### ✅ Best Practices
+
+- ✅ Use conventional commit messages
+- ✅ Batch related files in single commit
+- ✅ Create feature branches for all changes
+- ✅ Include tests with new features
+- ✅ Verify operations before execution
+- ✅ Handle errors gracefully
+- ✅ Reference issue numbers in commits
+
+### 📚 Reference Files
+
+For detailed guidelines, refer to:
+
+- `.cursor/rules/github-mcp-integration.md` - Comprehensive GitHub MCP guidelines
+- `.kiro/steering/github-mcp-guidelines.md` - Comprehensive guidelines
+- `.kiro/steering/github-mcp-project-config.md` - Project-specific rules
+- `.kiro/steering/github-mcp-quick-reference.md` - Quick reference
+- `.kiro/steering/github-mcp-checklist.md` - Safety checklist
 
 ## Project Overview
 

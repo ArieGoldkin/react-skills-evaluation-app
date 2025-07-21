@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/react";
 import React from "react";
+import { ThemeProvider } from "../src/context/theme-context";
 import "../src/styles/globals.css";
 
 const preview: Preview = {
@@ -32,9 +33,12 @@ const preview: Preview = {
   decorators: [
     Story =>
       React.createElement(
-        "div",
-        { style: { fontFamily: "system-ui, sans-serif" } },
-        React.createElement(Story)
+        ThemeProvider,
+        { defaultMode: "light", children: React.createElement(
+          "div",
+          { style: { fontFamily: "system-ui, sans-serif" } },
+          React.createElement(Story)
+        ) },
       ),
   ],
 };

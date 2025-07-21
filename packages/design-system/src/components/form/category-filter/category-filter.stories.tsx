@@ -79,7 +79,7 @@ const sampleCategories = [
     skillCount: 8,
   },
   {
-    id: "2", 
+    id: "2",
     name: "Frontend Development",
     slug: "frontend-development",
     icon: "🎨",
@@ -88,7 +88,7 @@ const sampleCategories = [
   },
   {
     id: "3",
-    name: "Backend Development", 
+    name: "Backend Development",
     slug: "backend-development",
     icon: "⚙️",
     color: "#10B981",
@@ -113,7 +113,7 @@ const sampleCategories = [
   {
     id: "6",
     name: "Mobile Development",
-    slug: "mobile-development", 
+    slug: "mobile-development",
     icon: "📱",
     color: "#EC4899",
     skillCount: 3,
@@ -139,16 +139,27 @@ const sampleCategories = [
 // Interactive wrapper for stories
 const InteractiveWrapper: React.FC<{
   initialSelected?: string[];
-  children: (props: { selectedCategories: string[]; onSelectionChange: (ids: string[]) => void }) => React.ReactNode;
+  children: (props: {
+    selectedCategories: string[];
+    onSelectionChange: (ids: string[]) => void;
+  }) => React.ReactNode;
 }> = ({ initialSelected = [], children }) => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(initialSelected);
-  
+  const [selectedCategories, setSelectedCategories] =
+    useState<string[]>(initialSelected);
+
   const handleSelectionChange = (ids: string[]) => {
     setSelectedCategories(ids);
     action("onSelectionChange")(ids);
   };
 
-  return <>{children({ selectedCategories, onSelectionChange: handleSelectionChange })}</>;
+  return (
+    <>
+      {children({
+        selectedCategories,
+        onSelectionChange: handleSelectionChange,
+      })}
+    </>
+  );
 };
 
 export const Default: Story = {
@@ -289,7 +300,16 @@ export const LargeList: Story = {
       name: `Category ${i + 1}`,
       slug: `category-${i + 1}`,
       icon: ["💻", "🎨", "⚙️", "🗄️", "☁️", "📱", "🤖", "🔒"][i % 8],
-      color: ["#3B82F6", "#8B5CF6", "#10B981", "#F59E0B", "#06B6D4", "#EC4899", "#84CC16", "#EF4444"][i % 8],
+      color: [
+        "#3B82F6",
+        "#8B5CF6",
+        "#10B981",
+        "#F59E0B",
+        "#06B6D4",
+        "#EC4899",
+        "#84CC16",
+        "#EF4444",
+      ][i % 8],
       skillCount: Math.floor(Math.random() * 15) + 1,
     }));
 
@@ -372,7 +392,8 @@ export const SidebarLayout: Story = {
         <h3 className="text-lg font-semibold mb-4">Skills Content Area</h3>
         <p className="text-gray-600">
           This would show the filtered skills based on the selected categories.
-          Use the filter on the left to see how it would work in a real application.
+          Use the filter on the left to see how it would work in a real
+          application.
         </p>
       </div>
     </div>

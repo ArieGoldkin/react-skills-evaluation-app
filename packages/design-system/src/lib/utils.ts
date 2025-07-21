@@ -6,4 +6,4 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Re-export theme utilities for convenience
-export * from './theme-utils';
+export * from "./theme-utils";

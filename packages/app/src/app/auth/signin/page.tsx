@@ -1,21 +1,39 @@
 "use client";
 
 import { GoogleLogin } from "@/components/auth/google-login";
+import { SignInForm } from "@/components/auth/sign-in-form";
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  Checkbox,
-  Input,
-  Label,
 } from "@/components/ui";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { useSignInForm } from "@/hooks/use-sign-in-form";
 
 export default function SignInPage() {
-  const [rememberMe, setRememberMe] = useState(false);
+  const searchParams = useSearchParams();
+
+  const {
+    formData,
+    errors,
+    isLoading,
+    rememberMe,
+    message,
+    handleInputChange,
+    handleRememberMeChange,
+    handleSubmit,
+    setMessage,
+  } = useSignInForm();
+
+  useEffect(() => {
+    const messageParam = searchParams.get("message");
+    if (messageParam) {
+      setMessage(messageParam);
+    }
+  }, [searchParams, setMessage]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
@@ -30,38 +48,17 @@ export default function SignInPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="name@example.com"
-              className="h-12"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              placeholder="Enter your password"
-              className="h-12"
-            />
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="remember"
-              checked={rememberMe}
-              onCheckedChange={checked => setRememberMe(checked as boolean)}
-            />
-            <Label
-              htmlFor="remember"
-              className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Remember me
-            </Label>
-          </div>
-          <Button className="h-12 w-full">Sign in</Button>
+          <SignInForm
+            formData={formData}
+            errors={errors}
+            isLoading={isLoading}
+            rememberMe={rememberMe}
+            message={message}
+            onInputChange={handleInputChange}
+            onRememberMeChange={handleRememberMeChange}
+            onSubmit={handleSubmit}
+          />
+
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
