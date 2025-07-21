@@ -9,6 +9,11 @@ out/
 build/
 dist/
 
+# Generated files
+**/generated/
+packages/app/generated/
+packages/design-system/storybook-static/
+
 # Environment files
 .env
 .env.local

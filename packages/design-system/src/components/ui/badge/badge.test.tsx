@@ -445,11 +445,9 @@ describe("Badge", () => {
     it("handles missing onRemove callback for removable badge", () => {
       render(<Badge removable>Removable</Badge>);
 
-      const removeButton = screen.getByLabelText("Remove badge");
-      expect(removeButton).toBeInTheDocument();
-
-      // Should not throw when clicked
-      expect(() => fireEvent.click(removeButton)).not.toThrow();
+      // Should not render remove button when no onRemove callback is provided
+      const removeButton = screen.queryByLabelText("Remove badge");
+      expect(removeButton).not.toBeInTheDocument();
     });
   });
 });

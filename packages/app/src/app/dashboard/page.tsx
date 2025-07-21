@@ -2,14 +2,30 @@
 
 import { useAuth } from "@/components/auth";
 import { SignOutButton } from "@/components/auth/signout-button";
-import { Button } from "@/components/ui/button";
-import { Container } from "@skills-eval/design-system";
+import { DashboardStats } from "@/components/dashboard/dashboard-stats";
+import { SkillsManagement } from "@/components/dashboard/skills-management";
+import { Container, Header } from "@skills-eval/design-system";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useDashboardData } from "@/hooks/use-dashboard-data";
 
 export default function DashboardPage() {
   const { session, status, isAuthenticated, isLoading, user } = useAuth();
   const router = useRouter();
+
+  // Skills filtering state
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Data hook
+  const {
+    skills,
+    categories,
+    stats,
+    skillsLoading,
+    categoriesLoading,
+    skillsError,
+  } = useDashboardData({ selectedCategories, searchQuery });
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -21,8 +37,8 @@ export default function DashboardPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
-          <p className="text-sm text-gray-600">Loading...</p>
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-border border-t-primary"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
         </div>
       </div>
     );
@@ -33,56 +49,97 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
+      <Header
+        logo={
+          <div>
+            <h1 className="text-xl font-bold text-foreground">
+              Skills Evaluation
+            </h1>
+          </div>
+        }
+        actions={
+          <SignOutButton
+            className="bg-transparent border border-border text-foreground hover:bg-muted hover:border-muted-foreground"
+            callbackUrl="/"
+          />
+        }
+        showThemeToggle={true}
+      />
       <Container>
         <div className="py-8">
-          <div className="mb-8 flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-gray-600">Welcome back, {user?.name}!</p>
-            </div>
-            <SignOutButton
-              className="bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400"
-              callbackUrl="/"
-            />
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+            <p className="text-muted-foreground">Welcome back, {user?.name}!</p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-lg bg-white p-6 shadow">
-              <h2 className="mb-2 text-lg font-semibold">User Information</h2>
-              <div className="space-y-2 text-sm">
-                <p>
-                  <strong>Name:</strong> {user?.name || "Not provided"}
-                </p>
-                <p>
-                  <strong>Email:</strong> {user?.email || "Not provided"}
-                </p>
-                <p>
-                  <strong>Provider:</strong> {session?.provider || "Google"}
-                </p>
-              </div>
-            </div>
+          <DashboardStats
+            skillsCount={stats.skillsCount}
+            averageProficiency={stats.averageProficiency}
+            categoriesCount={stats.categoriesCount}
+            verifiedSkillsCount={stats.verifiedSkillsCount}
+            isLoading={skillsLoading}
+          />
 
-            <div className="rounded-lg bg-white p-6 shadow">
-              <h2 className="mb-2 text-lg font-semibold">Skills Analysis</h2>
-              <p className="text-sm text-gray-600">
-                Connect your repositories to start analyzing your skills.
-              </p>
-              <Button className="mt-4" size="sm" disabled>
-                Connect GitHub (Coming Soon)
-              </Button>
-            </div>
-
-            <div className="rounded-lg bg-white p-6 shadow">
-              <h2 className="mb-2 text-lg font-semibold">AI Recommendations</h2>
-              <p className="text-sm text-gray-600">
-                Get personalized recommendations based on your skill profile.
-              </p>
-              <Button className="mt-4" size="sm" disabled>
-                Get Recommendations (Coming Soon)
-              </Button>
-            </div>
-          </div>
+          <SkillsManagement
+            categories={categories.map(cat => {
+              const mapped: {
+                id: string;
+                name: string;
+                slug: string;
+                color?: string;
+                icon?: string;
+                skillCount?: number;
+              } = {
+                id: cat.id,
+                name: cat.name,
+                slug: cat.slug,
+                skillCount: cat.skillCount || 0,
+              };
+              if (cat.color) mapped.color = cat.color;
+              if (cat.icon) mapped.icon = cat.icon;
+              return mapped;
+            })}
+            skills={skills.map(skill => {
+              const mapped: {
+                id: string;
+                name: string;
+                proficiency: number;
+                category: { name: string; color?: string };
+                description?: string;
+                tags?: string[];
+                verified?: boolean;
+                source?: string;
+                lastAssessed?: Date;
+              } = {
+                id: skill.id,
+                name: skill.name,
+                proficiency: skill.proficiency,
+                category: { name: skill.category.name },
+              };
+              if (skill.category.color)
+                mapped.category.color = skill.category.color;
+              if (skill.description) mapped.description = skill.description;
+              if (skill.tags) mapped.tags = skill.tags;
+              if (skill.verified !== undefined)
+                mapped.verified = skill.verified;
+              if (skill.source) mapped.source = skill.source;
+              if (skill.lastAssessed)
+                mapped.lastAssessed = new Date(skill.lastAssessed);
+              return mapped;
+            })}
+            selectedCategories={selectedCategories}
+            searchQuery={searchQuery}
+            onCategoriesChange={setSelectedCategories}
+            onSearchChange={setSearchQuery}
+            onAddSkill={() => console.log("Add skill")}
+            onEditSkill={id => console.log("Edit skill:", id)}
+            onDeleteSkill={id => console.log("Delete skill:", id)}
+            onViewSkill={id => console.log("View skill:", id)}
+            isLoadingCategories={categoriesLoading}
+            isLoadingSkills={skillsLoading}
+            skillsError={skillsError}
+          />
         </div>
       </Container>
     </div>

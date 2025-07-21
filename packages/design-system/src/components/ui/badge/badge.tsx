@@ -3,8 +3,11 @@
 import { cn } from "@/lib/cn";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { X } from "lucide-react";
 import * as React from "react";
+import { BadgeDot } from "./badge-dot";
+import { BadgeIcon } from "./badge-icon";
+import { BadgeRemoveButton } from "./badge-remove-button";
+import { useBadgeInteractions } from "./use-badge-interactions";
 
 const badgeVariants = cva(
   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
@@ -42,24 +45,6 @@ const badgeVariants = cva(
   }
 );
 
-const badgeIconVariants = cva("shrink-0", {
-  variants: {
-    size: {
-      sm: "h-3 w-3",
-      default: "h-3 w-3",
-      lg: "h-4 w-4",
-    },
-    position: {
-      left: "mr-1",
-      right: "ml-1",
-    },
-  },
-  defaultVariants: {
-    size: "default",
-    position: "left",
-  },
-});
-
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof badgeVariants> {
@@ -92,38 +77,8 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
   ) => {
     const Comp = asChild ? Slot : "div";
 
-    const isClickable = onClick || removable || asChild;
-    const isInteractive = isClickable && !removable;
-
-    const handleClick = React.useCallback(
-      (event: React.MouseEvent<HTMLDivElement>) => {
-        if (onClick) {
-          onClick(event);
-        }
-      },
-      [onClick]
-    );
-
-    const handleRemove = React.useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        event.stopPropagation();
-        if (onRemove) {
-          onRemove();
-        }
-      },
-      [onRemove]
-    );
-
-    const handleKeyDown = React.useCallback(
-      (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (isInteractive && (event.key === "Enter" || event.key === " ")) {
-          event.preventDefault();
-          handleClick(event as any);
-        }
-      },
-      [isInteractive, handleClick]
-    );
+    const { isClickable, isInteractive, handleClick, handleKeyDown } =
+      useBadgeInteractions({ onClick, removable, asChild });
 
     return (
       <Comp
@@ -140,54 +95,20 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         role={isInteractive ? "button" : undefined}
         {...props}
       >
-        {/* Dot indicator */}
-        {dot && (
-          <span
-            className={cn(
-              "mr-1 h-2 w-2 rounded-full",
-              variant === "default" && "bg-primary-foreground",
-              variant === "secondary" && "bg-secondary-foreground",
-              variant === "destructive" && "bg-destructive-foreground",
-              variant === "outline" && "bg-foreground",
-              variant === "success" && "bg-green-600 dark:bg-green-400",
-              variant === "warning" && "bg-yellow-600 dark:bg-yellow-400",
-              variant === "info" && "bg-blue-600 dark:bg-blue-400"
-            )}
-            aria-hidden="true"
-          />
-        )}
+        {dot && <BadgeDot variant={variant} />}
 
-        {/* Left icon */}
         {icon && iconPosition === "left" && (
-          <span className={cn(badgeIconVariants({ size, position: "left" }))}>
-            {icon}
-          </span>
+          <BadgeIcon icon={icon} size={size || "default"} position="left" />
         )}
 
-        {/* Content */}
         {children}
 
-        {/* Right icon */}
         {icon && iconPosition === "right" && (
-          <span className={cn(badgeIconVariants({ size, position: "right" }))}>
-            {icon}
-          </span>
+          <BadgeIcon icon={icon} size={size || "default"} position="right" />
         )}
 
-        {/* Remove button */}
-        {removable && (
-          <button
-            type="button"
-            className={cn(
-              "ml-1 rounded-full p-0.5 hover:bg-black/10 dark:hover:bg-white/10",
-              "focus:outline-none focus:ring-1 focus:ring-ring",
-              badgeIconVariants({ size, position: "right" })
-            )}
-            onClick={handleRemove}
-            aria-label="Remove badge"
-          >
-            <X className="h-2.5 w-2.5" />
-          </button>
+        {removable && onRemove && (
+          <BadgeRemoveButton onRemove={onRemove} size={size || "default"} />
         )}
       </Comp>
     );

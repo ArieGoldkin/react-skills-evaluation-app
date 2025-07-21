@@ -10,13 +10,6 @@ export interface VariantProps {
   size?: string;
 }
 
-// Theme types
-export interface ThemeConfig {
-  colors: Record<string, string>;
-  spacing: Record<string, string>;
-  typography: Record<string, string>;
-}
-
 // Component state types
 export type ComponentState = "idle" | "loading" | "success" | "error";
 
@@ -25,3 +18,6 @@ export type Breakpoint = "sm" | "md" | "lg" | "xl" | "2xl";
 
 // Export React types for convenience
 export type { ComponentProps, ReactElement, ReactNode } from "react";
+
+// Export theme types
+export * from "./theme";

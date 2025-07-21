@@ -1,10 +1,33 @@
-# Design System Folder Structure Guidelines
+# Project Folder Structure Guidelines
 
 ## Overview
 
-This document defines the standardized folder structure for the Skills Evaluation App Design System, ensuring consistency, maintainability, and scalability.
+This document defines the standardized folder structure for the Skills Evaluation App, covering both the Design System and Backend Architecture, ensuring consistency, maintainability, and scalability across the entire monorepo.
 
-## Main Package Structure
+## Monorepo Structure
+
+```
+aiSkillimprove/
+├── packages/
+│   ├── app/                       # Next.js application (frontend + API)
+│   ├── design-system/             # Shared UI component library
+│   ├── backend-core/             # Shared backend logic (Phase 2+)
+│   └── services/                 # Extracted microservices (Phase 4+)
+│       ├── ai-service/           # AI recommendations service
+│       ├── github-service/       # Repository analysis service
+│       └── analytics-service/    # Analytics and reporting service
+├── docs/                         # Project documentation
+│   ├── backend/                  # Backend implementation guides
+│   ├── claude/                   # AI assistant guidelines
+│   └── PROJECT_OVERVIEW.md       # High-level project documentation
+├── infrastructure/               # Docker, deployment configs
+│   ├── docker-compose.yml        # Production orchestration
+│   ├── docker-compose.dev.yml    # Development environment
+│   └── monitoring/               # Logging and monitoring setup
+└── .env.example                  # Environment variables template
+```
+
+## Design System Package Structure
 
 ```
 packages/design-system/
@@ -30,6 +53,112 @@ packages/design-system/
 ├── .storybook/                   # Storybook configuration
 ├── dist/                         # Built package output
 └── package.json                  # Package configuration
+```
+
+## Backend Architecture Structure
+
+### App Package (Enhanced Monolith - Phase 1)
+
+```
+packages/app/
+├── src/
+│   ├── app/                      # Next.js App Router
+│   │   ├── api/v1/              # Versioned API routes
+│   │   │   ├── skills/          # Skills CRUD operations
+│   │   │   ├── categories/      # Categories management
+│   │   │   ├── assessments/     # Assessment engine
+│   │   │   ├── integrations/    # External service APIs
+│   │   │   └── middleware/      # API middleware
+│   │   ├── dashboard/           # Dashboard pages
+│   │   └── auth/               # Authentication pages
+│   ├── components/             # UI components (using design-system)
+│   ├── hooks/                  # Application hooks
+│   ├── lib/                    # Application utilities
+│   │   ├── api-client.ts       # HTTP client
+│   │   ├── auth.ts            # Authentication config
+│   │   ├── validations/       # Zod validation schemas
+│   │   ├── middleware/        # API middleware functions
+│   │   └── gateway/           # API gateway (Phase 3+)
+│   └── services/              # Service layer
+│       ├── skills.service.ts
+│       ├── categories.service.ts
+│       ├── auth.service.ts
+│       └── types/             # Service type definitions
+├── prisma/                    # Database schema and migrations
+│   ├── schema.prisma
+│   ├── migrations/
+│   └── seed.ts
+├── public/                    # Static assets
+└── package.json
+```
+
+### Backend Core Package (Modular Monolith - Phase 2)
+
+```
+packages/backend-core/
+├── src/
+│   ├── lib/                   # Shared utilities
+│   │   ├── auth.ts           # Authentication utilities
+│   │   ├── cache.ts          # Caching utilities
+│   │   ├── database.ts       # Database utilities
+│   │   ├── queue.ts          # Job queue utilities
+│   │   └── validation.ts     # Shared validation schemas
+│   ├── services/             # Business logic services
+│   │   ├── skills/           # Skills domain service
+│   │   │   ├── skills.service.ts
+│   │   │   ├── skills.repository.ts
+│   │   │   └── skill-analytics.service.ts
+│   │   ├── categories/       # Categories domain service
+│   │   ├── assessments/      # Assessments domain service
+│   │   └── integrations/     # External integrations
+│   │       ├── github.service.ts
+│   │       ├── openai.service.ts
+│   │       └── google.service.ts
+│   ├── middleware/           # Reusable middleware
+│   │   ├── auth.ts
+│   │   ├── cors.ts
+│   │   ├── logging.ts
+│   │   └── rate-limiting.ts
+│   ├── types/                # Shared TypeScript types
+│   │   ├── api.ts
+│   │   ├── database.ts
+│   │   └── services.ts
+│   └── jobs/                 # Background job definitions
+│       ├── skill-analysis.ts
+│       ├── github-sync.ts
+│       └── notifications.ts
+├── dist/                     # Built package output
+└── package.json
+```
+
+### Microservices Structure (Service Extraction - Phase 4)
+
+```
+packages/services/
+├── ai-service/               # AI recommendations service
+│   ├── src/
+│   │   ├── app.ts           # Express application
+│   │   ├── routes/          # API routes
+│   │   ├── services/        # Business logic
+│   │   ├── middleware/      # Service middleware
+│   │   └── types/          # Service types
+│   ├── Dockerfile
+│   └── package.json
+├── github-service/           # Repository analysis service
+│   ├── src/
+│   │   ├── app.ts
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── workers/         # Background workers
+│   ├── Dockerfile
+│   └── package.json
+└── analytics-service/        # Analytics and reporting
+    ├── src/
+    │   ├── app.ts
+    │   ├── routes/
+    │   └── aggregators/     # Data aggregation logic
+    ├── Dockerfile
+    └── package.json
 ```
 
 ## Component Folder Structure
@@ -424,4 +553,178 @@ This folder structure provides:
 - **Developer Experience**: Easy to find and use components
 - **Quality**: Built-in testing and documentation requirements
 
-Following these guidelines ensures the design system remains organized, maintainable, and easy to use as it grows.
+## Backend Implementation Phases
+
+### Phase 1: Enhanced Monolith (Weeks 1-2)
+
+**Goal**: Improve existing Next.js API foundation
+
+#### File Organization Changes
+
+```bash
+# Move existing API routes to versioned structure
+packages/app/src/app/api/v1/
+├── skills/                    # Enhanced existing skills API
+├── categories/               # Enhanced categories API
+├── assessments/              # New assessment engine
+├── integrations/             # GitHub, Google APIs (prepare)
+├── ai/                       # OpenAI integration (prepare)
+└── analytics/                # Dashboard metrics
+```
+
+#### New Files to Create
+
+- `packages/app/src/lib/validations/skills.ts` - Zod validation schemas
+- `packages/app/src/lib/middleware/auth.ts` - Authentication middleware
+- `packages/app/src/lib/middleware/rate-limit.ts` - Rate limiting
+- `docker-compose.dev.yml` - Development environment
+- `Dockerfile.dev` - Development container
+
+### Phase 2: Modular Monolith (Weeks 3-4)
+
+**Goal**: Organize code for future service extraction
+
+#### New Package Structure
+
+```bash
+packages/backend-core/        # New package for shared logic
+├── src/services/            # Extracted business logic
+├── src/middleware/          # Reusable middleware
+├── src/types/              # Shared types
+└── src/jobs/               # Background job definitions
+```
+
+### Phase 3: Service Extraction Foundation (Weeks 5-6)
+
+**Goal**: Build infrastructure for future microservices
+
+#### Infrastructure Files
+
+```bash
+infrastructure/
+├── docker-compose.yml       # Production orchestration
+├── docker-compose.dev.yml   # Development environment
+└── monitoring/              # Logging and monitoring
+```
+
+### Phase 4: Selective Microservices (Week 7+)
+
+**Goal**: Extract services only when justified by scale
+
+#### Service Extraction Pattern
+
+```bash
+packages/services/{service-name}/
+├── src/
+│   ├── app.ts              # Express application
+│   ├── routes/             # API routes
+│   ├── services/           # Business logic
+│   └── middleware/         # Service middleware
+├── Dockerfile
+└── package.json
+```
+
+## Backend Naming Conventions
+
+### API Routes
+
+- **Versioned URLs**: `/api/v1/skills`, `/api/v1/categories`
+- **RESTful patterns**: GET, POST, PUT, DELETE
+- **Resource-based**: `/api/v1/skills/{id}`, `/api/v1/categories/{id}`
+
+### Service Files
+
+- **Services**: `skills.service.ts`, `categories.service.ts`
+- **Repositories**: `skills.repository.ts`, `categories.repository.ts`
+- **Middleware**: `auth.ts`, `rate-limit.ts`, `logging.ts`
+- **Jobs**: `skill-analysis.ts`, `github-sync.ts`
+
+### Package Names
+
+- **Internal packages**: `@skills-eval/backend-core`, `@skills-eval/shared`
+- **Service packages**: `@skills-eval/ai-service`, `@skills-eval/github-service`
+
+## Backend Quality Standards
+
+### Code Organization
+
+- **180-line limit** per service file (same as components)
+- **Domain-driven structure** - organize by business domain
+- **Separation of concerns** - routes, services, repositories
+- **Dependency injection** - for testability and flexibility
+
+### Testing Requirements
+
+- **Unit tests** for all service methods
+- **Integration tests** for API endpoints
+- **80%+ test coverage** minimum
+- **API contract testing** between services
+
+### Documentation Standards
+
+- **README.md** for each service package
+- **API documentation** for all endpoints
+- **Service boundary documentation** for extraction decisions
+- **Deployment guides** for each phase
+
+## Docker Development Workflow
+
+### Development Environment
+
+```bash
+# Start development environment
+docker-compose -f docker-compose.dev.yml up
+
+# Individual services (Phase 4+)
+docker-compose up ai-service
+docker-compose up github-service
+```
+
+### Production Deployment
+
+```bash
+# Full stack deployment
+docker-compose up -d
+
+# Service-specific deployment
+docker-compose up -d --scale ai-service=3
+```
+
+## Service Extraction Decision Matrix
+
+### Extract Service When:
+
+- **Traffic**: > 1000 requests/minute
+- **Team Size**: > 3 developers working on domain
+- **Deployment**: Need independent deployment cycles
+- **Technology**: Different tech stack requirements
+- **Complexity**: > 1000 lines of code in domain
+
+### Keep in Monolith When:
+
+- **Fast operations**: Database CRUD < 100ms
+- **Tightly coupled**: Frequent cross-domain queries
+- **Security critical**: Authentication, authorization
+- **Simple operations**: Basic validation, formatting
+
+## Migration Best Practices
+
+### ✅ Do
+
+- Start with enhanced monolith patterns
+- Use versioned APIs from the beginning
+- Implement health checks and monitoring early
+- Extract services based on data-driven decisions
+- Maintain backward compatibility during transitions
+- Document service boundaries and data flows
+
+### ❌ Don't
+
+- Extract services prematurely without scale justification
+- Create circular dependencies between services
+- Skip comprehensive testing during extraction
+- Break existing API contracts without versioning
+- Ignore monitoring and logging infrastructure
+- Extract services without clear business boundaries
+
+Following these guidelines ensures the backend architecture remains organized, scalable, and maintainable as it evolves from enhanced monolith to selective microservices based on actual scaling needs.
