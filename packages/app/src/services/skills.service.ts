@@ -1,6 +1,6 @@
 /**
  * Skills Service
- * 
+ *
  * Handles core skill CRUD operations and search functionality
  */
 

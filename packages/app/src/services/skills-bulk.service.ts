@@ -1,6 +1,6 @@
 /**
  * Skills Bulk Operations Service
- * 
+ *
  * Handles bulk operations for skills (bulk update, delete, import/export)
  */
 

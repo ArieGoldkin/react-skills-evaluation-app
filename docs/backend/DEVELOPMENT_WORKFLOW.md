@@ -9,11 +9,13 @@ This guide covers the enhanced development workflow for the hybrid backend imple
 ## 🛠️ Development Environment Setup
 
 ### Prerequisites
+
 - Docker and Docker Compose installed
 - Node.js 18+ (for local development without Docker)
 - Your existing `.env.local` file configured
 
 ### Quick Start
+
 ```bash
 # 1. Start development environment with Docker
 docker-compose -f docker-compose.dev.yml up
@@ -36,7 +38,7 @@ npm run test
 ### Development Environment (`docker-compose.dev.yml`)
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   # Next.js Application
@@ -138,6 +140,7 @@ CMD ["npm", "run", "dev"]
 ## 🔄 Daily Development Workflow
 
 ### 1. Start Development Environment
+
 ```bash
 # Start all services
 docker-compose -f docker-compose.dev.yml up
@@ -150,6 +153,7 @@ docker-compose -f docker-compose.dev.yml logs -f app
 ```
 
 ### 2. Database Operations
+
 ```bash
 # Generate Prisma client (after schema changes)
 docker-compose exec app npm run db:generate
@@ -168,6 +172,7 @@ docker-compose exec app npm run db:reset
 ```
 
 ### 3. API Development and Testing
+
 ```bash
 # Test API endpoints
 curl -X GET http://localhost:3000/api/v1/skills \
@@ -189,6 +194,7 @@ done
 ```
 
 ### 4. Code Quality and Testing
+
 ```bash
 # Run type checking
 docker-compose exec app npm run type-check
@@ -235,34 +241,34 @@ packages/app/src/app/api/v1/
 
 ```typescript
 // packages/app/src/app/api/v1/skills/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { authMiddleware } from '@/lib/middleware/auth';
-import { rateLimitMiddleware } from '@/lib/middleware/rate-limit';
-import { validateRequest } from '@/lib/middleware/validation';
-import { handleApiError } from '@/lib/errors';
-import { SkillsService } from '@/services/skills.service';
-import { CreateSkillSchema, SkillsQuerySchema } from '@/lib/validations/skills';
+import { NextRequest, NextResponse } from "next/server";
+import { authMiddleware } from "@/lib/middleware/auth";
+import { rateLimitMiddleware } from "@/lib/middleware/rate-limit";
+import { validateRequest } from "@/lib/middleware/validation";
+import { handleApiError } from "@/lib/errors";
+import { SkillsService } from "@/services/skills.service";
+import { CreateSkillSchema, SkillsQuerySchema } from "@/lib/validations/skills";
 
 export async function GET(request: NextRequest) {
   try {
     // Apply middleware in sequence
     const user = await authMiddleware(request);
-    await rateLimitMiddleware(request, 'skills-read', 100);
-    
+    await rateLimitMiddleware(request, "skills-read", 100);
+
     // Validate query parameters
     const url = new URL(request.url);
     const query = Object.fromEntries(url.searchParams.entries());
     const validatedQuery = SkillsQuerySchema.parse(query);
-    
+
     // Business logic (use existing service)
     const result = await SkillsService.getSkills(validatedQuery);
-    
+
     // Return response with caching headers
     return NextResponse.json(result, {
       headers: {
-        'Cache-Control': 'public, max-age=300',
-        'X-Total-Count': result.total?.toString() || '0',
-      }
+        "Cache-Control": "public, max-age=300",
+        "X-Total-Count": result.total?.toString() || "0",
+      },
     });
   } catch (error) {
     return handleApiError(error);
@@ -272,16 +278,16 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const user = await authMiddleware(request);
-    await rateLimitMiddleware(request, 'skills-write', 20);
-    
+    await rateLimitMiddleware(request, "skills-write", 20);
+
     const body = await request.json();
     const validatedData = CreateSkillSchema.parse(body);
-    
+
     const result = await SkillsService.createSkill({
       ...validatedData,
       userId: user.id,
     });
-    
+
     return NextResponse.json(result, { status: 201 });
   } catch (error) {
     return handleApiError(error);
@@ -293,28 +299,28 @@ export async function POST(request: NextRequest) {
 
 ```typescript
 // packages/app/src/lib/middleware/auth.ts
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import { NextRequest } from 'next/server';
-import { ApiError } from '@/lib/errors';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { NextRequest } from "next/server";
+import { ApiError } from "@/lib/errors";
 
 export async function authMiddleware(request: NextRequest) {
   const session = await getServerSession(authOptions);
-  
+
   if (!session?.user) {
-    throw new ApiError(401, 'Authentication required');
+    throw new ApiError(401, "Authentication required");
   }
-  
+
   return session.user;
 }
 ```
 
 ```typescript
 // packages/app/src/lib/middleware/rate-limit.ts
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
-import { NextRequest } from 'next/server';
-import { ApiError } from '@/lib/errors';
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import { NextRequest } from "next/server";
+import { ApiError } from "@/lib/errors";
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL!,
@@ -329,22 +335,29 @@ export async function rateLimitMiddleware(
   limit: number
 ) {
   if (!rateLimits.has(identifier)) {
-    rateLimits.set(identifier, new Ratelimit({
-      redis,
-      limiter: Ratelimit.slidingWindow(limit, '1 m'),
-    }));
+    rateLimits.set(
+      identifier,
+      new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(limit, "1 m"),
+      })
+    );
   }
 
   const ratelimit = rateLimits.get(identifier)!;
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'anonymous';
+  const ip =
+    request.ip || request.headers.get("x-forwarded-for") || "anonymous";
   const key = `${identifier}:${ip}`;
-  
+
   const { success, remaining, reset } = await ratelimit.limit(key);
-  
+
   if (!success) {
-    throw new ApiError(429, `Rate limit exceeded. Try again in ${Math.round((reset - Date.now()) / 1000)} seconds.`);
+    throw new ApiError(
+      429,
+      `Rate limit exceeded. Try again in ${Math.round((reset - Date.now()) / 1000)} seconds.`
+    );
   }
-  
+
   return { remaining, reset };
 }
 ```
@@ -353,8 +366,8 @@ export async function rateLimitMiddleware(
 
 ```typescript
 // packages/app/src/lib/errors.ts
-import { NextResponse } from 'next/server';
-import { ZodError } from 'zod';
+import { NextResponse } from "next/server";
+import { ZodError } from "zod";
 
 export class ApiError extends Error {
   constructor(
@@ -363,12 +376,12 @@ export class ApiError extends Error {
     public code?: string
   ) {
     super(message);
-    this.name = 'ApiError';
+    this.name = "ApiError";
   }
 }
 
 export function handleApiError(error: unknown) {
-  console.error('API Error:', error);
+  console.error("API Error:", error);
 
   if (error instanceof ApiError) {
     return NextResponse.json(
@@ -379,22 +392,19 @@ export function handleApiError(error: unknown) {
 
   if (error instanceof ZodError) {
     return NextResponse.json(
-      { 
-        error: 'Validation failed',
+      {
+        error: "Validation failed",
         details: error.errors.map(e => ({
-          field: e.path.join('.'),
-          message: e.message
-        }))
+          field: e.path.join("."),
+          message: e.message,
+        })),
       },
       { status: 400 }
     );
   }
 
   // Generic server error
-  return NextResponse.json(
-    { error: 'Internal server error' },
-    { status: 500 }
-  );
+  return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 }
 ```
 
@@ -406,9 +416,9 @@ export function handleApiError(error: unknown) {
 
 ```typescript
 // packages/app/src/app/api/health/route.ts
-import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-import { Redis } from '@upstash/redis';
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
+import { Redis } from "@upstash/redis";
 
 const prisma = new PrismaClient();
 const redis = new Redis({
@@ -428,7 +438,7 @@ export async function GET() {
     await prisma.$queryRaw`SELECT 1`;
     checks.database = true;
   } catch (error) {
-    console.error('Database health check failed:', error);
+    console.error("Database health check failed:", error);
   }
 
   try {
@@ -436,16 +446,16 @@ export async function GET() {
     await redis.ping();
     checks.redis = true;
   } catch (error) {
-    console.error('Redis health check failed:', error);
+    console.error("Redis health check failed:", error);
   }
 
   const isHealthy = checks.database && checks.redis;
 
   return NextResponse.json(
     {
-      status: isHealthy ? 'healthy' : 'unhealthy',
+      status: isHealthy ? "healthy" : "unhealthy",
       checks,
-      version: process.env.npm_package_version || 'unknown',
+      version: process.env.npm_package_version || "unknown",
     },
     { status: isHealthy ? 200 : 503 }
   );
@@ -458,20 +468,26 @@ export async function GET() {
 // packages/app/src/lib/logger.ts
 export class Logger {
   static info(message: string, data?: any) {
-    console.log(`[INFO] ${new Date().toISOString()} ${message}`, data || '');
+    console.log(`[INFO] ${new Date().toISOString()} ${message}`, data || "");
   }
 
   static error(message: string, error?: any) {
-    console.error(`[ERROR] ${new Date().toISOString()} ${message}`, error || '');
+    console.error(
+      `[ERROR] ${new Date().toISOString()} ${message}`,
+      error || ""
+    );
   }
 
   static warn(message: string, data?: any) {
-    console.warn(`[WARN] ${new Date().toISOString()} ${message}`, data || '');
+    console.warn(`[WARN] ${new Date().toISOString()} ${message}`, data || "");
   }
 
   static debug(message: string, data?: any) {
-    if (process.env.NODE_ENV === 'development') {
-      console.debug(`[DEBUG] ${new Date().toISOString()} ${message}`, data || '');
+    if (process.env.NODE_ENV === "development") {
+      console.debug(
+        `[DEBUG] ${new Date().toISOString()} ${message}`,
+        data || ""
+      );
     }
   }
 }
@@ -508,24 +524,21 @@ Your existing API client requires minimal changes:
 
 ```typescript
 // packages/app/src/lib/api-client.ts (Enhanced)
-import { getSession } from 'next-auth/react';
+import { getSession } from "next-auth/react";
 
 class ApiClient {
   private baseURL: string;
   private defaultTimeout: number = 10000;
 
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_API_URL || '';
+    this.baseURL = process.env.NEXT_PUBLIC_API_URL || "";
   }
 
-  async request<T>(
-    endpoint: string,
-    options: RequestOptions = {}
-  ): Promise<T> {
+  async request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
     const url = `${this.baseURL}/api/v1${endpoint}`;
-    
+
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...options.headers,
     };
 
@@ -538,14 +551,14 @@ class ApiClient {
     }
 
     const config: RequestInit = {
-      method: options.method || 'GET',
+      method: options.method || "GET",
       headers,
       body: options.data ? JSON.stringify(options.data) : undefined,
       signal: AbortSignal.timeout(options.timeout || this.defaultTimeout),
     };
 
     const response = await fetch(url, config);
-    
+
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       throw new ApiClientError(
@@ -560,7 +573,7 @@ class ApiClient {
 
   // Keep existing methods (get, post, put, delete)
   async get<T>(endpoint: string, options?: RequestOptions): Promise<T> {
-    return this.request<T>(endpoint, { ...options, method: 'GET' });
+    return this.request<T>(endpoint, { ...options, method: "GET" });
   }
 
   // ... other methods remain the same
@@ -575,8 +588,8 @@ Your existing query hooks work seamlessly:
 
 ```typescript
 // packages/app/src/hooks/queries/use-skills.ts (No changes needed)
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { SkillsService } from '@/services/skills.service';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { SkillsService } from "@/services/skills.service";
 
 export const useSkills = (filters = {}) => {
   return useQuery({
@@ -588,7 +601,7 @@ export const useSkills = (filters = {}) => {
 
 export const useCreateSkill = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: SkillsService.createSkill,
     onSuccess: () => {
@@ -606,7 +619,7 @@ export const useCreateSkill = () => {
 
 ```yaml
 # docker-compose.yml (Production)
-version: '3.8'
+version: "3.8"
 
 services:
   app:
@@ -685,6 +698,7 @@ CMD ["npm", "start"]
 ## 📋 Development Checklist
 
 ### Daily Development Tasks
+
 - [ ] Start Docker development environment
 - [ ] Check health endpoint (http://localhost:3000/api/health)
 - [ ] Run quality checks before committing
@@ -692,6 +706,7 @@ CMD ["npm", "start"]
 - [ ] Verify frontend integration works
 
 ### Before Creating Pull Request
+
 - [ ] All tests pass (`npm run test`)
 - [ ] Type checking passes (`npm run type-check`)
 - [ ] Linting passes (`npm run lint`)
@@ -701,6 +716,7 @@ CMD ["npm", "start"]
 - [ ] Database migrations applied
 
 ### Weekly Maintenance
+
 - [ ] Update Docker images (`docker-compose pull`)
 - [ ] Clean up unused containers (`docker system prune`)
 - [ ] Review application logs for errors

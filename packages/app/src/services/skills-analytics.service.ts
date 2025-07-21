@@ -1,6 +1,6 @@
 /**
  * Skills Analytics Service
- * 
+ *
  * Handles skill analytics, statistics, suggestions, and assessments
  */
 

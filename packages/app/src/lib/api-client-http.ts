@@ -1,6 +1,6 @@
 /**
  * API Client HTTP Handler
- * 
+ *
  * Low-level HTTP request handling functionality
  */
 

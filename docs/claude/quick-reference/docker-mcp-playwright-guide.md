@@ -13,6 +13,7 @@ This guide provides comprehensive instructions for using the Docker MCP Playwrig
 ## Available Tools Reference
 
 ### Core Browser Control
+
 - `mcp__MCP_DOCKER__browser_install` - Install browser if needed
 - `mcp__MCP_DOCKER__browser_navigate` - Navigate to URLs
 - `mcp__MCP_DOCKER__browser_navigate_back` - Go back to previous page
@@ -20,6 +21,7 @@ This guide provides comprehensive instructions for using the Docker MCP Playwrig
 - `mcp__MCP_DOCKER__browser_close` - Close the browser page
 
 ### Page Interaction
+
 - `mcp__MCP_DOCKER__browser_click` - Perform clicks (left, right, middle, double-click)
 - `mcp__MCP_DOCKER__browser_type` - Type text into elements
 - `mcp__MCP_DOCKER__browser_press_key` - Press keyboard keys
@@ -28,23 +30,27 @@ This guide provides comprehensive instructions for using the Docker MCP Playwrig
 - `mcp__MCP_DOCKER__browser_select_option` - Select options in dropdowns
 
 ### Page Analysis & Capture
+
 - `mcp__MCP_DOCKER__browser_snapshot` - Capture accessibility snapshots (preferred)
 - `mcp__MCP_DOCKER__browser_take_screenshot` - Take visual screenshots
 - `mcp__MCP_DOCKER__browser_evaluate` - Execute JavaScript on page
 
 ### Advanced Features
+
 - `mcp__MCP_DOCKER__browser_file_upload` - Upload files to forms
 - `mcp__MCP_DOCKER__browser_handle_dialog` - Handle JavaScript dialogs
 - `mcp__MCP_DOCKER__browser_wait_for` - Wait for elements or conditions
 - `mcp__MCP_DOCKER__browser_resize` - Resize browser window
 
 ### Tab Management
+
 - `mcp__MCP_DOCKER__browser_tab_new` - Open new tabs
 - `mcp__MCP_DOCKER__browser_tab_close` - Close tabs
 - `mcp__MCP_DOCKER__browser_tab_select` - Switch between tabs
 - `mcp__MCP_DOCKER__browser_tab_list` - List all open tabs
 
 ### Debugging & Monitoring
+
 - `mcp__MCP_DOCKER__browser_console_messages` - Get console messages
 - `mcp__MCP_DOCKER__browser_network_requests` - Monitor network requests
 
@@ -84,6 +90,7 @@ This guide provides comprehensive instructions for using the Docker MCP Playwrig
 ### Homepage Structure (`http://localhost:3000`)
 
 **Key Components to Test:**
+
 - **Theme Toggle** (top-right corner)
   - Cycles through: light → dark → system → light
   - Visual icon changes: sun → moon → monitor
@@ -121,7 +128,7 @@ Email Input:
 - Test: Type valid/invalid email formats
 
 Password Input:
-- Element: "Password input field" 
+- Element: "Password input field"
 - Ref: input[type="password"] or id="password"
 - Test: Type password, verify masking
 
@@ -154,14 +161,18 @@ Google Login Button:
 ## Element Targeting Best Practices
 
 ### Human-Readable Descriptions
+
 Use clear, descriptive element descriptions:
+
 - ✅ "Theme toggle button in top right corner"
 - ✅ "Email input field in login form"
 - ❌ "button"
 - ❌ "input"
 
 ### Element References
+
 Use specific selectors when available:
+
 - CSS selectors: `#email`, `.theme-toggle`
 - ARIA labels: `[aria-label="Toggle theme"]`
 - Data attributes: `[data-testid="login-form"]`
@@ -171,11 +182,13 @@ Use specific selectors when available:
 ### Common Issues
 
 **Browser Not Found:**
+
 ```
 Solution: Run mcp__MCP_DOCKER__browser_install first
 ```
 
 **Element Not Found:**
+
 ```
 1. Take snapshot to see current page state
 2. Check element description accuracy
@@ -184,6 +197,7 @@ Solution: Run mcp__MCP_DOCKER__browser_install first
 ```
 
 **Timeouts:**
+
 ```
 1. Increase wait times
 2. Check network requests for loading states
@@ -193,16 +207,19 @@ Solution: Run mcp__MCP_DOCKER__browser_install first
 ### Debugging Tools
 
 **Check Console Errors:**
+
 ```
 mcp__MCP_DOCKER__browser_console_messages
 ```
 
 **Monitor Network Activity:**
+
 ```
 mcp__MCP_DOCKER__browser_network_requests
 ```
 
 **Execute Custom JavaScript:**
+
 ```
 mcp__MCP_DOCKER__browser_evaluate
 function: "() => { return document.readyState; }"
@@ -211,25 +228,30 @@ function: "() => { return document.readyState; }"
 ## Best Practices
 
 ### 1. Always Start with Snapshots
+
 - Take accessibility snapshots before interactions
 - Use snapshots to understand page structure
 - Prefer snapshots over screenshots for automation
 
 ### 2. Use Descriptive Element Names
+
 - Be specific about element location and purpose
 - Include context (e.g., "in login form", "in header")
 
 ### 3. Wait for Page States
+
 - Use browser_wait_for for dynamic content
 - Check console messages for errors
 - Verify network requests complete
 
 ### 4. Test Accessibility
+
 - Use accessibility snapshots to verify ARIA labels
 - Test keyboard navigation
 - Verify semantic HTML structure
 
 ### 5. Document Findings
+
 - Take screenshots of different states
 - Note any UI/UX issues found
 - Record successful interaction patterns
@@ -237,18 +259,22 @@ function: "() => { return document.readyState; }"
 ## Integration with Project Workflow
 
 ### Development Commands Reference
+
 - Start dev server: `npm run dev`
 - Run type checks: `npm run type-check`
 - Run linting: `npm run lint`
 - Run tests: `npm run test`
 
 ### File Locations
+
 - App source: `packages/app/src/`
 - Components: `packages/app/src/components/`
 - Design system: `packages/design-system/src/`
 
 ### Documentation Updates
+
 After testing sessions, update:
+
 - `docs/tasks/qa-tasks.md` - QA findings
 - `docs/app-implementation-progress.md` - Progress notes
 - Component README files if issues found
@@ -256,14 +282,18 @@ After testing sessions, update:
 ## Future Enhancements
 
 ### Automated Test Suites
+
 Consider creating reusable test workflows for:
+
 - Theme functionality testing
 - Form validation testing
 - Responsive design verification
 - Accessibility compliance checking
 
 ### Integration with CI/CD
+
 The Docker MCP Playwright toolkit could be integrated into:
+
 - Pre-commit hooks for UI testing
 - Pull request validation
 - Automated regression testing
@@ -272,6 +302,7 @@ The Docker MCP Playwright toolkit could be integrated into:
 
 **Last Updated:** Current session
 **Related Files:**
+
 - `docs/claude/quick-reference/commands.md` - Development commands
 - `docs/claude/quick-reference/troubleshooting.md` - General troubleshooting
 - `packages/app/src/app/page.tsx` - Homepage component

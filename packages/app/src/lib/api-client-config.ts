@@ -1,6 +1,6 @@
 /**
  * API Client Configuration
- * 
+ *
  * Configuration interfaces and types for the API client
  */
 

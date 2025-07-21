@@ -32,14 +32,14 @@ const preview: Preview = {
   tags: ["autodocs"],
   decorators: [
     Story =>
-      React.createElement(
-        ThemeProvider,
-        { defaultMode: "light", children: React.createElement(
+      React.createElement(ThemeProvider, {
+        defaultMode: "light",
+        children: React.createElement(
           "div",
           { style: { fontFamily: "system-ui, sans-serif" } },
           React.createElement(Story)
-        ) },
-      ),
+        ),
+      }),
   ],
 };
 

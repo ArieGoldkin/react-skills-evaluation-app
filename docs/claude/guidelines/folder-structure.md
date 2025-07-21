@@ -556,14 +556,16 @@ This folder structure provides:
 ## Backend Implementation Phases
 
 ### Phase 1: Enhanced Monolith (Weeks 1-2)
+
 **Goal**: Improve existing Next.js API foundation
 
 #### File Organization Changes
+
 ```bash
 # Move existing API routes to versioned structure
 packages/app/src/app/api/v1/
 ├── skills/                    # Enhanced existing skills API
-├── categories/               # Enhanced categories API  
+├── categories/               # Enhanced categories API
 ├── assessments/              # New assessment engine
 ├── integrations/             # GitHub, Google APIs (prepare)
 ├── ai/                       # OpenAI integration (prepare)
@@ -571,6 +573,7 @@ packages/app/src/app/api/v1/
 ```
 
 #### New Files to Create
+
 - `packages/app/src/lib/validations/skills.ts` - Zod validation schemas
 - `packages/app/src/lib/middleware/auth.ts` - Authentication middleware
 - `packages/app/src/lib/middleware/rate-limit.ts` - Rate limiting
@@ -578,9 +581,11 @@ packages/app/src/app/api/v1/
 - `Dockerfile.dev` - Development container
 
 ### Phase 2: Modular Monolith (Weeks 3-4)
+
 **Goal**: Organize code for future service extraction
 
 #### New Package Structure
+
 ```bash
 packages/backend-core/        # New package for shared logic
 ├── src/services/            # Extracted business logic
@@ -590,9 +595,11 @@ packages/backend-core/        # New package for shared logic
 ```
 
 ### Phase 3: Service Extraction Foundation (Weeks 5-6)
+
 **Goal**: Build infrastructure for future microservices
 
 #### Infrastructure Files
+
 ```bash
 infrastructure/
 ├── docker-compose.yml       # Production orchestration
@@ -601,9 +608,11 @@ infrastructure/
 ```
 
 ### Phase 4: Selective Microservices (Week 7+)
+
 **Goal**: Extract services only when justified by scale
 
 #### Service Extraction Pattern
+
 ```bash
 packages/services/{service-name}/
 ├── src/
@@ -618,35 +627,41 @@ packages/services/{service-name}/
 ## Backend Naming Conventions
 
 ### API Routes
+
 - **Versioned URLs**: `/api/v1/skills`, `/api/v1/categories`
 - **RESTful patterns**: GET, POST, PUT, DELETE
 - **Resource-based**: `/api/v1/skills/{id}`, `/api/v1/categories/{id}`
 
 ### Service Files
+
 - **Services**: `skills.service.ts`, `categories.service.ts`
 - **Repositories**: `skills.repository.ts`, `categories.repository.ts`
 - **Middleware**: `auth.ts`, `rate-limit.ts`, `logging.ts`
 - **Jobs**: `skill-analysis.ts`, `github-sync.ts`
 
 ### Package Names
+
 - **Internal packages**: `@skills-eval/backend-core`, `@skills-eval/shared`
 - **Service packages**: `@skills-eval/ai-service`, `@skills-eval/github-service`
 
 ## Backend Quality Standards
 
 ### Code Organization
+
 - **180-line limit** per service file (same as components)
 - **Domain-driven structure** - organize by business domain
 - **Separation of concerns** - routes, services, repositories
 - **Dependency injection** - for testability and flexibility
 
 ### Testing Requirements
+
 - **Unit tests** for all service methods
 - **Integration tests** for API endpoints
 - **80%+ test coverage** minimum
 - **API contract testing** between services
 
 ### Documentation Standards
+
 - **README.md** for each service package
 - **API documentation** for all endpoints
 - **Service boundary documentation** for extraction decisions
@@ -655,6 +670,7 @@ packages/services/{service-name}/
 ## Docker Development Workflow
 
 ### Development Environment
+
 ```bash
 # Start development environment
 docker-compose -f docker-compose.dev.yml up
@@ -665,6 +681,7 @@ docker-compose up github-service
 ```
 
 ### Production Deployment
+
 ```bash
 # Full stack deployment
 docker-compose up -d
@@ -676,6 +693,7 @@ docker-compose up -d --scale ai-service=3
 ## Service Extraction Decision Matrix
 
 ### Extract Service When:
+
 - **Traffic**: > 1000 requests/minute
 - **Team Size**: > 3 developers working on domain
 - **Deployment**: Need independent deployment cycles
@@ -683,14 +701,16 @@ docker-compose up -d --scale ai-service=3
 - **Complexity**: > 1000 lines of code in domain
 
 ### Keep in Monolith When:
+
 - **Fast operations**: Database CRUD < 100ms
-- **Tightly coupled**: Frequent cross-domain queries  
+- **Tightly coupled**: Frequent cross-domain queries
 - **Security critical**: Authentication, authorization
 - **Simple operations**: Basic validation, formatting
 
 ## Migration Best Practices
 
 ### ✅ Do
+
 - Start with enhanced monolith patterns
 - Use versioned APIs from the beginning
 - Implement health checks and monitoring early
@@ -698,7 +718,8 @@ docker-compose up -d --scale ai-service=3
 - Maintain backward compatibility during transitions
 - Document service boundaries and data flows
 
-### ❌ Don't  
+### ❌ Don't
+
 - Extract services prematurely without scale justification
 - Create circular dependencies between services
 - Skip comprehensive testing during extraction

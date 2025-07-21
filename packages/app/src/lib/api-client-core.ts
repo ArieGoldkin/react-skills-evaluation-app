@@ -1,6 +1,6 @@
 /**
  * API Client Core Implementation
- * 
+ *
  * Core HTTP client functionality
  */
 
