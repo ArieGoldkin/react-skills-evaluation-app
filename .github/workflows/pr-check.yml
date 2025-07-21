@@ -27,6 +27,11 @@ jobs:
       - name: Build design system
         run: npm run design-system:build
 
+      - name: Generate Prisma client
+        run: |
+          cd packages/app
+          npx prisma generate
+
       - name: Type checking
         run: npm run type-check
 
