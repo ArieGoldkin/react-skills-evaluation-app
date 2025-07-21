@@ -21,7 +21,7 @@ export function validateRequestBody<T>(schema: z.ZodSchema<T>) {
       return schema.parse(body);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        throw new ValidationError((error as any).errors);
+        throw new ValidationError(error.issues);
       }
       if (error instanceof SyntaxError) {
         throw new ValidationError(
@@ -52,7 +52,7 @@ export function validateQueryParams<T>(schema: z.ZodSchema<T>) {
       return schema.parse(params);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        throw new ValidationError((error as any).errors);
+        throw new ValidationError(error.issues);
       }
       throw error;
     }
@@ -71,7 +71,7 @@ export function validatePathParams<T>(
       return schema.parse(pathParams);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        throw new ValidationError((error as any).errors);
+        throw new ValidationError(error.issues);
       }
       throw error;
     }

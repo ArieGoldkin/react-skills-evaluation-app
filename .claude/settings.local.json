@@ -37,12 +37,11 @@
       "mcp__MCP_DOCKER__get_pull_request_status",
       "Bash(npm ls:*)",
       "Bash(npx tsc:*)",
-      "Bash(npx prisma generate:*)"
+      "Bash(npx prisma generate:*)",
+      "mcp__MCP_DOCKER__get_pull_request"
     ],
     "deny": []
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "MCP_DOCKER"
-  ]
+  "enabledMcpjsonServers": ["MCP_DOCKER"]
 }

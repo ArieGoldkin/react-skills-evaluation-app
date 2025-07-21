@@ -103,7 +103,7 @@ export function handleApiError(error: unknown): NextResponse {
       {
         error: "Schema validation failed",
         code: "SCHEMA_VALIDATION_ERROR",
-        details: (error as any).errors.map((e: any) => ({
+        details: error.issues.map((e: any) => ({
           field: e.path.join("."),
           message: e.message,
           code: e.code,
@@ -178,7 +178,9 @@ function handlePrismaError(prismaError: {
           error: "Resource already exists",
           code: "DUPLICATE_ERROR",
           details: {
-            field: (prismaError.meta as any)?.target?.[0] || "unknown",
+            field:
+              (prismaError.meta as { target?: string[] })?.target?.[0] ||
+              "unknown",
           },
         },
         { status: 409 }
