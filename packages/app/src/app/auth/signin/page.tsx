@@ -1,36 +1,91 @@
+"use client";
+
 import { GoogleLogin } from "@/components/auth/google-login";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Checkbox,
+  Input,
+  Label,
+} from "@/components/ui";
+import { useState } from "react";
 
 export default function SignInPage() {
+  const [rememberMe, setRememberMe] = useState(false);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="mx-auto w-full max-w-2xl px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-          <div className="text-center">
-            <h1 className="mb-2 text-2xl font-bold text-gray-900">
-              Welcome to Skills Evaluation
-            </h1>
-            <p className="mb-8 text-sm text-gray-600">
-              Sign in to analyze your coding skills and get personalized
-              recommendations
-            </p>
-
-            <div className="space-y-4">
-              <GoogleLogin className="w-full" />
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-2 text-gray-500">
-                    By signing in, you agree to our terms of service
-                  </span>
-                </div>
-              </div>
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1 text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <span className="text-xl font-bold">A</span>
+          </div>
+          <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
+          <CardDescription>
+            Enter your credentials to access your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="name@example.com"
+              className="h-12"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              className="h-12"
+            />
+          </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="remember"
+              checked={rememberMe}
+              onCheckedChange={checked => setRememberMe(checked as boolean)}
+            />
+            <Label
+              htmlFor="remember"
+              className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Remember me
+            </Label>
+          </div>
+          <Button className="h-12 w-full">Sign in</Button>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">
+                Or continue with
+              </span>
             </div>
           </div>
-        </div>
-      </div>
+          <GoogleLogin className="h-12 w-full" />
+          <div className="text-center text-sm">
+            <span className="text-muted-foreground">
+              Don't have an account?{" "}
+            </span>
+            <a
+              href="/auth/signup"
+              className="font-medium text-primary hover:underline"
+            >
+              Sign up
+            </a>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

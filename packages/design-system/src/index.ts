@@ -5,7 +5,7 @@ export * from "./components/ui";
 export * from "./components/layout";
 
 // Form Components
-export * from "./components/forms";
+export * from "./components/form";
 
 // Data Display Components
 export * from "./components/data-display";
@@ -16,6 +16,12 @@ export * from "./components/feedback";
 // Navigation Components
 export * from "./components/navigation";
 
+// Context (includes ThemeProvider)
+export * from "./context";
+
+// Theme Components (excluding ThemeProvider to avoid conflict)
+export { ThemeToggle } from "./components/theme";
+
 // Utilities
 export * from "./lib/cn";
 export * from "./lib/utils";
@@ -25,3 +31,6 @@ export * from "./types";
 
 // Hooks
 export * from "./hooks";
+
+// Constants
+export * from "./constants/theme";

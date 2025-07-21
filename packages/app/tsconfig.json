@@ -28,7 +28,8 @@
       "@/lib/*": ["./src/lib/*"],
       "@/types/*": ["./src/types/*"],
       "@/utils/*": ["./src/utils/*"],
-      "@/constants/*": ["./src/constants/*"]
+      "@/constants/*": ["./src/constants/*"],
+      "@/generated/*": ["./generated/*"]
     }
   },
   "include": [
@@ -38,7 +39,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "vitest.config.ts",
-    "vitest.setup.ts"
+    "vitest.setup.ts",
+    "generated/**/*"
   ],
   "exclude": ["node_modules", ".next", "out", "coverage"]
 }

@@ -99,11 +99,18 @@ export default [
         sessionStorage: "readonly",
         alert: "readonly",
 
+        // Web APIs (available in Next.js)
+        fetch: "readonly",
+        URLSearchParams: "readonly",
+        URL: "readonly",
+        Headers: "readonly",
+        Request: "readonly",
+        Response: "readonly",
+
         // Node.js globals
         process: "readonly",
         setTimeout: "readonly",
         clearTimeout: "readonly",
-        URL: "readonly",
         NodeJS: "readonly",
 
         // DOM types
