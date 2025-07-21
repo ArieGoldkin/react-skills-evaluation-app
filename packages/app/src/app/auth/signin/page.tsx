@@ -10,10 +10,10 @@ import {
   CardTitle,
 } from "@/components/ui";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useSignInForm } from "@/hooks/use-sign-in-form";
 
-export default function SignInPage() {
+function SignInContent() {
   const searchParams = useSearchParams();
 
   const {
@@ -84,5 +84,28 @@ export default function SignInPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <Card className="w-full max-w-md animate-pulse">
+          <CardHeader className="space-y-1 text-center">
+            <div className="mx-auto mb-4 h-12 w-12 rounded-lg bg-primary/20" />
+            <div className="h-8 bg-primary/20 rounded" />
+            <div className="h-4 bg-primary/20 rounded mt-2" />
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="h-10 bg-primary/20 rounded" />
+            <div className="h-10 bg-primary/20 rounded" />
+            <div className="h-10 bg-primary/20 rounded" />
+          </CardContent>
+        </Card>
+      </div>
+    }>
+      <SignInContent />
+    </Suspense>
   );
 }
