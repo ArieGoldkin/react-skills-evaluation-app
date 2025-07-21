@@ -15,7 +15,6 @@ export default function DashboardPage() {
 
   // Skills filtering state
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
 
   // Data hook
   const {
@@ -25,7 +24,7 @@ export default function DashboardPage() {
     skillsLoading,
     categoriesLoading,
     skillsError,
-  } = useDashboardData({ selectedCategories, searchQuery });
+  } = useDashboardData({ selectedCategories });
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -129,9 +128,7 @@ export default function DashboardPage() {
               return mapped;
             })}
             selectedCategories={selectedCategories}
-            searchQuery={searchQuery}
             onCategoriesChange={setSelectedCategories}
-            onSearchChange={setSearchQuery}
             onAddSkill={() => console.log("Add skill")}
             onEditSkill={id => console.log("Edit skill:", id)}
             onDeleteSkill={id => console.log("Delete skill:", id)}

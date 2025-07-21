@@ -5,9 +5,7 @@ import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import { z } from "zod";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "./db";
 
 const secret = process.env.NEXTAUTH_SECRET;
 if (!secret) {
@@ -22,6 +20,7 @@ const loginSchema = z.object({
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   trustHost: true,
+  basePath: "/api/auth",
   // Enable automatic account linking by allowing OAuth to link with existing accounts
   events: {
     async linkAccount({ account, user }) {
@@ -211,7 +210,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
   session: {
-    strategy: "database",
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   // Enable automatic account linking for same email addresses
