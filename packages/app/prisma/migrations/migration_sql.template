@@ -1,0 +1,68 @@
+-- CreateEnum
+CREATE TYPE "GoalStatus" AS ENUM ('ACTIVE', 'ACHIEVED', 'PAUSED', 'ABANDONED');
+
+-- CreateTable
+CREATE TABLE "LearningGoal" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "skillId" TEXT NOT NULL,
+    "targetProficiency" INTEGER NOT NULL,
+    "currentProficiency" INTEGER NOT NULL,
+    "targetDate" TIMESTAMP(3),
+    "motivation" TEXT,
+    "status" "GoalStatus" NOT NULL DEFAULT 'ACTIVE',
+    "completedAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "LearningGoal_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "SkillProgression" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "skillId" TEXT NOT NULL,
+    "weekNumber" INTEGER NOT NULL,
+    "year" INTEGER NOT NULL,
+    "practiceHours" DOUBLE PRECISION NOT NULL DEFAULT 0,
+    "assessmentsTaken" INTEGER NOT NULL DEFAULT 0,
+    "avgScore" DOUBLE PRECISION,
+    "proficiencyStart" INTEGER NOT NULL,
+    "proficiencyEnd" INTEGER NOT NULL,
+    "milestones" JSONB,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "SkillProgression_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE INDEX "LearningGoal_userId_status_idx" ON "LearningGoal"("userId", "status");
+
+-- CreateIndex
+CREATE INDEX "LearningGoal_targetDate_idx" ON "LearningGoal"("targetDate");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "LearningGoal_userId_skillId_key" ON "LearningGoal"("userId", "skillId");
+
+-- CreateIndex
+CREATE INDEX "SkillProgression_userId_skillId_idx" ON "SkillProgression"("userId", "skillId");
+
+-- CreateIndex
+CREATE INDEX "SkillProgression_year_weekNumber_idx" ON "SkillProgression"("year", "weekNumber");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "SkillProgression_userId_skillId_year_weekNumber_key" ON "SkillProgression"("userId", "skillId", "year", "weekNumber");
+
+-- AddForeignKey
+ALTER TABLE "LearningGoal" ADD CONSTRAINT "LearningGoal_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "LearningGoal" ADD CONSTRAINT "LearningGoal_skillId_fkey" FOREIGN KEY ("skillId") REFERENCES "Skill"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SkillProgression" ADD CONSTRAINT "SkillProgression_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SkillProgression" ADD CONSTRAINT "SkillProgression_skillId_fkey" FOREIGN KEY ("skillId") REFERENCES "Skill"("id") ON DELETE CASCADE ON UPDATE CASCADE;

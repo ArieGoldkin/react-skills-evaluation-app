@@ -34,7 +34,6 @@ export interface SkillsManagementProps {
   onEditSkill: (id: string) => void;
   onDeleteSkill: (id: string) => void;
   onViewSkill: (id: string) => void;
-  isLoadingCategories: boolean;
   isLoadingSkills: boolean;
   skillsError?: Error | null;
 }
@@ -48,7 +47,6 @@ export const SkillsManagement: React.FC<SkillsManagementProps> = ({
   onEditSkill,
   onDeleteSkill,
   onViewSkill,
-  isLoadingCategories,
   isLoadingSkills,
   skillsError,
 }) => {
@@ -78,8 +76,6 @@ export const SkillsManagement: React.FC<SkillsManagementProps> = ({
           }))}
           selectedCategories={selectedCategories}
           onSelectionChange={onCategoriesChange}
-          loading={isLoadingCategories}
-          variant="default"
         />
       </div>
 

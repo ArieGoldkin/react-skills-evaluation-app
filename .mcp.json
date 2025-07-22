@@ -2,10 +2,17 @@
   "mcpServers": {
     "MCP_DOCKER": {
       "command": "docker",
-      "args": ["mcp", "gateway", "run"],
+      "args": [
+        "mcp",
+        "gateway",
+        "run",
+        "/Users/ariegoldkin/aiSkillimprove/mcp-gateway.yml"
+      ],
       "env": {
         "HOME": "/Users/ariegoldkin",
-        "PATH": "/usr/local/bin:/usr/bin:/bin"
+        "PATH": "/usr/local/bin:/usr/bin:/bin",
+        "SUPABASE_ACCESS_TOKEN": "sbp_774ca5362ebdc98a0369a4e54a6f0e4bbaddd109",
+        "SUPABASE_PROJECT_REF": "tizfzelbbixhqcbrkriv"
       }
     }
   }

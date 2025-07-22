@@ -104,6 +104,17 @@ export const BulkUpdateSkillsSchema = z.object({
     .max(50, "Maximum 50 skills can be updated at once"),
 });
 
+// Form schema for UI (simplified)
+export const skillSchema = z.object({
+  name: z.string().min(1, "Name is required").max(100, "Name is too long"),
+  description: z.string().optional(),
+  categoryId: z.string().min(1, "Category is required"),
+  proficiency: z.number().min(1).max(10),
+  yearsOfExperience: z.number().optional(),
+  tags: z.array(z.string()).optional(),
+  notes: z.string().optional(),
+});
+
 // Export types for use in components and services
 export type CreateSkillData = z.infer<typeof CreateSkillSchema>;
 export type UpdateSkillData = z.infer<typeof UpdateSkillSchema>;
@@ -111,3 +122,4 @@ export type SkillsQuery = z.infer<typeof SkillsQuerySchema>;
 export type CreateSkillHistoryData = z.infer<typeof CreateSkillHistorySchema>;
 export type BulkUpdateSkillsData = z.infer<typeof BulkUpdateSkillsSchema>;
 export type SkillSource = z.infer<typeof SkillSourceEnum>;
+export type SkillFormData = z.infer<typeof skillSchema>;
