@@ -1,69 +1,35 @@
 # Claude AI Documentation
 
-Quick reference and guidelines for working with the Skills Evaluation monorepo.
+## ⚠️ IMPORTANT: Documentation Moved
 
-## 🚀 Quick Start
+**All Claude AI guidelines and instructions have been consolidated into the `.kiro/steering/` folder.**
 
-1. **Check main instructions**: [CLAUDE.md](../../CLAUDE.md)
-2. **Essential commands**: [commands.md](quick-reference/commands.md)
-3. **Component checklist**: [checklist.md](quick-reference/checklist.md)
+This directory is maintained for historical reference only. For current guidelines, please refer to:
 
-## 📁 Documentation Structure
+## 📍 Primary Source: `.kiro/steering/`
 
-### Quick Reference
+- **Primary Instructions**: `.kiro/steering/claude-primary-instructions.md`
+- **Project Rules**: `.kiro/steering/project-rules.md`
+- **Quality Rules**: `.kiro/steering/react-typescript-quality-rules.md`
+- **Design System**: `.kiro/steering/design-system-development.md`
+- **Git Workflow**: `.kiro/steering/git-workflow.md`
 
-- **[Commands](quick-reference/commands.md)** - Essential development commands
-- **[Checklist](quick-reference/checklist.md)** - Component creation checklist
-- **[Troubleshooting](quick-reference/troubleshooting.md)** - Common issues & fixes
+## Why the Change?
 
-### Guidelines
+The steering folder provides:
 
-- **[Design System](guidelines/design-system.md)** - Comprehensive component development guide
-- **[Folder Structure](guidelines/folder-structure.md)** - Project organization patterns
+- Automatic loading with `inclusion: always` metadata
+- Single source of truth for all AI guidelines
+- Clear separation between rules (steering) and documentation (docs)
+- Reduced duplication and confusion
 
-### Templates
+## Legacy Content
 
-- **[Component](templates/component.md)** - Implementation templates
-- **[Stories](templates/stories.md)** - Storybook templates
-- **[Tests](templates/tests.md)** - Testing templates
+The subdirectories here contain archived versions for reference:
 
-### Reports
+- `guidelines/` - Development rules (now in steering)
+- `quick-reference/` - Commands and checklists
+- `reports/` - Historical compliance reports
+- `templates/` - Code templates
 
-- **[Design System Compliance](reports/design-system-compliance-report.md)** - Current status
-- **[Migration Status](reports/migration-status.md)** - Jest to Vitest migration
-
-## 🎯 Key Principles
-
-### Component Development Priority
-
-1. **shadcn/ui** - Use existing components when available
-2. **Radix UI** - Build on primitives when shadcn/ui unavailable
-3. **Custom** - Last resort with full accessibility
-
-### Quality Standards
-
-- Max 180 lines per component
-- 90% test coverage minimum
-- WCAG AA accessibility compliance
-- TypeScript strict mode
-
-### Workflow
-
-1. Use TodoWrite for task tracking
-2. Search codebase before changes
-3. Run quality checks after changes
-4. Only commit when explicitly requested
-
-## 🔧 After Making Changes
-
-Always run in order:
-
-```bash
-npm run type-check
-npm run lint
-npm run test
-```
-
-## 📚 Main Reference
-
-This directory supplements the main [CLAUDE.md](../../CLAUDE.md) file. Always check there first for project instructions and context.
+For active development, always refer to the `.kiro/steering/` folder.

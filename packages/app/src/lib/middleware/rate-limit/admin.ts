@@ -14,8 +14,10 @@ export async function resetRateLimit(
 
   try {
     // Clear the rate limit for this identifier
-    const prefix = `rl:${operation}`;
-    await redis.del(`${prefix}:${identifier}`);
+    if (redis) {
+      const prefix = `rl:${operation}`;
+      await redis.del(`${prefix}:${identifier}`);
+    }
     return true;
   } catch (error) {
     console.error("Rate limit reset error:", error);

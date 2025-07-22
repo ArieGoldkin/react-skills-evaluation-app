@@ -1,26 +1,34 @@
-import { PrismaClient } from "@prisma/client";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { withApiSecurity } from "@/lib/middleware/with-security";
+import { withAuthLogging } from "@/lib/middleware/with-logging";
+import { handleApiError } from "@/lib/errors/handlers";
+import { handleGetCategories, handleCreateCategory } from "./handlers";
 
-const prisma = new PrismaClient();
-
-// GET /api/categories - Get all skill categories
-export async function GET(_request: NextRequest) {
+// GET /api/v1/categories - Get all categories with optional hierarchy
+async function getCategoriesHandler(request: NextRequest) {
   try {
-    const categories = await prisma.skillCategory.findMany({
-      orderBy: { order: "asc" },
-      include: {
-        _count: {
-          select: { skills: true },
-        },
-      },
-    });
-
-    return NextResponse.json({ categories });
+    return await handleGetCategories(request);
   } catch (error) {
-    console.error("Error fetching categories:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch categories" },
-      { status: 500 }
-    );
+    return handleApiError(error);
   }
 }
+
+// POST /api/v1/categories - Create a new category (admin only)
+async function createCategoryHandler(request: NextRequest) {
+  try {
+    return await handleCreateCategory(request);
+  } catch (error) {
+    return handleApiError(error);
+  }
+}
+
+// Export handlers with middleware
+export const GET = withAuthLogging(
+  withApiSecurity(getCategoriesHandler),
+  "categories-get"
+);
+
+export const POST = withAuthLogging(
+  withApiSecurity(createCategoryHandler),
+  "categories-create"
+);

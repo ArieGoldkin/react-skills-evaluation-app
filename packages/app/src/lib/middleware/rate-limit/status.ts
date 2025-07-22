@@ -31,7 +31,9 @@ export async function getRateLimitStatus(
   try {
     // This is a hypothetical method - Upstash Ratelimit might not have this
     // You may need to implement this differently based on the library's API
-    const status = await redis.get(`rl:${operation}:${identifier}`);
+    const status = redis
+      ? await redis.get(`rl:${operation}:${identifier}`)
+      : null;
 
     if (!status) {
       return { remaining: 100, reset: Date.now() + 60000, limit: 100 };

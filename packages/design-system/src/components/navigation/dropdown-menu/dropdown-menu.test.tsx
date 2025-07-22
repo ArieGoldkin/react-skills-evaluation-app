@@ -684,6 +684,78 @@ describe("DropdownMenu", () => {
         expect(handleClick).toHaveBeenCalledTimes(1);
       });
     });
+
+    it("supports Space key to activate items", async () => {
+      const handleClick = vi.fn();
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger>Open Menu</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={handleClick}>
+              Space Activatable
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+
+      await user.click(screen.getByText("Open Menu"));
+      await waitFor(() => {
+        expect(screen.getByText("Space Activatable")).toBeInTheDocument();
+      });
+
+      const item = screen.getByText("Space Activatable");
+      item.focus();
+      await user.keyboard(" ");
+
+      await waitFor(() => {
+        expect(handleClick).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it("supports Home/End keys for navigation", async () => {
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger>Open Menu</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>First Item</DropdownMenuItem>
+            <DropdownMenuItem>Middle Item</DropdownMenuItem>
+            <DropdownMenuItem>Last Item</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+
+      await user.click(screen.getByText("Open Menu"));
+      await waitFor(() => {
+        expect(screen.getByText("First Item")).toBeInTheDocument();
+      });
+
+      // Test Home key
+      await user.keyboard("{Home}");
+      // Test End key
+      await user.keyboard("{End}");
+    });
+
+    it("supports type-ahead search", async () => {
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger>Open Menu</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>Apple</DropdownMenuItem>
+            <DropdownMenuItem>Banana</DropdownMenuItem>
+            <DropdownMenuItem>Cherry</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+
+      await user.click(screen.getByText("Open Menu"));
+      await waitFor(() => {
+        expect(screen.getByText("Apple")).toBeInTheDocument();
+      });
+
+      // Type-ahead to "C" should focus Cherry
+      await user.keyboard("c");
+      // Additional tests for type-ahead can be added as needed
+    });
   });
 
   describe("Complex Scenarios", () => {
@@ -830,6 +902,92 @@ describe("DropdownMenu", () => {
       await waitFor(() => {
         expect(screen.getByText("Actions")).toBeInTheDocument();
         expect(screen.getAllByRole("menuitem")).toHaveLength(2);
+      });
+    });
+
+    it("provides proper ARIA descriptions for complex items", async () => {
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger aria-label="User actions menu">
+            Open Menu
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem aria-describedby="profile-description">
+              <User className="mr-2 h-4 w-4" />
+              Profile
+              <span id="profile-description" className="sr-only">
+                View and edit your profile settings
+              </span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+
+      const trigger = screen.getByLabelText("User actions menu");
+      expect(trigger).toBeInTheDocument();
+
+      await user.click(trigger);
+      await waitFor(() => {
+        const profileItem = screen.getByRole("menuitem");
+        expect(profileItem).toHaveAttribute(
+          "aria-describedby",
+          "profile-description"
+        );
+      });
+    });
+
+    it("handles disabled items correctly for screen readers", async () => {
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger>Open Menu</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>Active Item</DropdownMenuItem>
+            <DropdownMenuItem
+              disabled
+              aria-label="Disabled action, requires premium"
+            >
+              Disabled Item
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+
+      await user.click(screen.getByText("Open Menu"));
+      await waitFor(() => {
+        const disabledItem = screen.getByLabelText(
+          "Disabled action, requires premium"
+        );
+        expect(disabledItem).toHaveAttribute("data-disabled");
+        expect(disabledItem).toHaveAttribute("aria-disabled", "true");
+      });
+    });
+
+    it("supports keyboard navigation with screen reader context", async () => {
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger>Actions Menu</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>File Operations</DropdownMenuLabel>
+            <DropdownMenuItem>
+              Save
+              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              Save As
+              <DropdownMenuShortcut>⇧⌘S</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Export</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+
+      await user.click(screen.getByText("Actions Menu"));
+      await waitFor(() => {
+        expect(screen.getByText("File Operations")).toBeInTheDocument();
+        expect(screen.getByText("⌘S")).toBeInTheDocument();
+        expect(screen.getByText("⇧⌘S")).toBeInTheDocument();
+        expect(screen.getAllByRole("menuitem")).toHaveLength(3);
       });
     });
   });

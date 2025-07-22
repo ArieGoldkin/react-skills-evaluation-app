@@ -1,5 +1,9 @@
 import { NextRequest } from "next/server";
-import { rateLimiters, type RateLimitOperation } from "./config";
+import {
+  rateLimiters,
+  isRedisConfigured,
+  type RateLimitOperation,
+} from "./config";
 import { RateLimitError } from "./error";
 
 /**
@@ -18,6 +22,12 @@ export async function rateLimitMiddleware(
 
   // Skip if rate limiting is disabled
   if (process.env.RATE_LIMIT_ENABLED === "false") {
+    return { remaining: 100, reset: Date.now() + 60000, limit: 100 };
+  }
+
+  // Skip if Redis is not configured
+  if (!isRedisConfigured) {
+    console.warn("Redis not configured, skipping rate limiting");
     return { remaining: 100, reset: Date.now() + 60000, limit: 100 };
   }
 
