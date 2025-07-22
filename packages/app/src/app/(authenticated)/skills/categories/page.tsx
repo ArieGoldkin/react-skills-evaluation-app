@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Plus, Search, Edit2, Trash2, FolderOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,7 +22,6 @@ import {
 import { useCategories } from "@/hooks/queries/use-categories";
 
 export default function CategoriesPage() {
-  const router = useRouter();
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   
@@ -155,7 +153,7 @@ export default function CategoriesPage() {
                         )}
                         <div className="flex items-center gap-2">
                           <Badge variant="secondary">
-                            {category.skillCount || 0} skills
+                            {category._count?.skills || 0} skills
                           </Badge>
                         </div>
                         {category.description && (

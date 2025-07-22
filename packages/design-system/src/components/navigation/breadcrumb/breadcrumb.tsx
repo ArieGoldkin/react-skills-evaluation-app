@@ -57,7 +57,8 @@ export function Breadcrumb({
       return {
         label,
         href: index < paths.length - 1 ? href : undefined, // Last item is not a link
-      };
+        icon: undefined,
+      } as BreadcrumbItem;
     });
   }, [items, pathname]);
 
