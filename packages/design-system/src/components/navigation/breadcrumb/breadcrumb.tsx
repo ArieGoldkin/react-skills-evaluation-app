@@ -68,9 +68,9 @@ export function Breadcrumb({
       return breadcrumbItems;
     }
 
-    // Show first item, ellipsis, and last (maxItems - 2) items
+    // Show first item, ellipsis, and last (maxItems - 1) items
     const firstItem = breadcrumbItems[0];
-    const lastItems = breadcrumbItems.slice(-(maxItems - 2));
+    const lastItems = breadcrumbItems.slice(-(maxItems - 1));
 
     return [
       firstItem,

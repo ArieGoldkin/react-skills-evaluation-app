@@ -134,7 +134,10 @@ describe("Breadcrumb", () => {
         />
       );
 
-      const homeLink = screen.getByRole("link", { name: /Dashboard/ });
+      // Get the first link which should be the home link
+      const links = screen.getAllByRole("link");
+      const homeLink = links[0];
+      expect(homeLink).toHaveTextContent("Dashboard");
       expect(homeLink).toHaveAttribute("href", "/dashboard");
     });
 
@@ -179,7 +182,8 @@ describe("Breadcrumb", () => {
         />
       );
 
-      const separators = document.querySelectorAll('[aria-hidden="true"]');
+      // Check for separator spans specifically, not all aria-hidden elements
+      const separators = document.querySelectorAll('span.mx-2.text-muted-foreground[aria-hidden="true"]');
       expect(separators).toHaveLength(1);
     });
   });
