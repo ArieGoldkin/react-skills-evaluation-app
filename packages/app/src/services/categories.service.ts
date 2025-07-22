@@ -12,7 +12,13 @@ export class CategoriesService {
    * Get all skill categories
    */
   static async getCategories(): Promise<CategoriesResponse> {
-    return apiClient.get<CategoriesResponse>("/api/categories");
+    const response = await apiClient.get<{
+      success: boolean;
+      data: CategoriesResponse;
+      message: string;
+      timestamp: string;
+    }>("/api/categories");
+    return response.data;
   }
 
   /**

@@ -38,7 +38,10 @@
       "Bash(npm ls:*)",
       "Bash(npx tsc:*)",
       "Bash(npx prisma generate:*)",
-      "mcp__MCP_DOCKER__get_pull_request"
+      "mcp__MCP_DOCKER__get_pull_request",
+      "Bash(curl:*)",
+      "Bash(node:*)",
+      "Bash(npx prisma:*)"
     ],
     "deny": []
   },

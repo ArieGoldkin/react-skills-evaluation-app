@@ -68,7 +68,9 @@ async function checkRedis(): Promise<{
 
     const startTime = Date.now();
     const { redis } = await import("@/lib/middleware/rate-limit/config");
-    await redis.ping();
+    if (redis) {
+      await redis.ping();
+    }
     const responseTime = Date.now() - startTime;
 
     return {
