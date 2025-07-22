@@ -14,10 +14,10 @@ export default function AuthenticatedLayout({
   useEffect(() => {
     // Read cookie on client side
     const sidebarState = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('sidebar_state='))
-      ?.split('=')[1];
-    
+      .split("; ")
+      .find(row => row.startsWith("sidebar_state="))
+      ?.split("=")[1];
+
     setDefaultOpen(sidebarState !== "false");
   }, []);
 

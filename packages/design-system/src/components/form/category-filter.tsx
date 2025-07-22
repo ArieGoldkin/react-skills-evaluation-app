@@ -3,11 +3,7 @@
 import * as React from "react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 
@@ -81,7 +77,7 @@ export function CategoryFilter({
             )}
           </div>
           <div className="space-y-1">
-            {categories.map((category) => {
+            {categories.map(category => {
               const isSelected = selectedCategories.includes(category.id);
               return (
                 <button
@@ -101,10 +97,14 @@ export function CategoryFilter({
           {selectedCount > 0 && (
             <div className="mt-2 pt-2 border-t">
               <div className="flex flex-wrap gap-1">
-                {selectedCategories.map((categoryId) => {
+                {selectedCategories.map(categoryId => {
                   const category = categories.find(c => c.id === categoryId);
                   return category ? (
-                    <Badge key={categoryId} variant="secondary" className="text-xs">
+                    <Badge
+                      key={categoryId}
+                      variant="secondary"
+                      className="text-xs"
+                    >
                       {category.name}
                     </Badge>
                   ) : null;

@@ -27,7 +27,7 @@ This comprehensive guide will help you set up, develop, and contribute to the Sk
 {
   "recommendations": [
     "bradlc.vscode-tailwindcss",
-    "esbenp.prettier-vscode", 
+    "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "ms-vscode.vscode-typescript-next",
     "Prisma.prisma",
@@ -61,7 +61,7 @@ aiSkillimprove/
 ├── packages/
 │   ├── app/                    # Next.js application (main app)
 │   │   ├── src/app/           # Next.js App Router pages & API
-│   │   ├── src/components/    # App-specific components  
+│   │   ├── src/components/    # App-specific components
 │   │   ├── src/lib/           # Utilities and configurations
 │   │   ├── prisma/            # Database schema & migrations
 │   │   └── package.json       # App dependencies & scripts
@@ -104,7 +104,7 @@ Create environment files from templates:
 # Root environment file
 cp .env.example .env.local
 
-# App-specific environment file  
+# App-specific environment file
 cp packages/app/.env.example packages/app/.env.local
 
 # Edit environment variables
@@ -125,7 +125,7 @@ GOOGLE_CLIENT_ID="your_google_oauth_client_id"
 GOOGLE_CLIENT_SECRET="your_google_oauth_client_secret"
 
 # GitHub OAuth (optional but recommended)
-GITHUB_CLIENT_ID="your_github_oauth_client_id" 
+GITHUB_CLIENT_ID="your_github_oauth_client_id"
 GITHUB_CLIENT_SECRET="your_github_oauth_client_secret"
 ```
 
@@ -147,7 +147,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY="your_supabase_anon_key"
 # Local Redis
 REDIS_URL="redis://localhost:6379"
 
-# OR Upstash Redis (cloud alternative)  
+# OR Upstash Redis (cloud alternative)
 UPSTASH_REDIS_REST_URL="https://your-redis-endpoint.upstash.io"
 UPSTASH_REDIS_REST_TOKEN="your_upstash_redis_token"
 ```
@@ -160,7 +160,7 @@ OPENAI_API_KEY="your_openai_api_key"
 
 # Feature toggles
 ENABLE_AI_EVALUATIONS="true"
-ENABLE_ANALYTICS="true"  
+ENABLE_ANALYTICS="true"
 ENABLE_BULK_OPERATIONS="true"
 ```
 
@@ -195,7 +195,7 @@ createdb skills_evaluation_dev
 
 # Set up database schema and seed data
 npm run db:generate  # Generate Prisma client
-npm run db:migrate   # Apply database migrations  
+npm run db:migrate   # Apply database migrations
 npm run db:seed      # Populate with sample data
 ```
 
@@ -299,7 +299,7 @@ npm run build                   # Build main application
 npm run design-system:build     # Build design system package
 npm run build:all              # Build all packages
 
-# ✅ Quality Control  
+# ✅ Quality Control
 npm run type-check             # TypeScript validation for all packages
 npm run lint                   # Lint all code with ESLint
 npm run lint:fix              # Auto-fix linting issues
@@ -314,7 +314,7 @@ npm run test:watch           # Run tests in watch mode
 npm run test:coverage        # Generate test coverage report
 npm run test:ui              # Open Vitest testing UI
 
-# 🧹 Cleanup  
+# 🧹 Cleanup
 npm run clean                # Clean build artifacts
 npm run clean:all            # Clean everything including node_modules
 ```
@@ -372,7 +372,7 @@ npm run dev                  # Next.js on :3000 (foreground)
 
 # Or start services individually
 npm run dev                  # Main app: http://localhost:3000
-npm run design-system:dev    # Storybook: http://localhost:6006  
+npm run design-system:dev    # Storybook: http://localhost:6006
 npm run db:studio           # Database GUI: http://localhost:5555
 ```
 
@@ -427,8 +427,9 @@ npm run test -- --ui                        # Open Vitest UI
 ```
 
 **Testing Statistics**:
+
 - **Total Tests**: 620+ automated tests
-- **Design System**: 585+ component tests  
+- **Design System**: 585+ component tests
 - **Application**: 35+ integration tests
 - **Coverage**: 80%+ on business logic
 
@@ -442,6 +443,7 @@ npm run design-system:test       # Run component tests
 ```
 
 **Component Library**:
+
 - **100+ Components** across 7 categories
 - **Interactive Documentation** via Storybook
 - **Accessibility Testing** with WCAG AA compliance
@@ -457,6 +459,7 @@ npm run db:seed:dev            # Custom development seeding
 ```
 
 **Database Features**:
+
 - **12 Comprehensive Models** with relationships
 - **Audit Trail System** for all operations
 - **Migration History** with rollback support
@@ -499,7 +502,7 @@ npm run db:reset
 # Check Redis status
 redis-cli ping                    # Should return "PONG"
 
-# Start Redis if stopped  
+# Start Redis if stopped
 brew services start redis
 
 # Check Redis configuration
@@ -581,7 +584,7 @@ npm run dev -- --turbo
 npm run test -- --testNamePattern="Button"
 npm run test -- --testPathPattern="components/ui"
 
-# Build design system once, then develop  
+# Build design system once, then develop
 npm run design-system:build
 npm run dev
 ```
@@ -636,32 +639,29 @@ export default Component;
 
 ```typescript
 // API route template with security and validation
-import { withApiSecurity } from '@/lib/middleware/with-security';
-import { withAuthLogging } from '@/lib/middleware/with-logging';
-import { handleApiError } from '@/lib/errors/handlers';
+import { withApiSecurity } from "@/lib/middleware/with-security";
+import { withAuthLogging } from "@/lib/middleware/with-logging";
+import { handleApiError } from "@/lib/errors/handlers";
 
 async function handler(request: NextRequest) {
   try {
     // Request validation with Zod
-    // Business logic implementation  
+    // Business logic implementation
     // Return typed response
   } catch (error) {
     return handleApiError(error);
   }
 }
 
-export const GET = withAuthLogging(
-  withApiSecurity(handler),
-  'endpoint-name'
-);
+export const GET = withAuthLogging(withApiSecurity(handler), "endpoint-name");
 ```
 
 ### **Database Development Patterns**
 
 ```typescript
 // Database operations with proper error handling
-import { prisma } from '@/lib/db';
-import { handleDatabaseError } from '@/lib/errors/database';
+import { prisma } from "@/lib/db";
+import { handleDatabaseError } from "@/lib/errors/database";
 
 export async function createSkill(data: CreateSkillInput) {
   try {

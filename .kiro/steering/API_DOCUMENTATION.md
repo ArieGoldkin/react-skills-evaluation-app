@@ -5,6 +5,7 @@
 The Skills Evaluation App provides a comprehensive RESTful API for managing user skills, categories, assessments, and learning goals. The API is built with Next.js 15 and includes advanced features like analytics, bulk operations, health monitoring, and real-time skill progression tracking.
 
 **Key Features:**
+
 - 🏗️ **Versioned API** (v1) with backward compatibility
 - 🔐 **NextAuth v5** authentication with multiple providers
 - 📊 **Advanced Analytics** with skill distributions and progression tracking
@@ -19,7 +20,7 @@ The Skills Evaluation App provides a comprehensive RESTful API for managing user
 ### Authentication Method
 
 - **Strategy**: NextAuth v5 with JWT tokens and session management
-- **Providers**: 
+- **Providers**:
   - Google OAuth 2.0
   - Email/Password authentication with verification
 - **Session Duration**: 30 days with automatic refresh
@@ -28,10 +29,10 @@ The Skills Evaluation App provides a comprehensive RESTful API for managing user
 
 ### Authentication Endpoints
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
+| Endpoint                  | Method    | Description                                           |
+| ------------------------- | --------- | ----------------------------------------------------- |
 | `/api/auth/[...nextauth]` | GET, POST | NextAuth.js handlers for OAuth and session management |
-| `/api/auth/register` | POST | User registration with email/password validation |
+| `/api/auth/register`      | POST      | User registration with email/password validation      |
 
 ### Protected Endpoints
 
@@ -73,17 +74,17 @@ Retrieve a list of user skills with optional filtering and pagination.
 
 #### Query Parameters
 
-| Parameter    | Type    | Description                                                  | Default     | Example                                |
-| ------------ | ------- | ------------------------------------------------------------ | ----------- | -------------------------------------- |
-| `categoryId` | UUID    | Filter by specific category                                  | -           | `550e8400-e29b-41d4-a716-446655440000` |
-| `search`     | String  | Search in skill names and descriptions                       | -           | `javascript`                           |
-| `verified`   | Boolean | Filter by verification status                                | -           | `true`                                 |
-| `tags`       | String  | Comma-separated tags to filter by                            | -           | `frontend,react`                       |
-| `source`     | String  | Filter by skill source (`MANUAL`, `ASSESSMENT`, `GITHUB`, `AI_SUGGESTED`, `IMPORTED`) | - | `ASSESSMENT` |
-| `sortBy`     | String  | Sort field (`name`, `proficiency`, `createdAt`, `updatedAt`) | `createdAt` | `proficiency`                          |
-| `order`      | String  | Sort order (`asc`, `desc`)                                   | `desc`      | `asc`                                  |
-| `limit`      | Number  | Number of results per page (1-100)                           | `20`        | `50`                                   |
-| `offset`     | Number  | Number of results to skip                                    | `0`         | `20`                                   |
+| Parameter    | Type    | Description                                                                           | Default     | Example                                |
+| ------------ | ------- | ------------------------------------------------------------------------------------- | ----------- | -------------------------------------- |
+| `categoryId` | UUID    | Filter by specific category                                                           | -           | `550e8400-e29b-41d4-a716-446655440000` |
+| `search`     | String  | Search in skill names and descriptions                                                | -           | `javascript`                           |
+| `verified`   | Boolean | Filter by verification status                                                         | -           | `true`                                 |
+| `tags`       | String  | Comma-separated tags to filter by                                                     | -           | `frontend,react`                       |
+| `source`     | String  | Filter by skill source (`MANUAL`, `ASSESSMENT`, `GITHUB`, `AI_SUGGESTED`, `IMPORTED`) | -           | `ASSESSMENT`                           |
+| `sortBy`     | String  | Sort field (`name`, `proficiency`, `createdAt`, `updatedAt`)                          | `createdAt` | `proficiency`                          |
+| `order`      | String  | Sort order (`asc`, `desc`)                                                            | `desc`      | `asc`                                  |
+| `limit`      | Number  | Number of results per page (1-100)                                                    | `20`        | `50`                                   |
+| `offset`     | Number  | Number of results to skip                                                             | `0`         | `20`                                   |
 
 #### Example Request
 
@@ -115,7 +116,7 @@ interface Skill {
   };
   verified: boolean;
   tags: string[];
-  source: 'MANUAL' | 'ASSESSMENT' | 'GITHUB' | 'AI_SUGGESTED' | 'IMPORTED';
+  source: "MANUAL" | "ASSESSMENT" | "GITHUB" | "AI_SUGGESTED" | "IMPORTED";
   lastAssessed?: string; // ISO 8601
   createdAt: string; // ISO 8601
   updatedAt: string; // ISO 8601
@@ -168,7 +169,7 @@ interface CreateSkillRequest {
   proficiency: number; // Required, 0-10 integer
   description?: string; // Optional, max 500 characters
   tags?: string[]; // Optional, max 10 tags
-  source?: 'MANUAL' | 'ASSESSMENT' | 'GITHUB' | 'AI_SUGGESTED' | 'IMPORTED'; // Default: MANUAL
+  source?: "MANUAL" | "ASSESSMENT" | "GITHUB" | "AI_SUGGESTED" | "IMPORTED"; // Default: MANUAL
 }
 ```
 
@@ -318,11 +319,11 @@ Get comprehensive analytics data for user skills including distributions, trends
 
 #### Query Parameters
 
-| Parameter | Type | Description | Default |
-|-----------|------|-------------|----------|
-| `period` | String | Analytics period (`week`, `month`, `quarter`, `year`) | `month` |
-| `categoryId` | UUID | Filter analytics by category | - |
-| `includeHistory` | Boolean | Include historical progression data | `false` |
+| Parameter        | Type    | Description                                           | Default |
+| ---------------- | ------- | ----------------------------------------------------- | ------- |
+| `period`         | String  | Analytics period (`week`, `month`, `quarter`, `year`) | `month` |
+| `categoryId`     | UUID    | Filter analytics by category                          | -       |
+| `includeHistory` | Boolean | Include historical progression data                   | `false` |
 
 #### Response Format
 
@@ -419,15 +420,15 @@ Retrieve paginated list of user assessments with filtering and sorting options.
 
 #### Query Parameters
 
-| Parameter | Type | Description | Default | Example |
-|-----------|------|-------------|---------|---------|
-| `skillId` | UUID | Filter by specific skill | - | `123e4567-e89b-12d3-a456-426614174000` |
-| `type` | String | Filter by assessment type | - | `SELF_ASSESSMENT` |
-| `completed` | Boolean | Filter by completion status | - | `true` |
-| `sortBy` | String | Sort field (`createdAt`, `score`, `type`) | `createdAt` | `score` |
-| `order` | String | Sort order (`asc`, `desc`) | `desc` | `asc` |
-| `limit` | Number | Results per page (1-100) | `20` | `50` |
-| `offset` | Number | Results to skip | `0` | `20` |
+| Parameter   | Type    | Description                               | Default     | Example                                |
+| ----------- | ------- | ----------------------------------------- | ----------- | -------------------------------------- |
+| `skillId`   | UUID    | Filter by specific skill                  | -           | `123e4567-e89b-12d3-a456-426614174000` |
+| `type`      | String  | Filter by assessment type                 | -           | `SELF_ASSESSMENT`                      |
+| `completed` | Boolean | Filter by completion status               | -           | `true`                                 |
+| `sortBy`    | String  | Sort field (`createdAt`, `score`, `type`) | `createdAt` | `score`                                |
+| `order`     | String  | Sort order (`asc`, `desc`)                | `desc`      | `asc`                                  |
+| `limit`     | Number  | Results per page (1-100)                  | `20`        | `50`                                   |
+| `offset`    | Number  | Results to skip                           | `0`         | `20`                                   |
 
 #### Assessment Types
 
@@ -565,11 +566,11 @@ Retrieve user learning goals with progress tracking.
 
 #### Query Parameters
 
-| Parameter | Type | Description | Default |
-|-----------|------|-------------|----------|
-| `status` | String | Filter by goal status (`ACTIVE`, `ACHIEVED`, `PAUSED`, `ABANDONED`) | - |
-| `skillId` | UUID | Filter by specific skill | - |
-| `sortBy` | String | Sort field (`targetDate`, `createdAt`, `progress`) | `createdAt` |
+| Parameter | Type   | Description                                                         | Default     |
+| --------- | ------ | ------------------------------------------------------------------- | ----------- |
+| `status`  | String | Filter by goal status (`ACTIVE`, `ACHIEVED`, `PAUSED`, `ABANDONED`) | -           |
+| `skillId` | UUID   | Filter by specific skill                                            | -           |
+| `sortBy`  | String | Sort field (`targetDate`, `createdAt`, `progress`)                  | `createdAt` |
 
 #### Response Format
 
@@ -581,7 +582,7 @@ interface LearningGoal {
   currentProficiency: number;
   targetDate?: string; // ISO 8601
   motivation?: string;
-  status: 'ACTIVE' | 'ACHIEVED' | 'PAUSED' | 'ABANDONED';
+  status: "ACTIVE" | "ACHIEVED" | "PAUSED" | "ABANDONED";
   completedAt?: string;
   progress: number; // Calculated progress percentage
   skill: {
@@ -624,11 +625,11 @@ Get detailed skill progression metrics with weekly tracking data.
 
 #### Query Parameters
 
-| Parameter | Type | Description | Default |
-|-----------|------|-------------|----------|
-| `skillId` | UUID | Filter by specific skill | - |
-| `weeks` | Number | Number of weeks to include | `12` |
-| `year` | Number | Filter by specific year | current year |
+| Parameter | Type   | Description                | Default      |
+| --------- | ------ | -------------------------- | ------------ |
+| `skillId` | UUID   | Filter by specific skill   | -            |
+| `weeks`   | Number | Number of weeks to include | `12`         |
+| `year`    | Number | Filter by specific year    | current year |
 
 #### Response Format
 
@@ -747,18 +748,18 @@ Comprehensive health check with database connectivity, Redis status, and system 
 
 ```typescript
 interface HealthResponse {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: "healthy" | "degraded" | "unhealthy";
   timestamp: string;
   uptime: number; // Seconds
   version: string;
   checks: {
     database: {
-      status: 'healthy' | 'unhealthy';
+      status: "healthy" | "unhealthy";
       responseTime: number; // ms
       error?: string;
     };
     redis?: {
-      status: 'healthy' | 'unhealthy';
+      status: "healthy" | "unhealthy";
       responseTime: number; // ms
       error?: string;
     };
@@ -815,12 +816,12 @@ System status with service dependencies, feature toggles, and deployment informa
 
 ```typescript
 interface StatusResponse {
-  status: 'operational' | 'maintenance' | 'partial-outage' | 'major-outage';
+  status: "operational" | "maintenance" | "partial-outage" | "major-outage";
   services: {
-    api: 'operational' | 'degraded' | 'down';
-    database: 'operational' | 'degraded' | 'down';
-    authentication: 'operational' | 'degraded' | 'down';
-    redis?: 'operational' | 'degraded' | 'down';
+    api: "operational" | "degraded" | "down";
+    database: "operational" | "degraded" | "down";
+    authentication: "operational" | "degraded" | "down";
+    redis?: "operational" | "degraded" | "down";
   };
   features: {
     assessments: boolean;
@@ -843,9 +844,9 @@ interface StatusResponse {
 
 For backward compatibility, the following legacy endpoints are maintained:
 
-| Legacy Endpoint | Proxies to | Status |
-|-----------------|------------|--------|
-| `/api/skills` | `/api/v1/skills` | ✅ Active |
+| Legacy Endpoint   | Proxies to           | Status    |
+| ----------------- | -------------------- | --------- |
+| `/api/skills`     | `/api/v1/skills`     | ✅ Active |
 | `/api/categories` | `/api/v1/categories` | ✅ Active |
 
 **Note**: New applications should use the versioned v1 endpoints directly.
@@ -941,12 +942,12 @@ All API endpoints are protected with:
 
 ### Rate Limits
 
-| Operation Type | Limit | Window | Headers Included |
-|---------------|-------|--------|------------------|
-| **Read Operations** (GET) | 100 requests | per minute per IP | ✅ |
-| **Write Operations** (POST/PUT/PATCH/DELETE) | 20 requests | per minute per IP | ✅ |
-| **Bulk Operations** | 5 requests | per minute per user | ✅ |
-| **Analytics** | 30 requests | per minute per user | ✅ |
+| Operation Type                               | Limit        | Window              | Headers Included |
+| -------------------------------------------- | ------------ | ------------------- | ---------------- |
+| **Read Operations** (GET)                    | 100 requests | per minute per IP   | ✅               |
+| **Write Operations** (POST/PUT/PATCH/DELETE) | 20 requests  | per minute per IP   | ✅               |
+| **Bulk Operations**                          | 5 requests   | per minute per user | ✅               |
+| **Analytics**                                | 30 requests  | per minute per user | ✅               |
 
 ### Rate Limit Headers
 
@@ -968,31 +969,43 @@ The application provides ready-to-use TanStack Query hooks for all API operation
 ```typescript
 // Skills hooks
 const useSkills = (filters?: SkillsFilters) => UseQueryResult<SkillsResponse>;
-const useSkillsAnalytics = (params?: AnalyticsParams) => UseQueryResult<SkillsAnalytics>;
-const useCreateSkill = () => UseMutationResult<Skill, Error, CreateSkillRequest>;
-const useUpdateSkill = () => UseMutationResult<Skill, Error, UpdateSkillRequest>;
+const useSkillsAnalytics = (params?: AnalyticsParams) =>
+  UseQueryResult<SkillsAnalytics>;
+const useCreateSkill = () =>
+  UseMutationResult<Skill, Error, CreateSkillRequest>;
+const useUpdateSkill = () =>
+  UseMutationResult<Skill, Error, UpdateSkillRequest>;
 const usePatchSkill = () => UseMutationResult<Skill, Error, PatchSkillRequest>;
 const useDeleteSkill = () => UseMutationResult<void, Error, string>;
-const useBulkUpdateSkills = () => UseMutationResult<BulkUpdateResponse, Error, BulkUpdateRequest>;
-const useBulkDeleteSkills = () => UseMutationResult<BulkDeleteResponse, Error, BulkDeleteRequest>;
+const useBulkUpdateSkills = () =>
+  UseMutationResult<BulkUpdateResponse, Error, BulkUpdateRequest>;
+const useBulkDeleteSkills = () =>
+  UseMutationResult<BulkDeleteResponse, Error, BulkDeleteRequest>;
 
 // Categories hooks
 const useCategories = () => UseQueryResult<CategoriesResponse>;
 const useCategoriesForFilter = () => UseQueryResult<SkillCategory[]>;
-const useCreateCategory = () => UseMutationResult<SkillCategory, Error, CreateCategoryRequest>;
+const useCreateCategory = () =>
+  UseMutationResult<SkillCategory, Error, CreateCategoryRequest>;
 
 // Assessments hooks
-const useAssessments = (filters?: AssessmentsFilters) => UseQueryResult<AssessmentsResponse>;
-const useCreateAssessment = () => UseMutationResult<Assessment, Error, CreateAssessmentRequest>;
-const useUpdateAssessment = () => UseMutationResult<Assessment, Error, UpdateAssessmentRequest>;
+const useAssessments = (filters?: AssessmentsFilters) =>
+  UseQueryResult<AssessmentsResponse>;
+const useCreateAssessment = () =>
+  UseMutationResult<Assessment, Error, CreateAssessmentRequest>;
+const useUpdateAssessment = () =>
+  UseMutationResult<Assessment, Error, UpdateAssessmentRequest>;
 const useDeleteAssessment = () => UseMutationResult<void, Error, string>;
 
 // Learning Goals hooks
-const useLearningGoals = (filters?: GoalsFilters) => UseQueryResult<LearningGoal[]>;
-const useCreateLearningGoal = () => UseMutationResult<LearningGoal, Error, CreateGoalRequest>;
+const useLearningGoals = (filters?: GoalsFilters) =>
+  UseQueryResult<LearningGoal[]>;
+const useCreateLearningGoal = () =>
+  UseMutationResult<LearningGoal, Error, CreateGoalRequest>;
 
 // Progression hooks
-const useSkillProgression = (params?: ProgressionParams) => UseQueryResult<SkillProgression[]>;
+const useSkillProgression = (params?: ProgressionParams) =>
+  UseQueryResult<SkillProgression[]>;
 
 // Health & Monitoring hooks
 const useHealthStatus = () => UseQueryResult<HealthResponse>;
@@ -1029,20 +1042,20 @@ function SkillsList() {
     <div>
       {/* Analytics Summary */}
       {analytics && (
-        <AnalyticsCard 
+        <AnalyticsCard
           totalSkills={analytics.summary.totalSkills}
           averageProficiency={analytics.summary.averageProficiency}
           distribution={analytics.proficiencyDistribution}
         />
       )}
-      
+
       {/* Skills Grid */}
       <div className="skills-grid">
         {data?.skills.map(skill => (
           <SkillCard key={skill.id} skill={skill} />
         ))}
       </div>
-      
+
       {/* Pagination */}
       {data?.hasMore && (
         <LoadMoreButton onClick={() => setPage(page + 1)} />
@@ -1066,7 +1079,7 @@ function CreateSkillForm() {
   const handleSubmit = async (data: CreateSkillRequest) => {
     try {
       const skill = await createSkill.mutateAsync(data)
-      
+
       // Optionally create initial self-assessment
       if (data.createAssessment) {
         await createAssessment.mutateAsync({
@@ -1078,11 +1091,11 @@ function CreateSkillForm() {
           }]
         })
       }
-      
+
       // Invalidate and refetch relevant queries
       queryClient.invalidateQueries({ queryKey: ['skills'] })
       queryClient.invalidateQueries({ queryKey: ['skills-analytics'] })
-      
+
       toast.success(`Created ${skill.name} successfully!`)
     } catch (error) {
       toast.error(`Failed to create skill: ${error.message}`)
@@ -1128,7 +1141,9 @@ const CreateSkillSchema = z.object({
     .max(500, "Description must be less than 500 characters")
     .optional(),
   tags: z.array(z.string()).max(10, "Maximum 10 tags allowed").optional(),
-  source: z.enum(['MANUAL', 'ASSESSMENT', 'GITHUB', 'AI_SUGGESTED', 'IMPORTED']).default('MANUAL'),
+  source: z
+    .enum(["MANUAL", "ASSESSMENT", "GITHUB", "AI_SUGGESTED", "IMPORTED"])
+    .default("MANUAL"),
 });
 
 const PatchSkillSchema = z.object({
@@ -1146,13 +1161,23 @@ const PatchSkillSchema = z.object({
 ```typescript
 const CreateAssessmentSchema = z.object({
   skillId: z.string().uuid().optional(),
-  type: z.enum(['SELF_ASSESSMENT', 'QUIZ', 'PROJECT_REVIEW', 'PEER_REVIEW', 'AI_EVALUATION']),
-  questions: z.array(z.object({
-    question: z.string().min(1).max(1000),
-    answer: z.string().optional(),
-    isCorrect: z.boolean().optional(),
-    metadata: z.any().optional(),
-  })).optional(),
+  type: z.enum([
+    "SELF_ASSESSMENT",
+    "QUIZ",
+    "PROJECT_REVIEW",
+    "PEER_REVIEW",
+    "AI_EVALUATION",
+  ]),
+  questions: z
+    .array(
+      z.object({
+        question: z.string().min(1).max(1000),
+        answer: z.string().optional(),
+        isCorrect: z.boolean().optional(),
+        metadata: z.any().optional(),
+      })
+    )
+    .optional(),
   metadata: z.any().optional(),
 });
 ```
@@ -1161,17 +1186,23 @@ const CreateAssessmentSchema = z.object({
 
 ```typescript
 const BulkUpdateSchema = z.object({
-  updates: z.array(z.object({
-    id: z.string().uuid(),
-    proficiency: z.number().int().min(0).max(10).optional(),
-    categoryId: z.string().uuid().optional(),
-    verified: z.boolean().optional(),
-    tags: z.array(z.string()).max(10).optional(),
-  })).max(50, "Maximum 50 skills per bulk update"),
+  updates: z
+    .array(
+      z.object({
+        id: z.string().uuid(),
+        proficiency: z.number().int().min(0).max(10).optional(),
+        categoryId: z.string().uuid().optional(),
+        verified: z.boolean().optional(),
+        tags: z.array(z.string()).max(10).optional(),
+      })
+    )
+    .max(50, "Maximum 50 skills per bulk update"),
 });
 
 const BulkDeleteSchema = z.object({
-  skillIds: z.array(z.string().uuid()).max(50, "Maximum 50 skills per bulk delete"),
+  skillIds: z
+    .array(z.string().uuid())
+    .max(50, "Maximum 50 skills per bulk delete"),
 });
 ```
 
@@ -1224,12 +1255,14 @@ EMAIL_FROM="noreply@yourdomain.com"
 ### Performance & Caching
 
 #### Response Caching
+
 - **Skills lists**: Cached for 5 minutes with ETag support
 - **Categories**: Cached for 1 hour (rarely change)
 - **Analytics**: Cached for 15 minutes
 - **Health checks**: No caching (real-time status)
 
 #### Database Optimization
+
 - **Connection pooling**: Prisma with connection pooling enabled
 - **Query optimization**: Indexed queries for common filters
 - **Pagination**: Cursor-based pagination for large datasets
@@ -1238,19 +1271,23 @@ EMAIL_FROM="noreply@yourdomain.com"
 ### Monitoring & Observability
 
 #### Request Logging
+
 All API requests are logged with:
+
 - User context (ID, email)
 - Request timing and size
 - Response status and errors
 - IP address and user agent
 
 #### Health Monitoring
+
 - **Uptime monitoring**: `/api/health` endpoint
 - **Performance metrics**: `/api/metrics` endpoint
 - **Database connectivity**: Real-time connection health
 - **Redis status**: Cache and rate limiting health
 
 #### Error Tracking
+
 - Comprehensive error logging
 - User-friendly error messages
 - Developer error details in development
@@ -1261,6 +1298,7 @@ All API requests are logged with:
 ## 🔮 Future API Enhancements
 
 ### Planned Features (v2)
+
 - **Real-time subscriptions** with WebSocket support
 - **Advanced AI evaluations** with ML-powered skill assessment
 - **Team collaboration** with shared skill libraries

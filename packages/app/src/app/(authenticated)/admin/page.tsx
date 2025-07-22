@@ -2,8 +2,21 @@
 
 import { SidebarTrigger } from "@skills-eval/design-system";
 import { DynamicBreadcrumbs } from "@/components/layout/breadcrumbs";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Settings, Users, Shield, Database, FileText, Activity } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import {
+  Settings,
+  Users,
+  Shield,
+  Database,
+  FileText,
+  Activity,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function AdminPage() {
@@ -46,9 +59,7 @@ export default function AdminPage() {
               <Users className="h-5 w-5 text-muted-foreground" />
               <CardTitle>User Management</CardTitle>
             </div>
-            <CardDescription>
-              Manage users and permissions
-            </CardDescription>
+            <CardDescription>Manage users and permissions</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
@@ -63,9 +74,7 @@ export default function AdminPage() {
               <Database className="h-5 w-5 text-muted-foreground" />
               <CardTitle>Database</CardTitle>
             </div>
-            <CardDescription>
-              Database management and backups
-            </CardDescription>
+            <CardDescription>Database management and backups</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
@@ -97,9 +106,7 @@ export default function AdminPage() {
               <Settings className="h-5 w-5 text-muted-foreground" />
               <CardTitle>App Settings</CardTitle>
             </div>
-            <CardDescription>
-              Configure application settings
-            </CardDescription>
+            <CardDescription>Configure application settings</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
@@ -114,9 +121,7 @@ export default function AdminPage() {
               <FileText className="h-5 w-5 text-muted-foreground" />
               <CardTitle>Audit Logs</CardTitle>
             </div>
-            <CardDescription>
-              View system activity logs
-            </CardDescription>
+            <CardDescription>View system activity logs</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">

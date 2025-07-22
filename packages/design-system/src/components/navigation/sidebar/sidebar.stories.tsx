@@ -26,7 +26,7 @@ const meta: Meta<typeof Sidebar> = {
     layout: "fullscreen",
   },
   decorators: [
-    (Story) => (
+    Story => (
       <SidebarProvider>
         <div className="flex h-screen w-full">
           <Story />
@@ -129,7 +129,8 @@ export const Default: Story = {
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="rounded-lg border border-dashed p-8">
             <p className="text-center text-muted-foreground">
-              This is the main content area. The sidebar can be toggled using the trigger button or keyboard shortcut (Cmd/Ctrl + B).
+              This is the main content area. The sidebar can be toggled using
+              the trigger button or keyboard shortcut (Cmd/Ctrl + B).
             </p>
           </div>
         </div>
@@ -205,7 +206,8 @@ export const CollapsibleIcon: Story = {
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="rounded-lg border border-dashed p-8">
             <p className="text-center text-muted-foreground">
-              This sidebar collapses to icon mode. Hover over the collapsed sidebar to see the full content.
+              This sidebar collapses to icon mode. Hover over the collapsed
+              sidebar to see the full content.
             </p>
           </div>
         </div>

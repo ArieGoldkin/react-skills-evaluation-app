@@ -12,10 +12,7 @@ import {
 } from "@/components/ui/card";
 import { SidebarTrigger } from "@skills-eval/design-system";
 import { DynamicBreadcrumbs } from "@/components/layout/breadcrumbs";
-import {
-  ToastProvider,
-  useToast,
-} from "@skills-eval/design-system";
+import { ToastProvider, useToast } from "@skills-eval/design-system";
 import { SkillForm } from "@/components/skills/skill-form";
 import { useCreateSkill } from "@/hooks/queries/use-skills";
 import type { SkillFormData } from "@/lib/validations/skills";
@@ -63,7 +60,7 @@ export default function NewSkillPage() {
           <SidebarTrigger />
           <DynamicBreadcrumbs />
         </div>
-        
+
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"

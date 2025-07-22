@@ -11,11 +11,16 @@ export interface ToastOptions {
 
 export function useToast() {
   const toast = (options: ToastOptions) => {
-    const { title, description, variant = "default", duration = 5000 } = options;
-    
+    const {
+      title,
+      description,
+      variant = "default",
+      duration = 5000,
+    } = options;
+
     const message = title || description || "";
     const descriptionText = title && description ? description : undefined;
-    
+
     if (variant === "destructive") {
       sonnerToast.error(message, {
         description: descriptionText,

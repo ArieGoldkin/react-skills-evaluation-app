@@ -24,14 +24,15 @@ import { useCategories } from "@/hooks/queries/use-categories";
 export default function CategoriesPage() {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const { data: categoriesData, isLoading, error } = useCategories();
   const categories = categoriesData?.categories || [];
 
   // Filter categories based on search
-  const filteredCategories = categories.filter(category =>
-    category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    category.description?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCategories = categories.filter(
+    category =>
+      category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      category.description?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (isLoading) {
@@ -71,7 +72,7 @@ export default function CategoriesPage() {
           <SidebarTrigger />
           <DynamicBreadcrumbs />
         </div>
-        
+
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div>
@@ -90,7 +91,9 @@ export default function CategoriesPage() {
             <CardHeader>
               <CardTitle>All Categories</CardTitle>
               <CardDescription>
-                {filteredCategories.length} {filteredCategories.length === 1 ? "category" : "categories"} found
+                {filteredCategories.length}{" "}
+                {filteredCategories.length === 1 ? "category" : "categories"}{" "}
+                found
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -99,29 +102,37 @@ export default function CategoriesPage() {
                 <Input
                   placeholder="Search categories..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={e => setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
               </div>
 
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {filteredCategories.map((category) => (
-                  <Card key={category.id} className="hover:shadow-md transition-shadow">
+                {filteredCategories.map(category => (
+                  <Card
+                    key={category.id}
+                    className="hover:shadow-md transition-shadow"
+                  >
                     <CardHeader>
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-2">
                           <FolderOpen className="h-5 w-5 text-muted-foreground" />
-                          <CardTitle className="text-lg">{category.name}</CardTitle>
+                          <CardTitle className="text-lg">
+                            {category.name}
+                          </CardTitle>
                         </div>
                         <div className="flex gap-1">
                           <Button
                             variant="ghost"
                             size="icon"
                             className="h-8 w-8"
-                            onClick={() => toast({
-                              title: "Edit category",
-                              description: "Category editing functionality coming soon!",
-                            })}
+                            onClick={() =>
+                              toast({
+                                title: "Edit category",
+                                description:
+                                  "Category editing functionality coming soon!",
+                              })
+                            }
                           >
                             <Edit2 className="h-4 w-4" />
                           </Button>
@@ -129,11 +140,14 @@ export default function CategoriesPage() {
                             variant="ghost"
                             size="icon"
                             className="h-8 w-8 text-destructive hover:text-destructive"
-                            onClick={() => toast({
-                              title: "Delete category",
-                              description: "Category deletion functionality coming soon!",
-                              variant: "destructive",
-                            })}
+                            onClick={() =>
+                              toast({
+                                title: "Delete category",
+                                description:
+                                  "Category deletion functionality coming soon!",
+                                variant: "destructive",
+                              })
+                            }
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
@@ -148,7 +162,9 @@ export default function CategoriesPage() {
                               className="w-4 h-4 rounded-full"
                               style={{ backgroundColor: category.color }}
                             />
-                            <span className="text-sm text-muted-foreground">{category.color}</span>
+                            <span className="text-sm text-muted-foreground">
+                              {category.color}
+                            </span>
                           </div>
                         )}
                         <div className="flex items-center gap-2">

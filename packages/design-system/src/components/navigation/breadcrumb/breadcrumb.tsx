@@ -73,9 +73,9 @@ export function Breadcrumb({
     const lastItems = breadcrumbItems.slice(-(maxItems - 2));
 
     return [
-      firstItem, 
-      { label: "...", href: undefined, icon: undefined } as BreadcrumbItem, 
-      ...lastItems
+      firstItem,
+      { label: "...", href: undefined, icon: undefined } as BreadcrumbItem,
+      ...lastItems,
     ];
   }, [breadcrumbItems, maxItems]);
 

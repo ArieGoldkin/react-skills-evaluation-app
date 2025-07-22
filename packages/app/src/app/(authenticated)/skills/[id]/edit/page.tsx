@@ -130,7 +130,7 @@ export default function EditSkillPage({ params }: EditSkillPageProps) {
           <SidebarTrigger />
           <DynamicBreadcrumbs />
         </div>
-        
+
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"

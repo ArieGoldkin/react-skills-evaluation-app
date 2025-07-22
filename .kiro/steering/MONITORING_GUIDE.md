@@ -11,6 +11,7 @@ The Skills Evaluation App includes comprehensive monitoring capabilities to trac
 **Purpose**: Comprehensive health check for load balancers, uptime monitoring, and system status verification
 
 **Features**:
+
 - Database connectivity testing with response time measurement
 - Redis connectivity checks (when configured)
 - System memory usage monitoring
@@ -21,18 +22,18 @@ The Skills Evaluation App includes comprehensive monitoring capabilities to trac
 
 ```typescript
 interface HealthResponse {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: "healthy" | "degraded" | "unhealthy";
   timestamp: string; // ISO 8601
   uptime: number; // Seconds since startup
   version: string;
   checks: {
     database: {
-      status: 'healthy' | 'unhealthy';
+      status: "healthy" | "unhealthy";
       responseTime: number; // milliseconds
       error?: string;
     };
     redis?: {
-      status: 'healthy' | 'unhealthy';
+      status: "healthy" | "unhealthy";
       responseTime: number; // milliseconds
       error?: string;
     };
@@ -82,10 +83,12 @@ interface HealthResponse {
 ```
 
 **Status Codes**:
+
 - `200` - System is healthy or degraded (but operational)
 - `503` - System is unhealthy (critical services down)
 
 **Health Status Logic**:
+
 - **Healthy**: All services responding, memory < 80%
 - **Degraded**: Some services slow, memory 80-90%, or minor issues
 - **Unhealthy**: Critical services down, memory > 90%, or major failures
@@ -97,6 +100,7 @@ interface HealthResponse {
 **Purpose**: Detailed system status including service states, feature toggles, and deployment information
 
 **Features**:
+
 - Service-level status aggregation
 - Feature flag management and reporting
 - Deployment metadata tracking
@@ -107,13 +111,13 @@ interface HealthResponse {
 
 ```typescript
 interface StatusResponse {
-  status: 'operational' | 'maintenance' | 'partial-outage' | 'major-outage';
+  status: "operational" | "maintenance" | "partial-outage" | "major-outage";
   timestamp: string;
   services: {
-    api: 'operational' | 'degraded' | 'down';
-    database: 'operational' | 'degraded' | 'down';
-    authentication: 'operational' | 'degraded' | 'down';
-    redis?: 'operational' | 'degraded' | 'down';
+    api: "operational" | "degraded" | "down";
+    database: "operational" | "degraded" | "down";
+    authentication: "operational" | "degraded" | "down";
+    redis?: "operational" | "degraded" | "down";
   };
   features: {
     assessments: boolean;
@@ -184,9 +188,11 @@ interface StatusResponse {
 **Purpose**: Detailed application metrics, performance data, and usage statistics
 
 **Query Parameters**:
+
 - `period` - Time period for metrics (`hour`, `day`, `week`, `month`) (default: `day`)
 
 **Features**:
+
 - Real-time performance metrics
 - Database entity counts and statistics
 - User activity and engagement metrics
@@ -343,6 +349,7 @@ interface MetricsResponse {
 **Location**: `/admin/monitoring`
 
 **Features**:
+
 - Real-time system health overview
 - Live performance metrics with auto-refresh
 - Service status indicators
@@ -388,14 +395,14 @@ interface MetricsResponse {
 interface DashboardConfig {
   refreshIntervals: {
     health: number; // 30 seconds
-    metrics: number; // 60 seconds  
+    metrics: number; // 60 seconds
     alerts: number; // 15 seconds
   };
   thresholds: {
-    memory: { warning: 80, critical: 90 };
-    cpu: { warning: 70, critical: 85 };
-    responseTime: { warning: 500, critical: 1000 };
-    errorRate: { warning: 1, critical: 5 };
+    memory: { warning: 80; critical: 90 };
+    cpu: { warning: 70; critical: 85 };
+    responseTime: { warning: 500; critical: 1000 };
+    errorRate: { warning: 1; critical: 5 };
   };
   features: {
     autoRefresh: boolean;
@@ -414,6 +421,7 @@ interface DashboardConfig {
 The monitoring system supports configurable alerts based on various thresholds:
 
 **Alert Types**:
+
 - **Service Down**: Critical service failures
 - **High Error Rate**: API error rate exceeds threshold
 - **Resource Exhaustion**: Memory/CPU/disk usage limits
@@ -425,7 +433,7 @@ The monitoring system supports configurable alerts based on various thresholds:
 ```typescript
 interface AlertConfig {
   enabled: boolean;
-  channels: ('email' | 'webhook' | 'dashboard')[];
+  channels: ("email" | "webhook" | "dashboard")[];
   thresholds: {
     errorRate: number; // percentage
     responseTime: number; // milliseconds
@@ -444,12 +452,14 @@ interface AlertConfig {
 ### Health Check Automation
 
 **Automated Monitoring**:
+
 - Health endpoint polling every 30 seconds
 - Service status validation
 - Automatic failover detection
 - Performance baseline tracking
 
 **Integration Points**:
+
 - Load balancer health checks
 - Container orchestration (Docker/Kubernetes)
 - External monitoring services (Uptime Robot, Pingdom)
@@ -467,7 +477,7 @@ ENABLE_MONITORING="true"
 MONITORING_SECRET="your-monitoring-secret-key"
 MONITORING_REFRESH_INTERVAL="30000" # milliseconds
 
-# Alert Configuration  
+# Alert Configuration
 ALERT_EMAIL_ENABLED="true"
 ALERT_WEBHOOK_URL="https://hooks.slack.com/your-webhook"
 ALERT_COOLDOWN_PERIOD="300" # 5 minutes
@@ -511,7 +521,7 @@ interface MonitoringServiceConfig {
     };
     aggregation: {
       enabled: boolean;
-      intervals: ('minute' | 'hour' | 'day')[];
+      intervals: ("minute" | "hour" | "day")[];
     };
   };
   alerts: {
@@ -534,18 +544,21 @@ interface MonitoringServiceConfig {
 ### Key Performance Indicators (KPIs)
 
 **System KPIs**:
+
 - System uptime and availability
 - Average response time across all endpoints
 - Error rate and success rate
 - Throughput (requests per second)
 
 **Application KPIs**:
+
 - User engagement metrics
 - Feature adoption rates
 - Business conversion metrics
 - Data quality indicators
 
 **Infrastructure KPIs**:
+
 - Resource utilization (CPU, Memory, Disk)
 - Database performance metrics
 - Cache efficiency

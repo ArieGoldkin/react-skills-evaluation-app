@@ -219,40 +219,40 @@ export default function SkillsPage() {
             </Button>
           </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>All Skills</CardTitle>
-            <CardDescription>
-              {filteredSkills.length}{" "}
-              {filteredSkills.length === 1 ? "skill" : "skills"} found
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                <Input
-                  placeholder="Search skills..."
-                  value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
-                  className="pl-10"
+          <Card>
+            <CardHeader>
+              <CardTitle>All Skills</CardTitle>
+              <CardDescription>
+                {filteredSkills.length}{" "}
+                {filteredSkills.length === 1 ? "skill" : "skills"} found
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Input
+                    placeholder="Search skills..."
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+                <CategoryFilter
+                  categories={categories}
+                  selectedCategories={selectedCategories}
+                  onSelectionChange={setSelectedCategories}
+                  trigger={
+                    <Button variant="outline" size="icon">
+                      <Filter className="h-4 w-4" />
+                    </Button>
+                  }
                 />
               </div>
-              <CategoryFilter
-                categories={categories}
-                selectedCategories={selectedCategories}
-                onSelectionChange={setSelectedCategories}
-                trigger={
-                  <Button variant="outline" size="icon">
-                    <Filter className="h-4 w-4" />
-                  </Button>
-                }
-              />
-            </div>
 
-            <Table table={table} />
-          </CardContent>
-        </Card>
+              <Table table={table} />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </ToastProvider>

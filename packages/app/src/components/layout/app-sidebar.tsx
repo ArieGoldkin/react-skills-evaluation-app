@@ -175,15 +175,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <div className="group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0 group-hover:group-data-[collapsible=icon]:justify-start group-hover:group-data-[collapsible=icon]:px-2 flex items-center gap-2 px-2 py-2" role="banner">
+        <div
+          className="group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0 group-hover:group-data-[collapsible=icon]:justify-start group-hover:group-data-[collapsible=icon]:px-2 flex items-center gap-2 px-2 py-2"
+          role="banner"
+        >
           <div className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <BookOpen className="size-4" aria-hidden="true" />
           </div>
           <div className="group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0 group-hover:group-data-[collapsible=icon]:w-auto group-hover:group-data-[collapsible=icon]:opacity-100 grid flex-1 text-left text-sm leading-tight transition-all duration-200 overflow-hidden">
-            <span className="truncate font-semibold whitespace-nowrap">Skills Evaluation</span>
-            <span className="truncate text-xs whitespace-nowrap">Personal Development</span>
+            <span className="truncate font-semibold whitespace-nowrap">
+              Skills Evaluation
+            </span>
+            <span className="truncate text-xs whitespace-nowrap">
+              Personal Development
+            </span>
           </div>
-          <ThemeToggle size="sm" variant="icon" className="group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0 group-hover:group-data-[collapsible=icon]:w-8 group-hover:group-data-[collapsible=icon]:opacity-100 h-8 w-8 shrink-0 border-0 bg-transparent hover:bg-accent dark:hover:bg-accent transition-all duration-200" />
+          <ThemeToggle
+            size="sm"
+            variant="icon"
+            className="group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0 group-hover:group-data-[collapsible=icon]:w-8 group-hover:group-data-[collapsible=icon]:opacity-100 h-8 w-8 shrink-0 border-0 bg-transparent hover:bg-accent dark:hover:bg-accent transition-all duration-200"
+          />
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -233,8 +244,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <User className="size-4" />
                   </div>
                   <div className="group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0 group-hover:group-data-[collapsible=icon]:w-auto group-hover:group-data-[collapsible=icon]:opacity-100 grid flex-1 text-left text-sm leading-tight transition-all duration-200 overflow-hidden">
-                    <span className="truncate font-semibold whitespace-nowrap">User Profile</span>
-                    <span className="truncate text-xs whitespace-nowrap">Settings & Account</span>
+                    <span className="truncate font-semibold whitespace-nowrap">
+                      User Profile
+                    </span>
+                    <span className="truncate text-xs whitespace-nowrap">
+                      Settings & Account
+                    </span>
                   </div>
                   <ChevronRight className="group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0 group-hover:group-data-[collapsible=icon]:w-4 group-hover:group-data-[collapsible=icon]:opacity-100 ml-auto transition-all duration-200" />
                 </SidebarMenuButton>

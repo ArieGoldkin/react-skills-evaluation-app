@@ -128,7 +128,7 @@ export default function SkillDetailPage({ params }: SkillDetailPageProps) {
           <SidebarTrigger />
           <DynamicBreadcrumbs />
         </div>
-        
+
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"

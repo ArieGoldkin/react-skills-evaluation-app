@@ -307,7 +307,9 @@ export default function HomePage({ className }: HomePageProps) {
                 <CardContent className="space-y-6">
                   {message && (
                     <div className="rounded-md bg-green-500/10 dark:bg-green-500/20 p-3">
-                      <p className="text-sm text-green-600 dark:text-green-400">{message}</p>
+                      <p className="text-sm text-green-600 dark:text-green-400">
+                        {message}
+                      </p>
                     </div>
                   )}
 
@@ -433,7 +435,9 @@ export default function HomePage({ className }: HomePageProps) {
 
                     {errors.general && (
                       <div className="rounded-md bg-destructive/10 dark:bg-destructive/20 p-3">
-                        <p className="text-sm text-destructive">{errors.general}</p>
+                        <p className="text-sm text-destructive">
+                          {errors.general}
+                        </p>
                       </div>
                     )}
 

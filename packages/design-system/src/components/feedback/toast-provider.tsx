@@ -10,11 +10,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
   return (
     <>
       {children}
-      <Toaster 
-        richColors
-        position="bottom-right"
-        closeButton
-      />
+      <Toaster richColors position="bottom-right" closeButton />
     </>
   );
 }

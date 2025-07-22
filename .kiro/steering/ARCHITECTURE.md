@@ -149,7 +149,7 @@ Account {
   session_state?: string
   createdAt: DateTime
   updatedAt: DateTime
-  
+
   // Relations
   user: User
 }
@@ -159,7 +159,7 @@ Session {
   sessionToken: string (unique)
   userId: string
   expires: DateTime
-  
+
   // Relations
   user: User
 }
@@ -182,7 +182,7 @@ User {
   providerId?: string
   createdAt: DateTime
   updatedAt: DateTime
-  
+
   // Relations
   accounts: Account[]
   sessions: Session[]
@@ -209,7 +209,7 @@ SkillCategory {
   order: number (default: 0)
   createdAt: DateTime
   updatedAt: DateTime
-  
+
   // Relations
   skills: Skill[]
 }
@@ -228,7 +228,7 @@ Skill {
   lastAssessed?: DateTime
   createdAt: DateTime
   updatedAt: DateTime
-  
+
   // Relations
   user: User
   category: SkillCategory
@@ -247,7 +247,7 @@ SkillHistory {
   reason?: string      // reason for change
   source: SkillSource
   createdAt: DateTime
-  
+
   // Relations
   skill: Skill
   user: User
@@ -279,7 +279,7 @@ Assessment {
   completedAt?: DateTime
   createdAt: DateTime
   updatedAt: DateTime
-  
+
   // Relations
   user: User
   skill?: Skill
@@ -296,7 +296,7 @@ AssessmentQuestion {
   isCorrect?: boolean
   metadata?: Json  // additional question data
   createdAt: DateTime
-  
+
   // Relations
   assessment: Assessment
 }
@@ -314,7 +314,7 @@ AssessmentHistory {
   reason?: string             // reason for change/update
   metadata?: Json             // additional context data
   createdAt: DateTime
-  
+
   // Relations
   assessment: Assessment
   user: User
@@ -358,7 +358,7 @@ LearningGoal {
   completedAt?: DateTime     // When goal was achieved
   createdAt: DateTime
   updatedAt: DateTime
-  
+
   // Relations
   user: User
   skill: Skill
@@ -379,7 +379,7 @@ SkillProgression {
   milestones?: Json       // JSON array of milestone achievements
   createdAt: DateTime
   updatedAt: DateTime
-  
+
   // Relations
   user: User
   skill: Skill
@@ -598,16 +598,8 @@ The API follows a comprehensive versioned structure:
 ```typescript
 // Comprehensive security pipeline
 withApiSecurity(
-  withAuthLogging(
-    withRateLimit(
-      withCORS(
-        withInputSanitization(
-          apiHandler
-        )
-      )
-    )
-  )
-)
+  withAuthLogging(withRateLimit(withCORS(withInputSanitization(apiHandler))))
+);
 ```
 
 #### **Rate Limiting Strategy**
@@ -671,7 +663,7 @@ The system tracks comprehensive metrics:
 
 ```typescript
 interface HealthCheck {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: "healthy" | "degraded" | "unhealthy";
   checks: {
     database: ServiceHealth;
     redis: ServiceHealth;

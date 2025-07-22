@@ -26,12 +26,18 @@ export {
 } from "./sidebar";
 
 export { Separator } from "./separator";
-export { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "./sheet";
+export {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "./sheet";
 export { Skeleton } from "./skeleton";
-export { 
-  Tooltip as SidebarTooltip, 
-  TooltipContent as SidebarTooltipContent, 
-  TooltipProvider as SidebarTooltipProvider, 
-  TooltipTrigger as SidebarTooltipTrigger 
+export {
+  Tooltip as SidebarTooltip,
+  TooltipContent as SidebarTooltipContent,
+  TooltipProvider as SidebarTooltipProvider,
+  TooltipTrigger as SidebarTooltipTrigger,
 } from "./tooltip";
 export { useIsMobile } from "./use-mobile";
