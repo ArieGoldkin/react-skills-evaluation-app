@@ -183,7 +183,9 @@ describe("Breadcrumb", () => {
       );
 
       // Check for separator spans specifically, not all aria-hidden elements
-      const separators = document.querySelectorAll('span.mx-2.text-muted-foreground[aria-hidden="true"]');
+      const separators = document.querySelectorAll(
+        'span.mx-2.text-muted-foreground[aria-hidden="true"]'
+      );
       expect(separators).toHaveLength(1);
     });
   });
