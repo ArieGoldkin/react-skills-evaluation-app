@@ -65,7 +65,7 @@ export default function EditSkillPage({ params }: EditSkillPageProps) {
         description: `"${data.name}" has been updated successfully.`,
       });
       router.push(`/skills/${skill.id}`);
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Failed to update skill. Please try again.",
@@ -130,25 +130,32 @@ export default function EditSkillPage({ params }: EditSkillPageProps) {
           <SidebarTrigger />
           <DynamicBreadcrumbs />
         </div>
+        
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => router.back()}
+                aria-label="Go back"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+              <div>
+                <h1 className="text-3xl font-bold">Edit Skill</h1>
+                <p className="text-muted-foreground mt-1">
+                  Update your skill information and proficiency level
+                </p>
+              </div>
+            </div>
+          </div>
 
-        <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.back()}
-            aria-label="Go back"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <h1 className="text-2xl font-bold">Edit Skill</h1>
-        </div>
-
-        <div className="max-w-2xl">
-          <Card>
+          <Card className="max-w-4xl">
             <CardHeader>
-              <CardTitle>Edit Skill</CardTitle>
+              <CardTitle>Skill Details</CardTitle>
               <CardDescription>
-                Update your skill information and proficiency level
+                Modify the information below to update your skill
               </CardDescription>
             </CardHeader>
             <CardContent>

@@ -6,6 +6,7 @@
         "mcp",
         "gateway",
         "run",
+        "--config",
         "/Users/ariegoldkin/aiSkillimprove/mcp-gateway.yml"
       ],
       "env": {

@@ -4,11 +4,13 @@
  * Centralized export for all API services
  */
 
+export { AnalyticsService } from "./analytics.service";
 export { AuthService } from "./auth.service";
 export { CategoriesService } from "./categories.service";
 export { SkillsService } from "./skills.service";
 export { SkillsBulkService } from "./skills-bulk.service";
 export { SkillsAnalyticsService } from "./skills-analytics.service";
+export { AssessmentsService } from "./assessments.service";
 
 // Export types
 export * from "./types";

@@ -14,8 +14,28 @@ export {
 export {
   useCategories,
   useCategoriesForFilter,
+  useCreateCategory,
+  useUpdateCategory,
+  useDeleteCategory,
   categoriesKeys,
 } from "./use-categories";
+
+// Assessments queries
+export {
+  useAssessments,
+  useSkillAssessments,
+  useAssessment,
+  useAssessmentStats,
+  useCreateAssessment,
+  useUpdateAssessment,
+  useDeleteAssessment,
+  useSelfAssessmentWizard,
+  useBulkCreateAssessments,
+  useExportAssessments,
+  useOptimisticAssessmentUpdate,
+  usePrefetchAssessment,
+  assessmentsKeys,
+} from "./use-assessments";
 
 // Re-export types
 export type {
@@ -26,3 +46,11 @@ export type {
 } from "./use-skills";
 
 export type { SkillCategory } from "./use-categories";
+
+export type {
+  Assessment,
+  CreateAssessmentData,
+  UpdateAssessmentData,
+  AssessmentsFilters,
+  SelfAssessmentWizardData,
+} from "./use-assessments";

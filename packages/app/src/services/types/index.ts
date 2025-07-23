@@ -104,6 +104,104 @@ export interface AuthResponse {
   message?: string;
 }
 
+// Assessment Types
+export interface Assessment {
+  id: string;
+  userId: string;
+  skillId?: string;
+  type: "SELF_ASSESSMENT" | "PEER_REVIEW" | "AUTOMATED" | "CERTIFICATION";
+  score?: number;
+  proficiency?: number;
+  feedback?: string;
+  metadata?: Record<string, any>;
+  completedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+  skill?: {
+    id: string;
+    name: string;
+    categoryId: string;
+  };
+  questions?: AssessmentQuestion[];
+}
+
+export interface AssessmentQuestion {
+  id: string;
+  assessmentId: string;
+  question: string;
+  answer?: string;
+  isCorrect?: boolean;
+  metadata?: Record<string, any>;
+  createdAt: string;
+}
+
+export interface CreateAssessmentData {
+  skillId: string;
+  type: "SELF_ASSESSMENT" | "PEER_REVIEW" | "AUTOMATED" | "CERTIFICATION";
+  score?: number;
+  proficiency: number;
+  feedback?: string;
+  assessorId?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface UpdateAssessmentData {
+  score?: number;
+  proficiency?: number;
+  feedback?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface AssessmentsFilters {
+  skillId?: string;
+  type?: "SELF_ASSESSMENT" | "PEER_REVIEW" | "AUTOMATED" | "CERTIFICATION";
+  assessorId?: string;
+  sortBy?: "createdAt" | "completedAt" | "score" | "proficiency" | "type";
+  order?: "asc" | "desc";
+  limit?: number;
+  offset?: number;
+  fromDate?: string;
+  toDate?: string;
+  minScore?: number;
+  maxScore?: number;
+  minProficiency?: number;
+  maxProficiency?: number;
+}
+
+export interface AssessmentsResponse {
+  assessments: Assessment[];
+  total: number;
+  limit: number;
+  offset: number;
+}
+
+export interface AssessmentResponse {
+  assessment: Assessment;
+}
+
+export interface SelfAssessmentWizardData {
+  assessments: Array<{
+    skillId: string;
+    proficiency: number;
+    confidence: number;
+    notes?: string;
+    wantToImprove?: boolean;
+    priority?: "LOW" | "MEDIUM" | "HIGH";
+  }>;
+  overallReflection?: string;
+  goals?: string[];
+}
+
+export interface AssessmentStatsResponse {
+  stats: {
+    totalAssessments: number;
+    averageScore?: number;
+    averageProficiency?: number;
+    assessmentsByType: Record<string, number>;
+    recentAssessments: Assessment[];
+  };
+}
+
 // Common API Error Types
 export interface ValidationError {
   field: string;
