@@ -20,7 +20,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAssessments } from "@/hooks/queries";
-import { LoadingSpinner, DataTable, Badge, SidebarTrigger } from "@skills-eval/design-system";
+import {
+  LoadingSpinner,
+  DataTable,
+  Badge,
+  SidebarTrigger,
+} from "@skills-eval/design-system";
 import { DynamicBreadcrumbs } from "@/components/layout/breadcrumbs";
 import { Plus, Search, Calendar, TrendingUp, Award } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
@@ -32,7 +37,7 @@ export default function AssessmentsPage() {
   const [sortBy, setSortBy] = useState<string>("createdAt");
 
   const { data, isLoading } = useAssessments({
-    type: typeFilter === "all" ? undefined : typeFilter as any,
+    type: typeFilter === "all" ? undefined : (typeFilter as any),
     sortBy: sortBy as any,
     order: "desc",
   });
@@ -152,135 +157,137 @@ export default function AssessmentsPage() {
         <SidebarTrigger />
         <DynamicBreadcrumbs />
       </div>
-      
+
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Assessments</h1>
-          <p className="text-muted-foreground">
-            Track your skill progress over time
-          </p>
-        </div>
-        <Link href="/assessments/new">
-          <Button>
-            <Plus className="mr-2 h-4 w-4" />
-            New Assessment
-          </Button>
-        </Link>
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Assessments
-            </CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.total}</div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Average Proficiency
-            </CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {stats.avgProficiency}
-              <span className="text-sm font-normal text-muted-foreground">
-                /10
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">This Week</CardTitle>
-            <Calendar className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.recentCount}</div>
-            <p className="text-xs text-muted-foreground">
-              assessments completed
+          <div>
+            <h1 className="text-3xl font-bold">Assessments</h1>
+            <p className="text-muted-foreground">
+              Track your skill progress over time
             </p>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+          <Link href="/assessments/new">
+            <Button>
+              <Plus className="mr-2 h-4 w-4" />
+              New Assessment
+            </Button>
+          </Link>
+        </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Assessment History</CardTitle>
-          <CardDescription>
-            View and manage all your skill assessments
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1">
-                <Label htmlFor="search" className="sr-only">
-                  Search assessments
-                </Label>
-                <div className="relative">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="search"
-                    placeholder="Search assessments..."
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
-                    className="pl-8"
-                  />
+        <div className="grid gap-4 md:grid-cols-3">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Total Assessments
+              </CardTitle>
+              <Award className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.total}</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Average Proficiency
+              </CardTitle>
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {stats.avgProficiency}
+                <span className="text-sm font-normal text-muted-foreground">
+                  /10
+                </span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">This Week</CardTitle>
+              <Calendar className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.recentCount}</div>
+              <p className="text-xs text-muted-foreground">
+                assessments completed
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Assessment History</CardTitle>
+            <CardDescription>
+              View and manage all your skill assessments
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1">
+                  <Label htmlFor="search" className="sr-only">
+                    Search assessments
+                  </Label>
+                  <div className="relative">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="search"
+                      placeholder="Search assessments..."
+                      value={search}
+                      onChange={e => setSearch(e.target.value)}
+                      className="pl-8"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <Select value={typeFilter} onValueChange={setTypeFilter}>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="All types" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All types</SelectItem>
+                      <SelectItem value="SELF_ASSESSMENT">
+                        Self Assessment
+                      </SelectItem>
+                      <SelectItem value="PEER_REVIEW">Peer Review</SelectItem>
+                      <SelectItem value="AUTOMATED">Automated</SelectItem>
+                      <SelectItem value="CERTIFICATION">
+                        Certification
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select value={sortBy} onValueChange={setSortBy}>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Sort by" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="createdAt">Recent first</SelectItem>
+                      <SelectItem value="proficiency">Proficiency</SelectItem>
+                      <SelectItem value="score">Score</SelectItem>
+                      <SelectItem value="type">Type</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 
-              <div className="flex gap-2">
-                <Select value={typeFilter} onValueChange={setTypeFilter}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="All types" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All types</SelectItem>
-                    <SelectItem value="SELF_ASSESSMENT">
-                      Self Assessment
-                    </SelectItem>
-                    <SelectItem value="PEER_REVIEW">Peer Review</SelectItem>
-                    <SelectItem value="AUTOMATED">Automated</SelectItem>
-                    <SelectItem value="CERTIFICATION">Certification</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Sort by" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="createdAt">Recent first</SelectItem>
-                    <SelectItem value="proficiency">Proficiency</SelectItem>
-                    <SelectItem value="score">Score</SelectItem>
-                    <SelectItem value="type">Type</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <DataTable
+                columns={columns}
+                data={filteredAssessments}
+                emptyMessage={
+                  search || typeFilter
+                    ? "No assessments found. Try adjusting your filters."
+                    : "No assessments yet. Start by creating your first assessment."
+                }
+              />
             </div>
-
-            <DataTable
-              columns={columns}
-              data={filteredAssessments}
-              emptyMessage={
-                search || typeFilter
-                  ? "No assessments found. Try adjusting your filters."
-                  : "No assessments yet. Start by creating your first assessment."
-              }
-            />
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
