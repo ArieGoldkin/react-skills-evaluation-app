@@ -44,7 +44,7 @@ export default function NewSkillPage() {
         description: `"${data.name}" has been created successfully.`,
       });
       router.push(`/skills/${result.skill.id}`);
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Failed to create skill. Please try again.",
@@ -61,24 +61,31 @@ export default function NewSkillPage() {
           <DynamicBreadcrumbs />
         </div>
 
-        <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.back()}
-            aria-label="Go back"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <h1 className="text-2xl font-bold">Create New Skill</h1>
-        </div>
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => router.back()}
+                aria-label="Go back"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+              <div>
+                <h1 className="text-3xl font-bold">Create New Skill</h1>
+                <p className="text-muted-foreground mt-1">
+                  Add a new skill to track your proficiency and progress
+                </p>
+              </div>
+            </div>
+          </div>
 
-        <div className="max-w-2xl">
-          <Card>
+          <Card className="max-w-4xl">
             <CardHeader>
               <CardTitle>Skill Details</CardTitle>
               <CardDescription>
-                Add a new skill to track your proficiency and progress
+                Fill in the information below to create a new skill
               </CardDescription>
             </CardHeader>
             <CardContent>

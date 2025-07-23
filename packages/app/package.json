@@ -52,6 +52,7 @@
     "@skills-eval/design-system": "*",
     "@tanstack/react-query": "^5.83.0",
     "@tanstack/react-query-devtools": "^5.83.0",
+    "@tanstack/react-table": "^8.21.3",
     "@types/bcryptjs": "^2.4.6",
     "@upstash/ratelimit": "^2.0.5",
     "@upstash/redis": "^1.35.1",
@@ -69,6 +70,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.60.0",
+    "recharts": "^3.1.0",
     "tailwind-merge": "^3.3.1",
     "zod": "^4.0.5"
   },

@@ -19,13 +19,19 @@ import {
   useToast,
   Badge,
 } from "@skills-eval/design-system";
-import { useCategories } from "@/hooks/queries/use-categories";
+import { useCategories, useDeleteCategory } from "@/hooks/queries";
+import { CategoryDialog } from "@/components/categories";
+import type { SkillCategory } from "@/services/types";
 
 export default function CategoriesPage() {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] =
+    useState<SkillCategory | null>(null);
 
   const { data: categoriesData, isLoading, error } = useCategories();
+  const { mutate: deleteCategory } = useDeleteCategory();
   const categories = categoriesData?.categories || [];
 
   // Filter categories based on search
@@ -81,7 +87,12 @@ export default function CategoriesPage() {
                 Organize your skills by category
               </p>
             </div>
-            <Button>
+            <Button
+              onClick={() => {
+                setSelectedCategory(null);
+                setDialogOpen(true);
+              }}
+            >
               <Plus className="mr-2 h-4 w-4" />
               Add Category
             </Button>
@@ -126,13 +137,10 @@ export default function CategoriesPage() {
                             variant="ghost"
                             size="icon"
                             className="h-8 w-8"
-                            onClick={() =>
-                              toast({
-                                title: "Edit category",
-                                description:
-                                  "Category editing functionality coming soon!",
-                              })
-                            }
+                            onClick={() => {
+                              setSelectedCategory(category);
+                              setDialogOpen(true);
+                            }}
                           >
                             <Edit2 className="h-4 w-4" />
                           </Button>
@@ -140,14 +148,39 @@ export default function CategoriesPage() {
                             variant="ghost"
                             size="icon"
                             className="h-8 w-8 text-destructive hover:text-destructive"
-                            onClick={() =>
-                              toast({
-                                title: "Delete category",
-                                description:
-                                  "Category deletion functionality coming soon!",
-                                variant: "destructive",
-                              })
-                            }
+                            onClick={() => {
+                              if (category._count.skills > 0) {
+                                toast({
+                                  title: "Cannot delete category",
+                                  description: `This category contains ${category._count.skills} skill${category._count.skills > 1 ? "s" : ""}. Please move or delete the skills first.`,
+                                  variant: "destructive",
+                                });
+                                return;
+                              }
+
+                              if (
+                                window.confirm(
+                                  `Are you sure you want to delete "${category.name}"?`
+                                )
+                              ) {
+                                deleteCategory(category.id, {
+                                  onSuccess: () => {
+                                    toast({
+                                      title: "Category deleted",
+                                      description: `"${category.name}" has been deleted successfully.`,
+                                    });
+                                  },
+                                  onError: () => {
+                                    toast({
+                                      title: "Error",
+                                      description:
+                                        "Failed to delete category. Please try again.",
+                                      variant: "destructive",
+                                    });
+                                  },
+                                });
+                              }
+                            }}
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
@@ -192,6 +225,12 @@ export default function CategoriesPage() {
           </Card>
         </div>
       </div>
+
+      <CategoryDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        category={selectedCategory}
+      />
     </ToastProvider>
   );
 }

@@ -29,6 +29,7 @@ import {
 } from "@skills-eval/design-system";
 import { useSkill, useDeleteSkill } from "@/hooks/queries/use-skills";
 import { useCategories } from "@/hooks/queries/use-categories";
+import { AssessmentHistory } from "@/components/assessments";
 import { format } from "date-fns";
 
 interface SkillDetailPageProps {
@@ -56,7 +57,7 @@ export default function SkillDetailPage({ params }: SkillDetailPageProps) {
   const handleDelete = async () => {
     if (!skill) return;
 
-    if (confirm(`Are you sure you want to delete "${skill.name}"?`)) {
+    if (window.confirm(`Are you sure you want to delete "${skill.name}"?`)) {
       try {
         await deleteSkillMutation.mutateAsync(skill.id);
         toast({
@@ -64,7 +65,7 @@ export default function SkillDetailPage({ params }: SkillDetailPageProps) {
           description: `"${skill.name}" has been deleted successfully.`,
         });
         router.push("/skills");
-      } catch (error) {
+      } catch {
         toast({
           title: "Error",
           description: "Failed to delete skill. Please try again.",
@@ -221,49 +222,15 @@ export default function SkillDetailPage({ params }: SkillDetailPageProps) {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Assessment History</CardTitle>
-              <CardDescription>Track your progress over time</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {(skill as any).assessments &&
-              (skill as any).assessments.length > 0 ? (
-                <div className="space-y-3">
-                  {(skill as any).assessments
-                    .slice(0, 5)
-                    .map((assessment: any, index: number) => (
-                      <div
-                        key={assessment.id}
-                        className="flex items-center justify-between py-2 border-b last:border-0"
-                      >
-                        <div>
-                          <p className="font-medium">
-                            Assessment #
-                            {(skill as any).assessments.length - index}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {format(
-                              new Date(assessment.createdAt),
-                              "MMM d, yyyy"
-                            )}
-                          </p>
-                        </div>
-                        <Badge variant="outline">{assessment.score}/10</Badge>
-                      </div>
-                    ))}
-                </div>
-              ) : (
-                <p className="text-muted-foreground">No assessments yet</p>
-              )}
-              <Button
-                className="w-full mt-4"
-                onClick={() => router.push(`/skills/${skill.id}/assess`)}
-              >
-                Take Assessment
-              </Button>
-            </CardContent>
-          </Card>
+          <div className="space-y-4">
+            <AssessmentHistory skillId={skill.id} skillName={skill.name} />
+            <Button
+              className="w-full"
+              onClick={() => router.push(`/skills/${skill.id}/assess`)}
+            >
+              Take New Assessment
+            </Button>
+          </div>
         </div>
 
         {skill.description && (

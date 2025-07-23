@@ -63,14 +63,14 @@ export default function SkillsPage() {
   });
 
   const handleDelete = async (skill: any) => {
-    if (confirm(`Are you sure you want to delete "${skill.name}"?`)) {
+    if (window.confirm(`Are you sure you want to delete "${skill.name}"?`)) {
       try {
         await deleteSkillMutation.mutateAsync(skill.id);
         toast({
           title: "Skill deleted",
           description: `"${skill.name}" has been deleted successfully.`,
         });
-      } catch (error) {
+      } catch {
         toast({
           title: "Error",
           description: "Failed to delete skill. Please try again.",

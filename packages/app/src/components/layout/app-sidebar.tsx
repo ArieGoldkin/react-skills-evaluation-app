@@ -11,6 +11,7 @@ import {
   Plus,
   Settings,
   User,
+  FileUp,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -75,13 +76,17 @@ const navigationItems: NavigationItem[] = [
         url: "/skills/categories",
         icon: FolderOpen,
       },
+      {
+        title: "Import/Export",
+        url: "/skills/import-export",
+        icon: FileUp,
+      },
     ],
   },
   {
     title: "Assessments",
     url: "/assessments",
     icon: CheckCircle,
-    badge: "3", // Example badge
   },
   {
     title: "Analytics",

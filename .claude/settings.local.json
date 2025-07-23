@@ -41,7 +41,8 @@
       "mcp__MCP_DOCKER__get_pull_request",
       "Bash(curl:*)",
       "Bash(node:*)",
-      "Bash(npx prisma:*)"
+      "Bash(npx prisma:*)",
+      "Bash(docker mcp:*)"
     ],
     "deny": []
   },
