@@ -16,6 +16,8 @@ export {
 export type { ModalContentProps } from "./modal";
 export { Toaster, toast, toastUtils } from "./toast";
 export type { ToasterProps, ToastOptions, Toast } from "./toast";
+export { ToastProvider } from "./toast-provider";
+export type { ToastProviderProps } from "./toast-provider";
 // export { ErrorBoundary } from './error-boundary';
 
 // Placeholder for future feedback components

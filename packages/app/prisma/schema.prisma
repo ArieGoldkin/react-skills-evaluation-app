@@ -77,6 +77,8 @@ model User {
   assessments       Assessment[]
   skillHistory      SkillHistory[]
   assessmentHistory AssessmentHistory[]
+  learningGoals     LearningGoal[]
+  skillProgressions SkillProgression[]
 
   @@unique([provider, providerId])
   @@index([email])
@@ -116,10 +118,12 @@ model Skill {
   updatedAt    DateTime    @updatedAt
 
   // Relations
-  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  category    SkillCategory  @relation(fields: [categoryId], references: [id])
-  assessments Assessment[]
-  history     SkillHistory[]
+  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category      SkillCategory      @relation(fields: [categoryId], references: [id])
+  assessments   Assessment[]
+  history       SkillHistory[]
+  learningGoals LearningGoal[]
+  progressions  SkillProgression[]
 
   @@unique([userId, name])
   @@index([userId, categoryId])
@@ -233,4 +237,59 @@ enum AssessmentAction {
   SCORE_CHANGED // Score manually changed
   PROFICIENCY_UPDATED // Proficiency level updated
   REVIEW_ADDED // Review/feedback added
+}
+
+// Learning goals set by users for skills
+model LearningGoal {
+  id                 String     @id @default(cuid())
+  userId             String
+  skillId            String
+  targetProficiency  Int // Target proficiency level (1-10)
+  currentProficiency Int // Current proficiency when goal was set
+  targetDate         DateTime? // Optional target completion date
+  motivation         String? // Why user wants to learn this
+  status             GoalStatus @default(ACTIVE)
+  completedAt        DateTime? // When goal was achieved
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  // Relations
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId])
+  @@index([userId, status])
+  @@index([targetDate])
+}
+
+// Track detailed skill progression metrics
+model SkillProgression {
+  id               String   @id @default(cuid())
+  userId           String
+  skillId          String
+  weekNumber       Int // Week number in year (1-52)
+  year             Int // Year
+  practiceHours    Float    @default(0) // Hours practiced this week
+  assessmentsTaken Int      @default(0) // Number of assessments
+  avgScore         Float? // Average assessment score
+  proficiencyStart Int // Proficiency at week start
+  proficiencyEnd   Int // Proficiency at week end
+  milestones       Json? // JSON array of milestone achievements
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId, year, weekNumber])
+  @@index([userId, skillId])
+  @@index([year, weekNumber])
+}
+
+enum GoalStatus {
+  ACTIVE // Currently working towards
+  ACHIEVED // Goal reached
+  PAUSED // Temporarily paused
+  ABANDONED // No longer pursuing
 }

@@ -1,7 +1,5 @@
 // Form Components
 export * from "./category-filter";
-
-// Future form components
-// export { FormField } from './form-field';
-// export { SearchInput } from './search-input';
-// export { SkillSelector } from './skill-selector';
+export * from "./multi-select";
+export * from "./rich-text-editor";
+export * from "./file-upload";

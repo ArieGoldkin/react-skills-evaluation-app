@@ -197,7 +197,7 @@ export default function HomePage({ className }: HomePageProps) {
   return (
     <main
       className={cn(
-        "min-h-screen relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900",
+        "min-h-screen relative bg-gradient-to-br from-background via-background/95 to-muted/30 dark:from-background dark:via-background/95 dark:to-muted/20",
         className
       )}
       role="main"
@@ -306,8 +306,10 @@ export default function HomePage({ className }: HomePageProps) {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {message && (
-                    <div className="rounded-md bg-green-50 p-3">
-                      <p className="text-sm text-green-600">{message}</p>
+                    <div className="rounded-md bg-green-500/10 dark:bg-green-500/20 p-3">
+                      <p className="text-sm text-green-600 dark:text-green-400">
+                        {message}
+                      </p>
                     </div>
                   )}
 
@@ -432,8 +434,10 @@ export default function HomePage({ className }: HomePageProps) {
                     )}
 
                     {errors.general && (
-                      <div className="rounded-md bg-red-50 p-3">
-                        <p className="text-sm text-red-500">{errors.general}</p>
+                      <div className="rounded-md bg-destructive/10 dark:bg-destructive/20 p-3">
+                        <p className="text-sm text-destructive">
+                          {errors.general}
+                        </p>
                       </div>
                     )}
 
